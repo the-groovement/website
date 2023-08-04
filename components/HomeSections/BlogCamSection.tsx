@@ -4,18 +4,22 @@ const PLACEHOLDER = [
   {
     title: "obssessed with the life that could've ",
     author: "jane doe",
+    image: "/home.png",
   },
   {
     title: "obssessed with the life that could've been",
     author: "bob smith",
+    image: "/tester.png",
   },
   {
     title: "obssessed with the life that could've been",
     author: "tom brad",
+    image: "/venue.png",
   },
   {
     title: "obssessed with the life that could've been",
     author: "joe jackson",
+    image: "/vinyl.png",
   },
 ];
 
@@ -62,7 +66,7 @@ export default function BlogCamSection() {
                   <Image
                     fill={true}
                     className="object-center object-cover rounded-2xl"
-                    src={"/home.png"}
+                    src={item.image}
                     alt={"home"}
                   />
                 </div>
@@ -71,10 +75,30 @@ export default function BlogCamSection() {
           </div>
         </div>
         <div className="flex flex-col mt-8 gap-8">
-          <p className="lg:text-2xl font-semibold w-1/2 ">
-            more from grooveguide
-          </p>
-          <div className="bg-black w-full h-64"></div>
+          <p className="text-2xl font-semibold">more from grooveguide</p>
+          <div className="w-full md:h-full flex flex-col md:flex-row gap-4">
+            {PLACEHOLDER.slice(0, 3).map((item, index) => (
+              <div
+                className="h-full flex flex-row md:flex-col md:w-1/3"
+                key={index}
+              >
+                <div className="relative h-32 w-32 md:h-64  md:w-full">
+                  <Image
+                    fill={true}
+                    className="object-center object-cover rounded-2xl"
+                    src={item.image}
+                    alt={"home"}
+                  />
+                </div>
+                <div className="max-md:ml-6">
+                  <p className="text-xl md:mt-4 mb-2 font-light">
+                    {item.title}
+                  </p>
+                  <p className="text-lg font-semibold">{item.author}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
