@@ -3,7 +3,7 @@ export default function MapSpotifyEmailSection() {
     <section>
       <div className="flex flex-row gap-8 py-12">
         <div
-          className="flex bg-cover bg-center rounded-2xl w-1/2"
+          className="flex bg-cover bg-center rounded-2xl w-1/2 bg-white border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)]"
           style={{
             backgroundImage:
               "url('https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/03/07/11/brooklyn-manhattan-bridge.jpg')",
@@ -15,7 +15,6 @@ export default function MapSpotifyEmailSection() {
             </button>
           </div>
         </div>
-        {/* <div className="w-1/2 bg-slate-400">groovemap</div> */}
         <div className="w-1/2 flex flex-col gap-8">
           <iframe
             style={{ borderRadius: "16px" }}
@@ -26,22 +25,22 @@ export default function MapSpotifyEmailSection() {
             loading="lazy"
           />
           <div
-            className="flex flex-col h-[176px] rounded-2xl bg-black bg-cover bg-center"
+            className="flex flex-col h-[176px] rounded-2xl bg-cover bg-center bg-white border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)]"
             style={{
               backgroundImage:
                 "url('https://journalhotels.com/wp-content/uploads/2016/09/765341-disc-dj-mixer-music-record-retro-sound-vinyl.jpg')",
             }}
           >
             <div className="mx-auto mt-4">
-              <p className="text-white text-3xl">join now</p>
+              <p className="text-white text-3xl font-semibold">join us</p>
             </div>
             <div className="flex flex-row items-center justify-center flex-1 gap-3 mb-10">
               <input
-                className="border-2 border-gray-300 p-2 focus:outline-none rounded-3xl bg-transparent placeholder-white backdrop-filter backdrop-blur-md pl-4"
+                className="text-white border-2 border-gray-300 p-2 focus:outline-none rounded-3xl bg-transparent placeholder-white backdrop-filter backdrop-blur-md pl-4"
                 placeholder="your name"
               />
               <input
-                className="border-2 border-gray-300 p-2 focus:outline-none rounded-3xl bg-transparent placeholder-white backdrop-filter backdrop-blur-md pl-4"
+                className="text-white border-2 border-gray-300 p-2 focus:outline-none rounded-3xl bg-transparent placeholder-white backdrop-filter backdrop-blur-md pl-4"
                 placeholder="your email"
               />
               <button className="bg-white py-2 px-3 font-semibold rounded-3xl whitespace-nowrap">
