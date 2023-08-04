@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function TopOfPageSection() {
   return (
@@ -11,14 +12,14 @@ export default function TopOfPageSection() {
         </div>
 
         <div className="flex flex-row h-full">
-          <div
-            className="flex bg-cover bg-center text-lg rounded-2xl flex-grow mt-16 mr-8 p-4 bg-white border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)]"
-            style={{
-              backgroundImage:
-                "url('https://www.thegroovement.nyc/wp-content/uploads/2023/07/sunflower-bean-featured-photo-1024x657.jpg')",
-            }}
-          >
-            <div className="mt-auto max-w-sm">
+          <div className="flex text-lg rounded-2xl flex-grow mt-16 mr-8 p-4 bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative">
+            <Image
+              layout="fill"
+              className="object-center object-cover rounded-2xl"
+              src={"/home.png"}
+              alt={"home"}
+            />
+            <div className="mt-auto max-w-sm relative">
               <p className="bg-white p-4 text-3xl md:text-4xl rounded-2xl">
                 Sunflower Bean debuts in Brooklyn, New York
               </p>
@@ -42,14 +43,14 @@ export default function TopOfPageSection() {
                 </Link>
               </div>
             </div>
-            <div
-              className="flex bg-cover bg-center rounded-2xl flex-grow mt-8 bg-white border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)]"
-              style={{
-                backgroundImage:
-                  "url('https://www.thegroovement.nyc/wp-content/uploads/2022/12/Sultan-Room.jpg')",
-              }}
-            >
-              <div className="mt-auto mb-4 mx-auto">
+            <div className="flex rounded-2xl flex-grow mt-8 bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative">
+              <Image
+                layout="fill"
+                className="object-center object-cover rounded-2xl"
+                src={"/venue.png"}
+                alt={"venue"}
+              />
+              <div className="mt-auto mb-4 mx-auto relative">
                 <button className="bg-white py-4 px-6 font-semibold rounded-3xl whitespace-nowrap">
                   more venues <span className="font-light">→</span>
                 </button>
