@@ -6,15 +6,15 @@ export default function TopOfPageSection() {
     <section>
       <div className="flex flex-col h-[calc(100vh-76px)] pb-12">
         <div className="mt-2 mb-2">
-          <p className="text-8xl italic font-semibold pb-2 inline pr-1 groovy">
-            what's groovin'?
+          <p className="text-8xl italic font-semibold pb-2 inline groovy">
+            what's groovin'
           </p>
         </div>
 
         <div className="flex flex-row h-full">
           <div className="flex text-lg rounded-2xl flex-grow mt-16 mr-8 p-4 bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative">
             <Image
-              layout="fill"
+              fill={true}
               className="object-center object-cover rounded-2xl"
               src={"/home.png"}
               alt={"home"}
@@ -45,7 +45,7 @@ export default function TopOfPageSection() {
             </div>
             <div className="flex rounded-2xl flex-grow mt-8 bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative">
               <Image
-                layout="fill"
+                fill={true}
                 className="object-center object-cover rounded-2xl"
                 src={"/venue.png"}
                 alt={"venue"}

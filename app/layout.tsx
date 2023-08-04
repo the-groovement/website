@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import MobileNavbar from "@/components/MobileNavbar";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "the groovement",
@@ -14,10 +15,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="max-w-screen-xl mx-auto px-4 bg-red-400">
-        <Navbar />
-        <MobileNavbar />
-        <main>{children}</main>
+      <body className="bg-red-400">
+        <main className="max-w-screen-xl mx-auto px-4 ">
+          <>
+            <Navbar />
+            <MobileNavbar />
+            {children}
+          </>
+        </main>
+        <footer>
+          <Footer />
+        </footer>
       </body>
     </html>
   );

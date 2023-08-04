@@ -6,13 +6,13 @@ export default function MapSpotifyEmailSection() {
       <div className="flex flex-col md:flex-row gap-8 py-12">
         <div className="flex max-md:h-64 rounded-2xl md:w-1/2 bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative">
           <Image
-            layout="fill"
+            fill={true}
             className="object-center object-cover rounded-2xl"
             src={"/tester.png"}
             alt={"test"}
           />
           <div className="ml-auto relative">
-            <button className="text-2xl font-semibold bg-white py-4 px-6 rounded-bl-2xl">
+            <button className="text-2xl font-semibold bg-white py-4 px-6 rounded-bl-2xl rounded-tr-2xl">
               explore the groovemap <span className="font-light">→</span>
             </button>
           </div>
@@ -28,7 +28,7 @@ export default function MapSpotifyEmailSection() {
           />
           <div className="flex flex-col h-[176px] rounded-2xl bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative">
             <Image
-              layout="fill"
+              fill={true}
               className="object-center object-cover rounded-2xl"
               src={"/vinyl.png"}
               alt={"vinyl"}
