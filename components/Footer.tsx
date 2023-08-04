@@ -1,6 +1,7 @@
 import InstagramIcon from "./Icons/InstagramIcon";
 import MailIcon from "./Icons/MailIcon";
 import SpotifyIcon from "./Icons/SpotifyIcon";
+import Image from "next/image";
 
 const NAV_ITEMS = [
   {
@@ -35,13 +36,18 @@ export default function Footer() {
       <div className="max-w-screen-xl mx-auto px-4 justify-between h-full flex flex-col">
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col md:w-1/2">
-            <p className="text-white text-3xl font-bold whitespace-nowrap mb-4">
-              the groovement
-            </p>
-            <p className="text-white mb-12 max-w-md md:max-w-xs lg:max-w-md">
+            <div className="relative h-[54px] w-[244px] mb-8">
+              <Image
+                fill={true}
+                className="object-center object-cover"
+                src="/logo.png"
+                alt="logo"
+              />
+            </div>
+            {/* <p className="text-white mb-12 max-w-md md:max-w-xs lg:max-w-md">
               your guide to the best concerts and venues across New York City
               and Brooklyn.
-            </p>
+            </p> */}
             <div className="gap-8 flex flex-row">
               <InstagramIcon />
               <SpotifyIcon />

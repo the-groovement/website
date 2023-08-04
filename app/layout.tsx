@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-red-400">
+      <body className="bg-gradient-to-br from-white to-orange-300">
         <main className="max-w-screen-xl mx-auto px-4 ">
           <>
             <Navbar />

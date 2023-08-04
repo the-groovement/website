@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -112,16 +113,27 @@ export default function MobileNavbar() {
       animate={mobileNavOpen ? "opened" : "closed"}
     >
       <div className="flex flex-wrap py-4 items-center justify-between">
-        <motion.h1
+        {/* <motion.h1
           variants={hideNavItemsVariant}
           className="self-center text-2xl font-bold whitespace-nowrap mr-6 mb-1"
         >
           the groovement
+        </motion.h1> */}
+        <motion.h1 variants={hideNavItemsVariant}>
+          <div className="relative h-[54px] w-[244px]">
+            <Image
+              fill={true}
+              className="object-center object-cover"
+              src="/logo.png"
+              alt="logo"
+            />
+          </div>
         </motion.h1>
+
         <motion.div
           variants={hideNavItemsVariant}
           onClick={() => setMobileNavOpen(true)}
-          className="hover:cursor-pointer"
+          className="hover:cursor-pointer font-semibold"
         >
           Menu
         </motion.div>

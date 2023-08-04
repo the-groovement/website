@@ -6,8 +6,8 @@ export default async function Home() {
   return (
     <div>
       <TopOfPageSection />
-      <MapSpotifyEmailSection />
       <BlogCamSection />
+      <MapSpotifyEmailSection />
     </div>
   );
 }
