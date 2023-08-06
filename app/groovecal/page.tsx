@@ -1,7 +1,7 @@
 import EventList from "@/components/GroovecalSections/EventList";
 import SearchBar from "@/components/GroovecalSections/SearchBar";
 
-export default function Login() {
+export default function Groovecal() {
   return (
     <div>
       <SearchBar />
