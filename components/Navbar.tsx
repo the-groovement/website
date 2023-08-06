@@ -4,15 +4,19 @@ import Image from "next/image";
 const NAV_ITEMS = [
   {
     navTitle: "groovecal",
+    link: "/groovecal",
   },
   {
     navTitle: "grooveguide",
+    link: "/grooveguide",
   },
   {
     navTitle: "groovemap",
+    link: "/groovemap",
   },
   {
     navTitle: "groovemail",
+    link: "/groovemail",
   },
 ];
 
@@ -41,7 +45,7 @@ export default function Navbar() {
           /> */}
         </Link>
         {NAV_ITEMS.map((navItem, index) => (
-          <Link href="/" className="flex" key={index}>
+          <Link href={navItem.link} className="flex" key={index}>
             <p className="self-center text-lg whitespace-nowrap font-semibold">
               {navItem.navTitle}
             </p>

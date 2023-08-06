@@ -8,15 +8,19 @@ import Link from "next/link";
 const NAV_ITEMS = [
   {
     navTitle: "groovecal",
+    link: "/groovecal",
   },
   {
     navTitle: "grooveguide",
+    link: "/grooveguide",
   },
   {
     navTitle: "groovemap",
+    link: "/groovemap",
   },
   {
     navTitle: "groovemail",
+    link: "/groovemail",
   },
 ];
 
@@ -164,7 +168,7 @@ export default function MobileNavbar() {
                   className="text-white text-center font-semibold text-3xl"
                   style={{ marginBottom: "24px" }}
                 >
-                  <Link href={"/test"}>{navItem.navTitle}</Link>
+                  <Link href={navItem.link}>{navItem.navTitle}</Link>
                 </motion.div>
               </motion.li>
             ))}

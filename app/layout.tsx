@@ -17,11 +17,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-gradient-to-br from-white to-orange-300">
         <main className="max-w-screen-xl mx-auto px-4 ">
-          <>
-            <Navbar />
-            <MobileNavbar />
-            {children}
-          </>
+          <Navbar />
+          <MobileNavbar />
+          {children}
         </main>
         <footer>
           <Footer />
