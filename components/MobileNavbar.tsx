@@ -19,8 +19,8 @@ const NAV_ITEMS = [
     link: "/groovemap",
   },
   {
-    navTitle: "groovemail",
-    link: "/groovemail",
+    navTitle: "about",
+    link: "/about",
   },
 ];
 

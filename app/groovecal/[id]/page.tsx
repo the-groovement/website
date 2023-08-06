@@ -1,25 +1,34 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const PLACEHOLDER = [
   {
-    title: "obssessed with the life that could've ",
-    author: "jane doe",
+    title: "The Jungle Giants",
+    artist: "The Jungle Giants",
+    location: "Sultan Room",
     image: "/home.png",
+    link: "/groovecal/1",
   },
   {
-    title: "obssessed with the life that could've been",
-    author: "bob smith",
+    title: "Tiki Disco",
+    artist: "Eli Escobar",
+    location: "Knockdown Center",
     image: "/tester.png",
+    link: "/groovecal/2",
   },
   {
-    title: "obssessed with the life that could've been",
-    author: "tom brad",
+    title: "Mister Sunday",
+    artist: "Justin Carter",
+    location: "Nowadays",
     image: "/venue.png",
+    link: "/groovecal/3",
   },
   {
-    title: "obssessed with the life that could've been",
-    author: "joe jackson",
+    title: "Resolute All Night Long",
+    artist: "Gene on Earth",
+    location: "H0l0",
     image: "/vinyl.png",
+    link: "/groovecal/4",
   },
 ];
 
@@ -28,7 +37,7 @@ export default function GroovecalEvent() {
     <section>
       <div className="flex flex-col mt-12">
         <div className="flex flex-col">
-          <p className="mb-4">Brooklyn • grooveguide</p>
+          <p className="mb-4">New York • groovecal</p>
           <p className="text-4xl md:text-5xl lg:text-6xl mb-12 font-bold">
             Tiki Disco
           </p>
@@ -75,7 +84,7 @@ export default function GroovecalEvent() {
           </div>
 
           <div className="flex flex-col md:flex-row h-full mb-12">
-            <div className="flex-1 mr-16 max-md:mb-8">
+            <div className="flex-1 md:mr-16 max-md:mb-12">
               <p>
                 Share The House maestro Eli Escobar has truly dominated the
                 electronic scene as one of the dance music greats. His iconic
@@ -84,39 +93,59 @@ export default function GroovecalEvent() {
                 <br />
                 <br /> We are excited for him to have an exclusive extended set
                 in the Black Studio. In support is MIND the GAP, an Italian duo
+                who are a mainstay in the London underground scene. Share The
+                House maestro Eli Escobar has truly dominated the electronic
+                scene as one of the dance music greats. His iconic Boiler Room
+                NYC sets and House, Disco and Italo blends take you on a journey
+                through electronic music history.
+                <br />
+                <br /> We are excited for him to have an exclusive extended set
+                in the Black Studio. In support is MIND the GAP, an Italian duo
+                who are a mainstay in the London underground scene. Share The
+                House maestro Eli Escobar has truly dominated the electronic
+                scene as one of the dance music greats. His iconic Boiler Room
+                NYC sets and House, Disco and Italo blends take you on a journey
+                through electronic music history.
+                <br />
+                <br /> We are excited for him to have an exclusive extended set
+                in the Black Studio. In support is MIND the GAP, an Italian duo
                 who are a mainstay in the London underground scene.
               </p>
             </div>
             <Image
               src="/poster.png"
-              className="object-contain"
+              className="object-contain rounded-2xl mb-auto max-md:mx-auto"
               alt="poster"
-              width={500}
-              height={500}
+              width={450}
+              height={450}
             />
           </div>
         </div>
         <div className="flex flex-col mb-12 gap-8">
-          <p className="text-2xl font-semibold">more from grooveguide</p>
+          <p className="text-2xl font-semibold">recommended events</p>
           <div className="w-full md:h-full flex flex-col md:flex-row gap-4">
-            {PLACEHOLDER.slice(0, 3).map((item, index) => (
+            {PLACEHOLDER.slice(0, 4).map((item, index) => (
               <div
-                className="h-full flex flex-row md:flex-col md:w-1/3"
+                className="h-full flex flex-row md:flex-col md:w-1/4"
                 key={index}
               >
-                <div className="relative h-32 w-32 md:h-64  md:w-full">
-                  <Image
-                    fill={true}
-                    className="object-center object-cover rounded-2xl"
-                    src={item.image}
-                    alt={"home"}
-                  />
+                <div className="relative h-32 w-32 md:h-64 md:w-full">
+                  <Link href={item.link}>
+                    <Image
+                      fill={true}
+                      className="object-center object-cover rounded-2xl"
+                      src={item.image}
+                      alt={"home"}
+                    />
+                  </Link>
                 </div>
                 <div className="max-md:ml-6">
-                  <p className="text-xl md:mt-4 mb-2 font-light">
-                    {item.title}
-                  </p>
-                  <p className="text-lg font-semibold">{item.author}</p>
+                  <Link href={item.link}>
+                    <p className="text-2xl md:mt-4 mb-2 font-semibold">
+                      {item.title}
+                    </p>
+                  </Link>
+                  <p className="text-xl">{item.artist}</p>
                 </div>
               </div>
             ))}

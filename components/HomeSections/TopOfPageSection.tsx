@@ -50,7 +50,7 @@ export default function TopOfPageSection() {
                 alt={"venue"}
               />
               <div className="mt-auto mb-4 mx-auto relative">
-                <button className="bg-white py-4 px-6 font-semibold rounded-3xl whitespace-nowrap">
+                <button className="bg-white py-4 px-6 font-semibold rounded-2xl whitespace-nowrap">
                   more venues <span className="font-light">→</span>
                 </button>
               </div>

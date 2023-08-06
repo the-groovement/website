@@ -7,28 +7,28 @@ const PLACEHOLDER = [
     artist: "The Jungle Giants",
     location: "Sultan Room",
     image: "/home.png",
-    link: "/",
+    link: "/groovecal/1",
   },
   {
     title: "Tiki Disco",
     artist: "Eli Escobar",
     location: "Knockdown Center",
     image: "/tester.png",
-    link: "/",
+    link: "/groovecal/2",
   },
   {
     title: "Mister Sunday",
     artist: "Justin Carter",
     location: "Nowadays",
     image: "/venue.png",
-    link: "/",
+    link: "/groovecal/3",
   },
   {
     title: "Resolute All Night Long",
     artist: "Gene on Earth",
     location: "H0l0",
     image: "/vinyl.png",
-    link: "/",
+    link: "/groovecal/4",
   },
 ];
 

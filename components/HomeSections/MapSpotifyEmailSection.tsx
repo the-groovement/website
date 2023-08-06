@@ -41,18 +41,18 @@ export default function MapSpotifyEmailSection() {
             <p className="text-white text-4xl mb-8">join the groovement</p>
             <div className="flex flex-row gap-3">
               <input
-                className="text-white border-2 border-gray-300 p-2 focus:outline-none rounded-3xl bg-transparent placeholder-white backdrop-filter backdrop-blur-md pl-4"
+                className="text-white border-2 border-gray-300 p-2 focus:outline-none rounded-2xl bg-transparent placeholder-white backdrop-filter backdrop-blur-md pl-4"
                 placeholder="your name"
               />
               <input
-                className="text-white border-2 border-gray-300 p-2 focus:outline-none rounded-3xl bg-transparent placeholder-white backdrop-filter backdrop-blur-md pl-4"
+                className="text-white border-2 border-gray-300 p-2 focus:outline-none rounded-2xl bg-transparent placeholder-white backdrop-filter backdrop-blur-md pl-4"
                 placeholder="your email"
               />
-              <button className="bg-white py-2 px-6 rounded-3xl whitespace-nowrap max-md:hidden">
+              <button className="bg-white py-2 px-6 rounded-2xl whitespace-nowrap max-md:hidden">
                 submit
               </button>
             </div>
-            <button className="bg-white py-2 px-6 rounded-3xl whitespace-nowrap mt-8 md:hidden">
+            <button className="bg-white py-2 px-6 rounded-2xl whitespace-nowrap mt-8 md:hidden">
               submit
             </button>
           </div>
