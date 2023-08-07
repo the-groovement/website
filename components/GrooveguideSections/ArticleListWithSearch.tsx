@@ -4,7 +4,7 @@ const PLACEHOLDER = [
   {
     title: "Obssessed with the life that could've ",
     category: "groovers",
-    date: "aug 9 2023",
+    date: "Aug 9, 2023",
     author: "Jane Doe",
     preview:
       "This is the beginning of the article that would exist with a real article dalkfja lskdjfa lskdj f",
@@ -13,7 +13,7 @@ const PLACEHOLDER = [
   {
     title: "Obssessed with the life that could've been",
     category: "artists",
-    date: "aug 9 2023",
+    date: "Aug 9, 2023",
     author: "Bob Smith",
     preview:
       "This is the beginning of the article that would exist with a real article dalkfja lskdjfa lskdj f",
@@ -22,7 +22,7 @@ const PLACEHOLDER = [
   {
     title: "Obssessed with the life that could've been",
     category: "venues",
-    date: "aug 9 2023",
+    date: "Aug 9, 2023",
     author: "Tom Brad",
     preview:
       "This is the beginning of the article that would exist with a real article dalkfja lskdjfa lskdj f",
@@ -31,7 +31,7 @@ const PLACEHOLDER = [
   {
     title: "Obssessed with the life that could've been",
     category: "venues",
-    date: "aug 9 2023",
+    date: "Aug 9, 2023",
     author: "Joe Jackson",
     preview: "This is the beginning of the article that would exist",
     image: "/vinyl.png",
@@ -42,18 +42,18 @@ export default function ArticleListWithSearch() {
   return (
     <section>
       <div className="flex md:flex-row flex-col justify-between md:items-center mb-8">
-        <div className="flex flex-row gap-8 border-b py-2 border-black md:w-2/3 lg:w-3/4 max-md:mb-4">
-          <p className="font-semibold">view all</p>
-          <p>artists</p>
-          <p>venues</p>
-          <p>groovers</p>
-          <p>groovemail</p>
+        <div className="flex flex-row gap-8 border-b py-2 border-slate-500 md:w-2/3 lg:w-3/4 max-md:mb-4 max-md:justify-between px-1">
+          <p className="font-semibold text-purple-700">view all</p>
+          <p className="font-semibold text-slate-500">artists</p>
+          <p className="font-semibold text-slate-500">venues</p>
+          <p className="font-semibold text-slate-500">groovers</p>
+          <p className="font-semibold text-slate-500">groovemail</p>
         </div>
-        <div>
-          <select className="flex-1 rounded-md py-2 px-8 border border-black focus:outline-none bg-white bg-opacity-80">
+        {/* <div>
+          <select className="flex-1 rounded-md py-2 px-8 border focus:outline-none bg-white border-black drop-shadow-[-4px_4px_0px_rgba(0,0,0,1)]">
             <option value="">most recent</option>
           </select>
-        </div>
+        </div> */}
       </div>
       <div className="md:grid md:grid-cols-3 max-md:w-full max-md:flex max-md:flex-col gap-8 mb-8">
         {/* <div className="w-full md:h-full flex flex-col md:flex-row gap-4"> */}
