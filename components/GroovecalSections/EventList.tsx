@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const PLACEHOLDER = [
   {
-    title: "The Jungle Giants",
+    title: "The Jungle Giantsasd;lfkas ;dfkla ;lsdkf laskjdfl ",
     artist: "The Jungle Giants",
     location: "Sultan Room",
     image: "/home.png",
@@ -40,7 +40,12 @@ export default function EventList() {
         <div className="w-full flex flex-col gap-10">
           {PLACEHOLDER.map((item, index) => (
             <div className="h-full flex flex-row" key={index}>
-              <div className="relative h-40 w-64">
+              <div
+                className="relative h-40 w-64"
+                style={{
+                  aspectRatio: 256 / 160,
+                }}
+              >
                 <Link href={item.link}>
                   <Image
                     fill={true}
@@ -55,7 +60,7 @@ export default function EventList() {
                   <p className="text-2xl font-semibold">{item.title}</p>
                 </Link>
                 <p className="text-xl ">{item.artist}</p>
-                <p className="text-md font-light">{item.location}</p>
+                <p className="font-light">{item.location}</p>
               </div>
             </div>
           ))}

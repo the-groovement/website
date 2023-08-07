@@ -52,10 +52,10 @@ export default function BlogCamSection() {
                 key={index}
               >
                 <div className="w-3/4 mt-4 md:mt-1 lg:mt-4">
-                  <p className="text-xl lg:text-2xl font-light max-w-sm mb-2">
+                  <p className="text-xl lg:text-2xl font-semibold max-w-sm mb-2">
                     {item.title}
                   </p>
-                  <p className="text-lg font-semibold">{item.author}</p>
+                  <p className="text-lg font-light">{item.author}</p>
                 </div>
                 <div
                   className="relative ml-auto h-[80%] md:h-[84px] lg:h-[80%] mt-4 md:mt-1 lg:mt-4"
@@ -76,13 +76,18 @@ export default function BlogCamSection() {
         </div>
         <div className="flex flex-col mt-8 gap-8">
           <p className="text-2xl font-semibold">more from grooveguide</p>
-          <div className="w-full md:h-full flex flex-col md:flex-row gap-4">
+          <div className="w-full md:h-full flex flex-col md:flex-row gap-8">
             {PLACEHOLDER.slice(0, 3).map((item, index) => (
               <div
                 className="h-full flex flex-row md:flex-col md:w-1/3"
                 key={index}
               >
-                <div className="relative h-32 w-32 md:h-64  md:w-full">
+                <div
+                  className="relative h-32 w-32 md:h-64 md:w-full"
+                  style={{
+                    aspectRatio: 1 / 1,
+                  }}
+                >
                   <Image
                     fill={true}
                     className="object-center object-cover rounded-2xl"
@@ -90,11 +95,11 @@ export default function BlogCamSection() {
                     alt={"home"}
                   />
                 </div>
-                <div className="max-md:ml-6">
-                  <p className="text-xl md:mt-4 mb-2 font-light">
+                <div className="max-md:ml-6 w-3/4">
+                  <p className="text-xl md:mt-4 mb-2 font-semibold">
                     {item.title}
                   </p>
-                  <p className="text-lg font-semibold">{item.author}</p>
+                  <p className="text-lg font-light">{item.author}</p>
                 </div>
               </div>
             ))}
