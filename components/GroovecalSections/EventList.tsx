@@ -39,9 +39,9 @@ export default function EventList() {
         <p className="uppercase text-3xl mb-8">MON, 7 AUG</p>
         <div className="w-full flex flex-col gap-10">
           {PLACEHOLDER.map((item, index) => (
-            <div className="h-full flex flex-row" key={index}>
+            <div className="h-full flex sm:flex-row flex-col" key={index}>
               <div
-                className="relative h-40 w-64"
+                className="relative h-40 w-64 max-sm:w-full max-sm:h-full"
                 style={{
                   aspectRatio: 256 / 160,
                 }}
@@ -55,7 +55,7 @@ export default function EventList() {
                   />
                 </Link>
               </div>
-              <div className="ml-6 flex flex-col gap-3">
+              <div className="sm:ml-6 flex flex-col gap-3 max-sm:mt-4">
                 <Link href={item.link}>
                   <p className="text-2xl font-semibold">{item.title}</p>
                 </Link>

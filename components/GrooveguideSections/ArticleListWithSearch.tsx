@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const PLACEHOLDER = [
   {
@@ -58,26 +59,30 @@ export default function ArticleListWithSearch() {
       <div className="md:grid md:grid-cols-3 max-md:w-full max-md:flex max-md:flex-col gap-8 mb-8">
         {/* <div className="w-full md:h-full flex flex-col md:flex-row gap-4"> */}
         {PLACEHOLDER.map((item, index) => (
-          <div className="h-full flex flex-row md:flex-col" key={index}>
-            <div className="relative h-32 w-32 md:h-64 md:w-full">
-              <Image
-                fill={true}
-                className="object-center object-cover rounded-2xl"
-                src={item.image}
-                alt={"home"}
-              />
+          <Link href="/grooveguide/1">
+            <div className="h-full flex flex-row md:flex-col" key={index}>
+              <div className="relative h-32 w-32 md:h-64 md:w-full">
+                <Image
+                  fill={true}
+                  className="object-center object-cover rounded-2xl"
+                  src={item.image}
+                  alt={"home"}
+                />
+              </div>
+              <div className="max-md:ml-6 w-3/4 flex flex-col gap-2">
+                <p className="text-sm md:mt-4 font-semibold text-purple-700">
+                  <span className="mr-2">{item.category}</span>{" "}
+                  <span className="text-black">•</span>{" "}
+                  <span className="ml-2 text-black font-normal">
+                    {item.date}
+                  </span>
+                </p>
+                <p className="text-xl font-semibold">{item.title}</p>
+                <p className="font-light line-clamp-2">{item.preview}</p>
+                <p className="text-sm font-semibold">{item.author}</p>
+              </div>
             </div>
-            <div className="max-md:ml-6 w-3/4 flex flex-col gap-2">
-              <p className="text-sm md:mt-4 font-semibold text-purple-700">
-                <span className="mr-2">{item.category}</span>{" "}
-                <span className="text-black">•</span>{" "}
-                <span className="ml-2 text-black font-normal">{item.date}</span>
-              </p>
-              <p className="text-xl font-semibold">{item.title}</p>
-              <p className="font-light line-clamp-2">{item.preview}</p>
-              <p className="text-sm font-semibold">{item.author}</p>
-            </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

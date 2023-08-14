@@ -10,7 +10,7 @@ const PLACEHOLDER = [
     link: "/groovecal/1",
   },
   {
-    title: "Tiki Disco",
+    title: "Tiki Discoa",
     artist: "Eli Escobar",
     location: "Knockdown Center",
     image: "/tester.png",
@@ -59,7 +59,9 @@ export default function GroovecalEvent() {
           </div>
           <div className="flex flex-col flex-1 max-md:hidden">
             <p className="mb-4">Promoter</p>
-            <p className="text-lg font-semibold">Knockdown Center</p>
+            <p className="text-lg md:text-3xl font-semibold">
+              Knockdown Center
+            </p>
           </div>
         </div>
         <div className="flex flex-col md:hidden mb-12">
@@ -139,7 +141,7 @@ export default function GroovecalEvent() {
                     />
                   </Link>
                 </div>
-                <div className="max-md:ml-6">
+                <div className="max-md:ml-6 w-3/4">
                   <Link href={item.link}>
                     <p className="text-2xl md:mt-4 mb-2 font-semibold">
                       {item.title}
