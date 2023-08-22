@@ -1,11 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function MapSpotifyEmailSection() {
   return (
     <section>
-      <div className="py-12">
+      <div className="py-8">
         <div className="flex flex-col md:flex-row gap-8">
-          <div className="flex max-md:h-64 p-4 rounded-2xl md:w-1/2 bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative">
+          <Link
+            href="https://www.google.com/maps/d/viewer?mid=1ZcNuDKiNxyAdpnEy_i3IqRIbLCYEC7M8&ll=40.7290605124509%2C-73.92850645&z=11"
+            className="flex max-md:h-64 p-4 rounded-2xl md:w-1/2 bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative"
+          >
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
@@ -17,7 +21,7 @@ export default function MapSpotifyEmailSection() {
                 explore the groovemap <span className="font-light">→</span>
               </button>
             </div>
-          </div>
+          </Link>
           <div className="md:w-1/2 flex flex-col gap-8">
             <iframe
               style={{ borderRadius: "16px" }}

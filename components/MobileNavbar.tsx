@@ -125,12 +125,14 @@ export default function MobileNavbar() {
         </motion.h1> */}
         <motion.h1 variants={hideNavItemsVariant}>
           <div className="relative h-[54px] w-[244px]">
-            <Image
-              fill={true}
-              className="object-center object-cover"
-              src="/logo.png"
-              alt="logo"
-            />
+            <Link href="/">
+              <Image
+                fill={true}
+                className="object-center object-cover"
+                src="/logo.png"
+                alt="logo"
+              />
+            </Link>
           </div>
         </motion.h1>
 
@@ -168,7 +170,12 @@ export default function MobileNavbar() {
                   className="text-white text-center font-semibold text-3xl"
                   style={{ marginBottom: "24px" }}
                 >
-                  <Link href={navItem.link}>{navItem.navTitle}</Link>
+                  <Link
+                    href={navItem.link}
+                    onClick={() => setMobileNavOpen(false)}
+                  >
+                    {navItem.navTitle}
+                  </Link>
                 </motion.div>
               </motion.li>
             ))}
