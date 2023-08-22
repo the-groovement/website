@@ -71,9 +71,9 @@ export default async function Article({ params }: { params: { id: string } }) {
           <div className="flex flex-row mt-8 border-b border-black ">
             <div className="flex flex-col gap-4 mr-8 max-lg:hidden">
               <p>share</p>
-              <InstagramIcon />
-              <InstagramIcon />
-              <InstagramIcon />
+              <InstagramIcon color="black" />
+              <InstagramIcon color="black" />
+              <InstagramIcon color="black" />
             </div>
             <div className="flex flex-col lg:w-1/2 mb-8">
               <div
@@ -91,10 +91,10 @@ export default async function Article({ params }: { params: { id: string } }) {
               </div>
               <div className="flex flex-col gap-2 lg:hidden mb-8">
                 <p>Share</p>
-                <div className="flex flex-row">
-                  <InstagramIcon />
-                  <InstagramIcon />
-                  <InstagramIcon />
+                <div className="flex flex-row gap-4">
+                  <InstagramIcon color="black" />
+                  <InstagramIcon color="black" />
+                  <InstagramIcon color="black" />
                 </div>
               </div>
               <div
