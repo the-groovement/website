@@ -1,4 +1,5 @@
 import InstagramIcon from "@/components/Icons/InstagramIcon";
+import { getHomePagePosts, getPostById } from "@/lib/api";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -26,22 +27,45 @@ const PLACEHOLDER = [
   },
 ];
 
-export default function Article() {
+export default async function Article({ params }: { params: { id: string } }) {
+  const recentPosts = await getHomePagePosts();
+  const data = await getPostById(params.id);
+  const formatDate = (inputDate: string) => {
+    const date = new Date(inputDate);
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return date.toLocaleDateString(undefined, options);
+  };
+  const removeFirstTagAndChildren = (content: string) => {
+    const removedImages = content.replace(/<img[^>]*>/g, "");
+    const firstTagMatch = removedImages.match(/<[^>]+>/);
+    if (firstTagMatch) {
+      const firstTag = firstTagMatch[0];
+      const regex = new RegExp(
+        firstTag + "[^]*?" + firstTag.replace("<", "</")
+      );
+      return removedImages.replace(regex, "");
+    }
+    return removedImages;
+  };
   return (
     <section>
       <div>
         <div className="flex flex-col mt-8">
           <p className="text-3xl md:text-4xl lg:text-5xl font-bold line-clamp-3 lg:line-clamp-2 pb-1">
-            Stevie B-Zet, trance producer and Sven Väth collaborator, dies 62
+            {data.title}
           </p>
           <div className="flex flex-row gap-16 mt-8 border-b border-black pb-4">
             <div className="flex flex-col gap-1">
               <p className="font-semibold">published</p>
-              <p>Mon, 7 Aug 2023, 04:00</p>
+              <p>{formatDate(data.date)}</p>
             </div>
             <div className="flex flex-col gap-1">
               <p className="font-semibold">author</p>
-              <p>Mon, 7 Aug 2023, 04:00</p>
+              <p>{data.author.node.name}</p>
             </div>
           </div>
           <div className="flex flex-row mt-8 border-b border-black ">
@@ -61,7 +85,7 @@ export default function Article() {
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-2xl"
-                  src={"/home.png"}
+                  src={data.featuredImage.node.sourceUrl}
                   alt={"home"}
                 />
               </div>
@@ -73,40 +97,33 @@ export default function Article() {
                   <InstagramIcon />
                 </div>
               </div>
-              <div>
-                <p>
-                  Britzke's former collaborator, Ralf Hildenbeutel, broke the
-                  news on Facebook last Wednesday, August 2nd. "I have no real
-                  words and it's still a shock that Steffen, our Stevie B-Zet,
-                  has passed away last Thursday," the post read. "When we met I
-                  was 17. We've done and experienced so much together. We played
-                  in the same band when I was still in school, then the
-                  incredible Eye Q years, the Schallbau era and lots of film
-                  scores together. My thoughts to his beloved ones."
-                </p>
-              </div>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: removeFirstTagAndChildren(data.content),
+                }}
+              ></div>
             </div>
           </div>
           <div className="flex flex-col mb-12 gap-8 mt-8">
             <p className="text-2xl font-semibold">recent news</p>
             <div className="w-full md:h-full flex flex-col md:flex-row gap-4">
-              {PLACEHOLDER.slice(0, 4).map((item, index) => (
+              {recentPosts.slice(0, 4).map((item: any, index: number) => (
                 <div
                   className="h-full flex flex-row md:flex-col md:w-1/4"
                   key={index}
                 >
                   <div className="relative h-32 w-32 md:h-64 md:w-full">
-                    <Link href={item.link}>
+                    <Link href={item.id}>
                       <Image
                         fill={true}
                         className="object-center object-cover rounded-2xl"
-                        src={item.image}
+                        src={item.featuredImage.node.sourceUrl}
                         alt={"home"}
                       />
                     </Link>
                   </div>
                   <div className="max-md:ml-6 w-3/4">
-                    <Link href={item.link}>
+                    <Link href={item.id}>
                       <p className="text-xl md:mt-4 mb-2 font-semibold">
                         {item.title}
                       </p>

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
+import { getHomePagePosts } from "@/lib/api";
 
-export default function TopOfPageSection() {
+export default async function TopOfPageSection() {
+  const data = await getHomePagePosts();
   return (
     <section>
       <div className="flex flex-col h-[calc(100vh-84px)] pb-12">

@@ -1,4 +1,6 @@
+import { getHomePagePosts } from "@/lib/api";
 import Image from "next/image";
+import Link from "next/link";
 
 const PLACEHOLDER = [
   {
@@ -23,7 +25,8 @@ const PLACEHOLDER = [
   },
 ];
 
-export default function BlogCamSection() {
+export default async function BlogCamSection() {
+  const data = await getHomePagePosts();
   return (
     <section>
       <div className="py-12">
@@ -44,8 +47,9 @@ export default function BlogCamSection() {
           />
           <p className="text-5xl font-semibold md:hidden">popular stories</p>
           <div className="md:w-1/2 flex flex-col">
-            {PLACEHOLDER.map((item, index) => (
-              <div
+            {data.slice(0, 4).map((item: any, index: number) => (
+              <Link
+                href={`/grooveguide/${item.id}`}
                 className={`flex-grow h-36 md:h-full flex flex-row border-b border-black ${
                   index === 0 && "border-t"
                 }`}
@@ -55,7 +59,7 @@ export default function BlogCamSection() {
                   <p className="text-xl lg:text-2xl font-semibold max-w-sm mb-2">
                     {item.title}
                   </p>
-                  <p className="text-lg font-light">{item.author}</p>
+                  <p className="text-lg font-light">{item.author.node.name}</p>
                 </div>
                 <div
                   className="relative ml-auto h-[80%] md:h-[84px] lg:h-[80%] mt-4 md:mt-1 lg:mt-4"
@@ -66,19 +70,20 @@ export default function BlogCamSection() {
                   <Image
                     fill={true}
                     className="object-center object-cover rounded-2xl"
-                    src={item.image}
+                    src={item.featuredImage.node.sourceUrl}
                     alt={"home"}
                   />
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
         <div className="flex flex-col mt-8 gap-8">
           <p className="text-2xl font-semibold">more from grooveguide</p>
           <div className="w-full md:h-full flex flex-col md:flex-row gap-8">
-            {PLACEHOLDER.slice(0, 3).map((item, index) => (
-              <div
+            {data.slice(4).map((item: any, index: number) => (
+              <Link
+                href={`/grooveguide/${item.id}`}
                 className="h-full flex flex-row md:flex-col md:w-1/3"
                 key={index}
               >
@@ -91,7 +96,7 @@ export default function BlogCamSection() {
                   <Image
                     fill={true}
                     className="object-center object-cover rounded-2xl"
-                    src={item.image}
+                    src={item.featuredImage.node.sourceUrl}
                     alt={"home"}
                   />
                 </div>
@@ -99,9 +104,9 @@ export default function BlogCamSection() {
                   <p className="text-xl md:mt-4 mb-2 font-semibold">
                     {item.title}
                   </p>
-                  <p className="text-lg font-light">{item.author}</p>
+                  <p className="text-lg font-light">{item.author.node.name}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

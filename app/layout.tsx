@@ -13,9 +13,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // bg-gradient-to-br from-white to-orange-300
   return (
     <html lang="en">
-      <body className="bg-gradient-to-br from-white to-orange-300">
+      <body className="bg-white">
         <main className="max-w-screen-xl mx-auto px-4 ">
           <Navbar />
           <MobileNavbar />

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import InstagramIcon from "./Icons/InstagramIcon";
 import MailIcon from "./Icons/MailIcon";
 import SpotifyIcon from "./Icons/SpotifyIcon";
@@ -6,27 +7,34 @@ import Image from "next/image";
 const NAV_ITEMS = [
   {
     navTitle: "groovecal",
+    url: "/groovecal",
   },
   {
     navTitle: "grooveguide",
+    url: "/grooveguide",
   },
   {
     navTitle: "groovemap",
+    url: "/groovemap",
   },
   {
     navTitle: "groovemail",
+    url: "mailto:boogie@thegroovement.co",
   },
 ];
 
 const OTHER = [
   {
     navTitle: "partner with us",
+    url: "/",
   },
   {
     navTitle: "work with us",
+    url: "/",
   },
   {
     navTitle: "media requests",
+    url: "/",
   },
 ];
 
@@ -49,37 +57,58 @@ export default function Footer() {
               and Brooklyn.
             </p> */}
             <div className="gap-8 flex flex-row">
-              <InstagramIcon />
-              <SpotifyIcon />
-              <MailIcon />
+              <a href="https://instagram.com/thegroovement.nyc" target="_blank">
+                <InstagramIcon />
+              </a>
+              <a
+                href="https://open.spotify.com/user/ckqwqyjwjdcd6upfkv2puguvw"
+                target="_blank"
+              >
+                <SpotifyIcon />
+              </a>
+              <a href="mailto:boogie@thegroovement.co">
+                <MailIcon />
+              </a>
             </div>
           </div>
           <div className="flex flex-row md:w-1/2 justify-between max-md:my-12">
             <div className="flex flex-col gap-6 w-1/2">
               <p className="text-white text-2xl font-semibold">discover</p>
               {NAV_ITEMS.map((item, index) => (
-                <p className="text-white text-xl" key={index}>
-                  {item.navTitle}
-                </p>
+                <Link href={item.url}>
+                  <p className="text-white text-xl" key={index}>
+                    {item.navTitle}
+                  </p>
+                </Link>
               ))}
             </div>
             <div className="flex flex-col gap-6 w-1/2">
               <p className="text-white text-2xl font-semibold">get @ us</p>
               {OTHER.map((item, index) => (
-                <p className="text-white text-xl" key={index}>
-                  {item.navTitle}
-                </p>
+                <Link href={item.url}>
+                  <p className="text-white text-xl" key={index}>
+                    {item.navTitle}
+                  </p>
+                </Link>
               ))}
             </div>
           </div>
         </div>
         <div className="flex flex-col">
           <div className="ml-auto mb-2 flex flex-row gap-2">
-            <p className="text-white text-sm">groovecode </p>
+            <Link href="/">
+              <p className="text-white text-sm">groovecode </p>
+            </Link>
+            <Link href="/">
+              <p className="text-white text-sm">•</p>
+            </Link>
+            <Link href="/">
+              <p className="text-white text-sm">privacy</p>
+            </Link>
             <p className="text-white text-sm">•</p>
-            <p className="text-white text-sm">privacy</p>
-            <p className="text-white text-sm">•</p>
-            <p className="text-white text-sm">terms</p>
+            <Link href="/">
+              <p className="text-white text-sm">terms</p>
+            </Link>
           </div>
           <p className="pt-2 text-zinc-500 border-t border-zinc-600 text-sm">
             © the groovement, LLC. All rights reserved 2023
