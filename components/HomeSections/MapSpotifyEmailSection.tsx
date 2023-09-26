@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function MapSpotifyEmailSection() {
   return (
     <section>
-      <div className="py-8">
+      <div className="pb-8">
         <div className="flex flex-col md:flex-row gap-8">
           <Link
             href="https://www.google.com/maps/d/viewer?mid=1ZcNuDKiNxyAdpnEy_i3IqRIbLCYEC7M8&ll=40.7290605124509%2C-73.92850645&z=11"
@@ -22,7 +22,7 @@ export default function MapSpotifyEmailSection() {
               </button>
             </div>
           </Link>
-          <div className="md:w-1/2 flex flex-col gap-8">
+          <div className="md:w-1/2 flex flex-col">
             <iframe
               style={{ borderRadius: "16px" }}
               src="https://open.spotify.com/embed/playlist/7qW5qseZ006ocSKYwiLF9P?utm_source=generator&theme=0"
@@ -33,7 +33,7 @@ export default function MapSpotifyEmailSection() {
             />
           </div>
         </div>
-        <div className="flex flex-col h-[352px] rounded-2xl bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative mt-24">
+        {/* <div className="flex flex-col h-[352px] rounded-2xl bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative mt-24">
           <Image
             fill={true}
             className="object-center object-cover rounded-2xl"
@@ -60,7 +60,7 @@ export default function MapSpotifyEmailSection() {
               submit
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

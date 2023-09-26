@@ -61,7 +61,7 @@ export default function ArticleListWithSearch() {
         {PLACEHOLDER.map((item, index) => (
           <Link href="/grooveguide/1">
             <div className="h-full flex flex-row md:flex-col" key={index}>
-              <div className="relative h-32 w-32 md:h-64 md:w-full">
+              <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-2xl"

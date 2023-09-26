@@ -4,7 +4,9 @@ export default function Grooveguide() {
   return (
     <section>
       <div className="mb-12">
-        <p className="font-semibold text-5xl sm:text-5xl mb-6 mt-8">FAQs</p>
+        <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand mt-2 sm:mt-8">
+          FAQs
+        </p>
         <Dropdown />
       </div>
     </section>

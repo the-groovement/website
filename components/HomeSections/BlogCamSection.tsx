@@ -29,8 +29,8 @@ export default async function BlogCamSection() {
   const data = await getHomePagePosts();
   return (
     <section>
-      <div className="py-12">
-        <div className="flex flex-row max-md:hidden">
+      <div className="pb-8">
+        <div className="flex flex-row max-md:hidden mb-8">
           <p className="lg:text-5xl text-4xl font-semibold w-1/2">
             from the groovecam
           </p>
@@ -39,13 +39,13 @@ export default async function BlogCamSection() {
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8 mt-8">
-          <p className="text-5xl font-semibold md:hidden">from the groovecam</p>
+        <div className="flex flex-col md:flex-row gap-8">
+          <p className="text-3xl font-semibold md:hidden">from the groovecam</p>
           <div
             className="bg-black md:w-1/2 rounded-2xl"
             style={{ aspectRatio: 1 / 1 }}
           />
-          <p className="text-5xl font-semibold md:hidden">popular stories</p>
+          <p className="text-3xl font-semibold md:hidden">popular stories</p>
           <div className="md:w-1/2 flex flex-col">
             {data.slice(0, 4).map((item: any, index: number) => (
               <Link
@@ -61,12 +61,7 @@ export default async function BlogCamSection() {
                   </p>
                   <p className="text-lg font-light">{item.author.node.name}</p>
                 </div>
-                <div
-                  className="relative ml-auto h-[80%] md:h-[84px] lg:h-[80%] mt-4 md:mt-1 lg:mt-4"
-                  style={{
-                    aspectRatio: 1 / 1,
-                  }}
-                >
+                <div className="relative ml-auto h-[80%] aspect-square flex my-auto">
                   <Image
                     fill={true}
                     className="object-center object-cover rounded-2xl"
@@ -79,7 +74,7 @@ export default async function BlogCamSection() {
           </div>
         </div>
         <div className="flex flex-col mt-8 gap-8">
-          <p className="text-2xl font-semibold">more from grooveguide</p>
+          <p className="text-3xl font-semibold">more from grooveguide</p>
           <div className="w-full md:h-full flex flex-col md:flex-row gap-8">
             {data.slice(4).map((item: any, index: number) => (
               <Link
@@ -87,12 +82,7 @@ export default async function BlogCamSection() {
                 className="h-full flex flex-row md:flex-col md:w-1/3"
                 key={index}
               >
-                <div
-                  className="relative h-32 w-32 md:h-64 md:w-full"
-                  style={{
-                    aspectRatio: 1 / 1,
-                  }}
-                >
+                <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
                   <Image
                     fill={true}
                     className="object-center object-cover rounded-2xl"

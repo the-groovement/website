@@ -4,8 +4,10 @@ import Link from "next/link";
 export default function LandingArticle() {
   return (
     <section>
-      <div className="flex flex-col pb-8 md:pb-12 mt-8">
-        <p className="text-5xl sm:text-7xl mb-6 font-shrikhand">grooveguide</p>
+      <div className="flex flex-col pb-8 md:pb-12 mt-2 sm:mt-8">
+        <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand">
+          grooveguide
+        </p>
         <p className="text-2xl sm:text-3xl mb-12">
           the latest news, interviews, & insights.
         </p>

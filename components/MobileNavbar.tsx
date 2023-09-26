@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import MenuIcon from "./Icons/MenuIcon";
+import CloseIcon from "./Icons/CloseIcon";
 
 const NAV_ITEMS = [
   {
@@ -113,7 +115,7 @@ export default function MobileNavbar() {
   return (
     <motion.nav
       initial="closed"
-      className="w-full z-20 top-0 left-0 sm:hidden"
+      className="w-full z-20 top-0 left-0 lg:hidden"
       animate={mobileNavOpen ? "opened" : "closed"}
     >
       <div className="flex flex-wrap py-4 items-center justify-between">
@@ -141,7 +143,7 @@ export default function MobileNavbar() {
           onClick={() => setMobileNavOpen(true)}
           className="hover:cursor-pointer font-semibold"
         >
-          Menu
+          <MenuIcon />
         </motion.div>
         <motion.div
           variants={mobileMenuVariant}
@@ -157,7 +159,7 @@ export default function MobileNavbar() {
             className="text-white focus:ring-0"
             style={{ marginLeft: "auto" }}
           >
-            Close
+            <CloseIcon />
           </motion.button>
           <motion.ul
             variants={ulVariant}

@@ -70,7 +70,7 @@ export default async function Article({ params }: { params: { id: string } }) {
           </div>
           <div className="flex flex-row mt-8 border-b border-black ">
             <div className="flex flex-col gap-4 mr-8 max-lg:hidden">
-              <p>share</p>
+              <p className="font-semibold">share</p>
               <InstagramIcon color="black" />
               <InstagramIcon color="black" />
               <InstagramIcon color="black" />
@@ -90,7 +90,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                 />
               </div>
               <div className="flex flex-col gap-2 lg:hidden mb-8">
-                <p>Share</p>
+                <p className="font-semibold">share</p>
                 <div className="flex flex-row gap-4">
                   <InstagramIcon color="black" />
                   <InstagramIcon color="black" />
@@ -112,7 +112,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                   className="h-full flex flex-row md:flex-col md:w-1/4"
                   key={index}
                 >
-                  <div className="relative h-32 w-32 md:h-64 md:w-full">
+                  <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
                     <Link href={item.id}>
                       <Image
                         fill={true}

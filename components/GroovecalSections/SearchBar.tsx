@@ -1,8 +1,8 @@
 export default function SearchBar() {
   return (
     <section>
-      <div className="flex flex-col mt-8 mb-20">
-        <p className="text-5xl sm:text-7xl mb-6 font-shrikhand">groovecal</p>
+      <div className="flex flex-col mt-2 sm:mt-8 mb-20">
+        <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand">groovecal</p>
         <p className="text-2xl sm:text-3xl mb-12">
           find the best shows. get tix.
         </p>

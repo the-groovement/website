@@ -38,14 +38,14 @@ export default function GroovecalEvent() {
       <div className="flex flex-col mt-12">
         <div className="flex flex-col">
           <p className="mb-4">New York • groovecal</p>
-          <p className="text-4xl md:text-5xl lg:text-6xl mb-12 font-bold">
+          <p className="text-4xl md:text-5xl lg:text-6xl mb-8 font-bold">
             Tiki Disco
           </p>
         </div>
         <div className="flex flex-row justify-between mb-8 md:mb-12">
           <div className="flex flex-col flex-1 mr-16">
             <p className="mb-4">Venue</p>
-            <p className="text-lg md:text-3xl mb-2 font-semibold">
+            <p className="text-lg md:text-3xl mb-2 font-semibold underline">
               Knockdown Center
             </p>
             <p className="text-sm md:text-lg">
@@ -54,19 +54,21 @@ export default function GroovecalEvent() {
           </div>
           <div className="flex flex-col flex-1">
             <p className="mb-4">Date</p>
-            <p className="text-lg md:text-3xl mb-2 font-semibold">6 Aug 2023</p>
+            <p className="text-lg md:text-3xl mb-2 font-semibold underline">
+              6 Aug 2023
+            </p>
             <p className="text-sm md:text-lg">15:00 - 19:00</p>
           </div>
           <div className="flex flex-col flex-1 max-md:hidden">
             <p className="mb-4">Promoter</p>
-            <p className="text-lg md:text-3xl font-semibold">
+            <p className="text-lg md:text-3xl font-semibold underline">
               Knockdown Center
             </p>
           </div>
         </div>
         <div className="flex flex-col md:hidden mb-12">
           <p className="mb-4">Promoter</p>
-          <p className="text-lg font-semibold">Knockdown Center</p>
+          <p className="text-lg font-semibold underline">Knockdown Center</p>
         </div>
         <div className="flex flex-row items-center justify-between py-2 rounded-lg px-4 mb-16 md:mb-20 md:w-1/2 w-full bg-white border-groove1 border drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
           <p className="text-xl font-semibold ">$25</p>
@@ -131,7 +133,7 @@ export default function GroovecalEvent() {
                 className="h-full flex flex-row md:flex-col md:w-1/4"
                 key={index}
               >
-                <div className="relative h-32 w-32 md:h-64 md:w-full">
+                <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
                   <Link href={item.link}>
                     <Image
                       fill={true}

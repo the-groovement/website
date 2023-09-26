@@ -22,7 +22,7 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   return (
-    <nav className="w-full z-20 top-0 left-0 max-sm:hidden justify-between flex flex-row items-center">
+    <nav className="w-full z-20 top-0 left-0 max-lg:hidden justify-between flex flex-row items-center">
       <div className="flex flex-wrap py-4 gap-8">
         <Link href="/" className="flex">
           <div className="relative h-[54px] w-[244px]">

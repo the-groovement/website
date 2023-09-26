@@ -7,13 +7,13 @@ export default async function TopOfPageSection() {
   return (
     <section>
       <div className="flex flex-col h-[calc(100vh-84px)] pb-12">
-        <div className="mt-8">
-          <p className="text-6xl sm:text-8xl sm:inline font-shrikhand">
+        <div className="mt-2 sm:mt-8">
+          <p className="text-[40px] sm:text-6xl md:text-7xl lg:text-8xl sm:inline font-shrikhand">
             what's groovin'
           </p>
         </div>
-        <div className="flex flex-row h-full max-md:mt-8">
-          <div className="flex text-lg rounded-2xl flex-grow mt-10 mr-8 p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative">
+        <div className="flex flex-row h-full">
+          <div className="flex text-lg rounded-2xl flex-grow mt-8 sm:mr-8 p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative">
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
@@ -21,12 +21,12 @@ export default async function TopOfPageSection() {
               alt={"home"}
             />
             <div className="mt-auto max-w-sm relative">
-              <p className="bg-white p-4 text-3xl md:text-4xl rounded-2xl font-semi">
+              <p className="bg-white p-4 text-2xl md:text-4xl rounded-2xl font-semi">
                 Sunflower Bean debuts in Brooklyn, New York
               </p>
             </div>
           </div>
-          <div className="flex flex-col w-72 justify-between">
+          <div className="flex flex-col w-72 justify-between max-sm:hidden mt-4">
             <div className="flex flex-col bg-cover bg-center rounded-2xl bg-gradient-to-t from-red-300  via-yellow-100 to-yellow-200 px-6 justify-between h-64 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
               <div className="mt-8 justify-between">
                 <p className="border inline border-black p-2 rounded-2xl">
