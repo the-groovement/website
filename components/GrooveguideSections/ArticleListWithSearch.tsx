@@ -72,10 +72,8 @@ export default function ArticleListWithSearch() {
               <div className="max-md:ml-6 w-3/4 flex flex-col gap-2">
                 <p className="text-sm md:mt-4 font-semibold text-purple-700">
                   <span className="mr-2">{item.category}</span>{" "}
-                  <span className="text-black">•</span>{" "}
-                  <span className="ml-2 text-black font-normal">
-                    {item.date}
-                  </span>
+                  <span className="">•</span>{" "}
+                  <span className="ml-2  font-normal">{item.date}</span>
                 </p>
                 <p className="text-xl font-semibold">{item.title}</p>
                 <p className="font-light line-clamp-2">{item.preview}</p>

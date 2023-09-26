@@ -2,11 +2,11 @@ export default function SearchBar() {
   return (
     <section>
       <div className="flex flex-col mt-8 mb-20">
-        <div className="mb-12">
-          <p className="text-5xl sm:text-7xl mb-2">explore. discover.</p>
-          <p className="font-semibold text-5xl sm:text-7xl">groovecal.</p>
-        </div>
-        <div className="w-full bg-white h-4 rounded-2xl py-8 items-center flex max-lg:hidden mt-8 drop-shadow-[-6px_6px_0px_rgba(0,0,0,1)] border border-black">
+        <p className="text-5xl sm:text-7xl mb-6 font-shrikhand">groovecal</p>
+        <p className="text-2xl sm:text-3xl mb-12">
+          find the best shows. get tix.
+        </p>
+        <div className="w-full bg-white h-4 rounded-2xl py-8 items-center flex max-lg:hidden border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
           <input
             className="py-3 rounded-tl-3xl rounded-bl-3xl w-1/3 px-6 focus:outline-none text-gray-500 placeholder-gray-500"
             placeholder="search by name or type"
@@ -27,7 +27,7 @@ export default function SearchBar() {
             search
           </button>
         </div>
-        <div className="w-full h-32 bg-white rounded-2xl flex flex-col justify-between px-2 mt-2 lg:hidden drop-shadow-[-6px_6px_0px_rgba(0,0,0,1)] border border-black">
+        <div className="w-full h-32 bg-white rounded-2xl flex flex-col justify-between px-2 lg:hidden border-groove1 border drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
           <div className="h-1/2 flex flex-row py-3">
             <input
               className="py-3 rounded-tl-3xl px-4 focus:outline-none text-gray-500 placeholder-gray-500 w-1/2"

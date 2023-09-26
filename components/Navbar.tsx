@@ -22,12 +22,9 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   return (
-    <nav className="w-full z-20 top-0 left-0 max-sm:hidden">
+    <nav className="w-full z-20 top-0 left-0 max-sm:hidden justify-between flex flex-row items-center">
       <div className="flex flex-wrap py-4 gap-8">
         <Link href="/" className="flex">
-          {/* <p className="self-center text-3xl font-bold whitespace-nowrap mr-6 mb-2">
-            the groovement
-          </p> */}
           <div className="relative h-[54px] w-[244px]">
             <Image
               fill={true}
@@ -36,22 +33,20 @@ export default function Navbar() {
               alt="logo"
             />
           </div>
-          {/* <Image
-            width={280}
-            height={280}
-            src="/logo.png"
-            alt="logo"
-            className="mt-1"
-          /> */}
         </Link>
         {NAV_ITEMS.map((navItem, index) => (
           <Link href={navItem.link} className="flex" key={index}>
-            <p className="self-center text-lg whitespace-nowrap font-semibold">
+            <p className="self-center text-lg whitespace-nowrap hover:font-semibold">
               {navItem.navTitle}
             </p>
           </Link>
         ))}
       </div>
+      <Link href="/about">
+        <button className="bg-groove3 rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold">
+          join us
+        </button>
+      </Link>
     </nav>
   );
 }

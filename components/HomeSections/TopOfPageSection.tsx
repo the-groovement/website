@@ -8,12 +8,12 @@ export default async function TopOfPageSection() {
     <section>
       <div className="flex flex-col h-[calc(100vh-84px)] pb-12">
         <div className="mt-8">
-          <p className="text-6xl sm:text-8xl sm:inline">
-            what's <span className="font-semibold">groovin'</span>
+          <p className="text-6xl sm:text-8xl sm:inline font-shrikhand">
+            what's groovin'
           </p>
         </div>
         <div className="flex flex-row h-full max-md:mt-8">
-          <div className="flex text-lg rounded-2xl flex-grow mt-10 mr-8 p-4 bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative">
+          <div className="flex text-lg rounded-2xl flex-grow mt-10 mr-8 p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative">
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
@@ -27,7 +27,7 @@ export default async function TopOfPageSection() {
             </div>
           </div>
           <div className="flex flex-col w-72 justify-between">
-            <div className="flex flex-col bg-cover bg-center rounded-2xl bg-gradient-to-t from-red-300  via-yellow-100 to-yellow-200 px-6 justify-between h-64 border border-black drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)]">
+            <div className="flex flex-col bg-cover bg-center rounded-2xl bg-gradient-to-t from-red-300  via-yellow-100 to-yellow-200 px-6 justify-between h-64 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
               <div className="mt-8 justify-between">
                 <p className="border inline border-black p-2 rounded-2xl">
                   • top picks
@@ -44,7 +44,7 @@ export default async function TopOfPageSection() {
                 </Link>
               </div>
             </div>
-            <div className="flex rounded-2xl flex-grow mt-8 bg-black border border-black shadow drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative p-4">
+            <div className="flex rounded-2xl flex-grow mt-8 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative p-4">
               <Image
                 fill={true}
                 className="object-center object-cover rounded-2xl"

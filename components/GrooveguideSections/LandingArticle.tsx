@@ -5,13 +5,13 @@ export default function LandingArticle() {
   return (
     <section>
       <div className="flex flex-col pb-8 md:pb-12 mt-8">
-        <p className="font-semibold text-5xl sm:text-7xl mb-6">grooveguide</p>
+        <p className="text-5xl sm:text-7xl mb-6 font-shrikhand">grooveguide</p>
         <p className="text-2xl sm:text-3xl mb-12">
           the latest news, interviews, & insights.
         </p>
         <Link href="/grooveguide/1">
           <div
-            className="flex text-lg rounded-2xl flex-grow p-4 bg-black border border-black drop-shadow-[-8px_8px_0px_rgba(0,0,0,1)] relative"
+            className="flex text-lg rounded-2xl flex-grow p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
             style={{
               aspectRatio: 16 / 9,
             }}
@@ -32,8 +32,8 @@ export default function LandingArticle() {
               </p>
               <p className="text-sm font-semibold">
                 <span className="mr-1">Jane Doe</span>{" "}
-                <span className="text-black">•</span>{" "}
-                <span className="ml-1 text-black font-normal">Aug 9, 2023</span>
+                <span className="">•</span>{" "}
+                <span className="ml-1  font-normal">Aug 9, 2023</span>
               </p>
             </div>
           </div>
@@ -48,9 +48,8 @@ export default function LandingArticle() {
             dlkfja lskjalskjf
           </p>
           <p className="text-sm font-semibold">
-            <span className="mr-1">Jane Doe</span>{" "}
-            <span className="text-black">•</span>{" "}
-            <span className="ml-1 text-black font-normal">Aug 9, 2023</span>
+            <span className="mr-1">Jane Doe</span> <span className="">•</span>{" "}
+            <span className="ml-1  font-normal">Aug 9, 2023</span>
           </p>
         </div>
       </div>

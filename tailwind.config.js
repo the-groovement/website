@@ -7,6 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        groove1: "#3a2a3c",
+        groove2: "#fef1d9",
+        groove3: "#ffd1d1",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         btn: {
@@ -14,7 +17,10 @@ module.exports = {
           "background-hover": "hsl(var(--btn-background-hover))",
         },
       },
-      screens: {},
+      fontFamily: {
+        shrikhand: ["var(--font-shrikhand)"],
+        space: ["var(--font-space-grotesk)"],
+      },
     },
   },
   plugins: [],

@@ -29,7 +29,7 @@ const OTHER = [
     url: "/",
   },
   {
-    navTitle: "work with us",
+    navTitle: "join the groovefam",
     url: "/",
   },
   {
@@ -40,7 +40,7 @@ const OTHER = [
 
 export default function Footer() {
   return (
-    <div className="bg-black h=[640px] md:h-[564px] pt-12 pb-16">
+    <div className="bg-groove1 h-[640px] md:h-[564px] pt-12 pb-16">
       <div className="max-w-screen-xl mx-auto px-4 justify-between h-full flex flex-col">
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col md:w-1/2">
@@ -110,7 +110,7 @@ export default function Footer() {
               <p className="text-white text-sm">terms</p>
             </Link>
           </div>
-          <p className="pt-2 text-zinc-500 border-t border-zinc-600 text-sm">
+          <p className="pt-2 text-zinc-400 border-t border-zinc-600 text-sm">
             © the groovement, LLC. All rights reserved 2023
           </p>
         </div>

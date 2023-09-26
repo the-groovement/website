@@ -145,16 +145,16 @@ export default function MobileNavbar() {
         </motion.div>
         <motion.div
           variants={mobileMenuVariant}
-          className="w-full bg-black items-center h-[100vh] top-0 left-0 absolute z-40 flex flex-col p-4"
+          className="w-full bg-groove1 items-center h-[100vh] top-0 left-0 absolute z-40 flex flex-col p-4"
           style={{
-            backgroundColor: "black",
+            backgroundColor: "#3a2a3c",
             height: "100vh",
           }}
         >
           <motion.button
             variants={fadeInVariant}
             onClick={() => setMobileNavOpen(false)}
-            className="text-white"
+            className="text-white focus:ring-0"
             style={{ marginLeft: "auto" }}
           >
             Close

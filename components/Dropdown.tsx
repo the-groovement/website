@@ -7,9 +7,9 @@ export default function Dropdown() {
   return (
     <>
       {PLACEHOLDER.map((item, index) => (
-        <div key={index} className={`bg-white mx-auto flex flex-col`}>
+        <div key={index} className={`bg-groove2 mx-auto flex flex-col`}>
           <div
-            className={`bg-white flex flex-col py-6 font-sans flex-grow border-t border-black hover:font-semibold hover:cursor-pointer text-seiblue ${
+            className={`bg-groove2 flex flex-col py-6 flex-grow border-t border-groove1 hover:font-semibold hover:cursor-pointer text-seiblue ${
               index === PLACEHOLDER.length - 1 && "border-b"
             }`}
             onClick={() =>
@@ -19,7 +19,18 @@ export default function Dropdown() {
             <p className={`${dropdownTitle === item.title && "font-semibold"}`}>
               {item.title}
             </p>
-            {dropdownTitle === item.title && item.content}
+            <div
+              style={{
+                maxHeight: dropdownTitle === item.title ? "1000px" : "0",
+                opacity: dropdownTitle === item.title ? 1 : 0,
+                overflow: "hidden",
+                transition:
+                  "max-height 0.5s ease-in-out, opacity 0.5s ease-in-out",
+                display: "block",
+              }}
+            >
+              {item.content}
+            </div>
           </div>
         </div>
       ))}
