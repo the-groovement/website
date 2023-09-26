@@ -28,7 +28,7 @@ export default function Navbar() {
           <div className="relative h-[54px] w-[244px]">
             <Image
               fill={true}
-              className="object-center object-cover"
+              className="object-center object-cover transition-transform hover:scale-95 hover:translate-y-1"
               src="/logo.png"
               alt="logo"
             />
@@ -43,7 +43,7 @@ export default function Navbar() {
         ))}
       </div>
       <Link href="/about">
-        <button className="bg-groove3 rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold">
+        <button className="bg-groove3 rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold transition-transform hover:scale-95 hover:translate-y-1">
           join us
         </button>
       </Link>
