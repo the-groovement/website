@@ -10,13 +10,13 @@ export default function SignUp() {
 
   return (
     <form onSubmit={onSubmit} className="my-6">
-      <div className="flex flex-col pb-8 md:pb-12 mt-2 sm:mt-8 w-1/2 mx-auto">
+      <div className="flex flex-col pb-8 md:pb-12 mt-2 sm:mt-8 lg:w-1/2 mx-auto">
         <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand">join us</p>
         <p className="text-2xl sm:text-3xl">
           signup for show recommendations, weekly updates, events & more!
         </p>
       </div>
-      <div className="flex flex-col gap-4 w-1/2 mx-auto">
+      <div className="flex flex-col gap-4 lg:w-1/2 mx-auto">
         <JoinInput
           label="First Name"
           type="text"
@@ -67,7 +67,7 @@ export default function SignUp() {
           boogie@thegroovement.co.
         </label>
       </div>
-      <div className="w-1/2 mx-auto mt-6">
+      <div className="lg:w-1/2 mx-auto mt-6">
         <button
           type="submit"
           className="bg-green-300 py-3 px-4 rounded-2xl font-bold"
