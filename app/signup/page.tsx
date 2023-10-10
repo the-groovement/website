@@ -7,11 +7,7 @@ export default function SignUp() {
     const formData = new FormData(event.currentTarget);
     //fetch
   }
-  const [isChecked, setIsChecked] = useState(false);
 
-  const handleCheckboxChange = (e) => {
-    setIsChecked(e.target.checked);
-  };
   return (
     <form onSubmit={onSubmit} className="my-6">
       <div className="flex flex-col pb-8 md:pb-12 mt-2 sm:mt-8 w-1/2 mx-auto">
