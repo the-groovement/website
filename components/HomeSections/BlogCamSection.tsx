@@ -1,4 +1,5 @@
 import { getHomePagePosts } from "@/lib/api";
+import { getRecentFeaturedPosts } from "@/lib/sanity/client";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -26,6 +27,8 @@ const PLACEHOLDER = [
 ];
 
 export default async function BlogCamSection() {
+  const sanityData = await getRecentFeaturedPosts(4);
+  console.log(sanityData);
   const data = await getHomePagePosts();
   return (
     <section>

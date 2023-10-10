@@ -3,6 +3,7 @@ import InstagramIcon from "./Icons/InstagramIcon";
 import MailIcon from "./Icons/MailIcon";
 import SpotifyIcon from "./Icons/SpotifyIcon";
 import Image from "next/image";
+import TiktokIcon from "./Icons/TikTokIcon";
 
 const NAV_ITEMS = [
   {
@@ -19,18 +20,18 @@ const NAV_ITEMS = [
   },
   {
     navTitle: "groovemail",
-    url: "mailto:boogie@thegroovement.co",
+    url: "/",
   },
 ];
 
 const OTHER = [
   {
     navTitle: "partner with us",
-    url: "/",
+    url: "https://docs.google.com/forms/d/e/1FAIpQLSdqDIgFwdcAMZoQ2mt0MXy7LhDrMDorsFCY2opqSm0eZ8bl6w/viewform",
   },
   {
-    navTitle: "join the groovefam",
-    url: "/",
+    navTitle: "join the team",
+    url: "mailto:boogie@thegroovement.co",
   },
   {
     navTitle: "media requests",
@@ -52,14 +53,11 @@ export default function Footer() {
                 alt="logo"
               />
             </div>
-            {/* <p className="text-white mb-12 max-w-md md:max-w-xs lg:max-w-md">
-              your guide to the best concerts and venues across New York City
-              and Brooklyn.
-            </p> */}
             <div className="gap-8 flex flex-row">
               <a href="https://instagram.com/thegroovement.nyc" target="_blank">
                 <InstagramIcon />
               </a>
+
               <a
                 href="https://open.spotify.com/user/ckqwqyjwjdcd6upfkv2puguvw"
                 target="_blank"
@@ -68,6 +66,9 @@ export default function Footer() {
               </a>
               <a href="mailto:boogie@thegroovement.co">
                 <MailIcon />
+              </a>
+              <a href="https://www.tiktok.com/@thegroovement" target="_blank">
+                <TiktokIcon />
               </a>
             </div>
           </div>

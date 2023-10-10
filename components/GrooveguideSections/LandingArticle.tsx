@@ -8,10 +8,10 @@ export default function LandingArticle() {
         <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand">
           grooveguide
         </p>
-        <p className="text-2xl sm:text-3xl mb-12">
-          the latest news, interviews, & insights.
+        <p className="text-2xl sm:text-3xl">
+          learn more about the community & amplify your concert experience
         </p>
-        <Link href="/grooveguide/1">
+        {/* <Link href="/grooveguide/1">
           <div
             className="flex text-lg rounded-2xl flex-grow p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
             style={{
@@ -53,7 +53,7 @@ export default function LandingArticle() {
             <span className="mr-1">Jane Doe</span> <span className="">•</span>{" "}
             <span className="ml-1  font-normal">Aug 9, 2023</span>
           </p>
-        </div>
+        </div> */}
       </div>
     </section>
   );
