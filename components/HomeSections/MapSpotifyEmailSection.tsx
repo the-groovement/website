@@ -8,7 +8,7 @@ export default function MapSpotifyEmailSection() {
         <div className="flex flex-col md:flex-row gap-8">
           <Link
             href="https://www.google.com/maps/d/viewer?mid=1ZcNuDKiNxyAdpnEy_i3IqRIbLCYEC7M8&ll=40.7290605124509%2C-73.92850645&z=11"
-            className="flex max-md:h-64 p-4 rounded-2xl md:w-1/2 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
+            className="flex max-md:h-64 p-4 rounded-2xl md:w-1/2 relative"
           >
             <Image
               fill={true}

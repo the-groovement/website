@@ -30,7 +30,7 @@ const OTHER = [
     url: "https://docs.google.com/forms/d/e/1FAIpQLSdqDIgFwdcAMZoQ2mt0MXy7LhDrMDorsFCY2opqSm0eZ8bl6w/viewform",
   },
   {
-    navTitle: "join the team",
+    navTitle: "join our team",
     url: "mailto:boogie@thegroovement.co",
   },
   {
