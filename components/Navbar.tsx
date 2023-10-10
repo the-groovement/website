@@ -42,7 +42,7 @@ export default function Navbar() {
           </Link>
         ))}
       </div>
-      <Link href="/about">
+      <Link href="/signup">
         <button className="bg-groove3 rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold transition-transform hover:scale-95 hover:translate-y-1">
           join us
         </button>

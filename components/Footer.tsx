@@ -20,7 +20,7 @@ const NAV_ITEMS = [
   },
   {
     navTitle: "groovemail",
-    url: "/",
+    url: "/signup",
   },
 ];
 

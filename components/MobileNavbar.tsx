@@ -24,6 +24,10 @@ const NAV_ITEMS = [
     navTitle: "about",
     link: "/about",
   },
+  {
+    navTitle: "join us",
+    link: "/signup",
+  },
 ];
 
 export default function MobileNavbar() {
