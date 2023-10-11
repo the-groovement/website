@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getHomePagePosts } from "@/lib/api";
+import { urlForImage } from "@/lib/sanity/image";
+import { getRecentFeaturedPosts } from "@/lib/sanity/client";
 
 export default async function TopOfPageSection() {
-  const data = await getHomePagePosts();
+  const sanityData = await getRecentFeaturedPosts(0, 1);
   return (
     <section>
       <div className="flex flex-col h-[calc(100vh-84px)] pb-12">
@@ -13,34 +14,37 @@ export default async function TopOfPageSection() {
           </p>
         </div>
         <div className="flex flex-row h-full">
-          <div className="flex text-lg rounded-2xl flex-grow mt-8 sm:mr-8 p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative">
+          <Link
+            className="flex text-lg rounded-2xl flex-grow mt-8 sm:mr-8 p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
+            href={`/grooveguide/${sanityData[0].slug.current}`}
+          >
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={"/home.png"}
+              src={urlForImage(sanityData[0].mainImage) || ""}
               alt={"home"}
             />
             <div className="mt-auto max-w-sm relative">
               <p className="bg-white p-4 text-2xl md:text-4xl rounded-2xl font-semi">
-                Sunflower Bean debuts in Brooklyn, New York
+                {sanityData[0].title}
               </p>
             </div>
-          </div>
+          </Link>
           <div className="flex flex-col w-72 justify-between max-sm:hidden mt-4">
             <div className="flex flex-col bg-cover bg-center rounded-2xl bg-gradient-to-t from-red-300  via-yellow-100 to-yellow-200 px-6 justify-between h-64 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
               <div className="mt-8 justify-between">
-                <p className="border inline border-black p-2 rounded-2xl">
-                  • top picks
+                <p className="inline text-2xl font-bold underline">
+                  groovecal top picks
                 </p>
               </div>
               <div>
-                <p className="text-2xl line-clamp-3 max-w-[80%]">
+                <p className="text-xl line-clamp-3 max-w-[80%]">
                   The Revivalists, Band of Horses, The Heavy Heavy
                 </p>
               </div>
-              <div className="mb-4 ml-auto whitespace-nowrap">
-                <Link href="/" className="rounded-3xl underline text-sm">
-                  see more
+              <div className="mb-4 whitespace-nowrap">
+                <Link href="/" className=" text-sm font-semibold">
+                  find shows + get tix
                 </Link>
               </div>
             </div>

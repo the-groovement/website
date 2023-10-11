@@ -1,7 +1,10 @@
 import InstagramIcon from "@/components/Icons/InstagramIcon";
 import { getHomePagePosts, getPostById } from "@/lib/api";
+import { getPostBySlug } from "@/lib/sanity/client";
+import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import Link from "next/link";
+import { PortableText } from "@/lib/sanity/plugins/portabletext";
 
 const PLACEHOLDER = [
   {
@@ -29,7 +32,7 @@ const PLACEHOLDER = [
 
 export default async function Article({ params }: { params: { id: string } }) {
   const recentPosts = await getHomePagePosts();
-  const data = await getPostById(params.id);
+  const post = await getPostBySlug(params.id);
   const formatDate = (inputDate: string) => {
     const date = new Date(inputDate);
     const options: Intl.DateTimeFormatOptions = {
@@ -39,33 +42,21 @@ export default async function Article({ params }: { params: { id: string } }) {
     };
     return date.toLocaleDateString(undefined, options);
   };
-  const removeFirstTagAndChildren = (content: string) => {
-    const removedImages = content.replace(/<img[^>]*>/g, "");
-    const firstTagMatch = removedImages.match(/<[^>]+>/);
-    if (firstTagMatch) {
-      const firstTag = firstTagMatch[0];
-      const regex = new RegExp(
-        firstTag + "[^]*?" + firstTag.replace("<", "</")
-      );
-      return removedImages.replace(regex, "");
-    }
-    return removedImages;
-  };
   return (
     <section>
       <div>
         <div className="flex flex-col mt-8">
           <p className="text-3xl md:text-4xl lg:text-5xl font-bold line-clamp-3 lg:line-clamp-2 pb-1">
-            {data.title}
+            {post.title}
           </p>
           <div className="flex flex-row gap-16 mt-8 border-b border-black pb-4">
             <div className="flex flex-col gap-1">
               <p className="font-semibold">published</p>
-              <p>{formatDate(data.date)}</p>
+              <p>{formatDate(post.publishedAt)}</p>
             </div>
             <div className="flex flex-col gap-1">
               <p className="font-semibold">author</p>
-              <p>{data.author.node.name}</p>
+              <p>{post.author.name}</p>
             </div>
           </div>
           <div className="flex flex-row mt-8 border-b border-black ">
@@ -85,7 +76,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-2xl"
-                  src={data.featuredImage.node.sourceUrl}
+                  src={urlForImage(post.mainImage) || ""}
                   alt={"home"}
                 />
               </div>
@@ -97,11 +88,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                   <InstagramIcon color="black" />
                 </div>
               </div>
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: removeFirstTagAndChildren(data.content),
-                }}
-              ></div>
+              <PortableText value={post.body} />
             </div>
           </div>
           <div className="flex flex-col mb-12 gap-8 mt-8">

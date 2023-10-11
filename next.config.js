@@ -11,6 +11,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "**.thegroovement.nyc",
       },
+      { hostname: "cdn.sanity.io" },
     ],
   },
 };

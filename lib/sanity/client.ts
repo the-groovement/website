@@ -13,6 +13,7 @@ import {
   getAll,
   searchquery,
   limitFeaturedquery,
+  limitNonFeaturedquery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -121,11 +122,24 @@ export async function getPaginatedPosts(limit: number) {
   return {};
 }
 
-export async function getRecentFeaturedPosts(limit: number) {
+export async function getRecentFeaturedPosts(start: number, end: number) {
   if (client) {
     return (
       (await client.fetch(limitFeaturedquery, {
-        limit: limit,
+        start: start,
+        end: end,
+      })) || {}
+    );
+  }
+  return {};
+}
+
+export async function getRecentNonFeaturedPosts(start: number, end: number) {
+  if (client) {
+    return (
+      (await client.fetch(limitNonFeaturedquery, {
+        start: start,
+        end: end,
       })) || {}
     );
   }
