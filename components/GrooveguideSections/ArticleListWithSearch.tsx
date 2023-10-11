@@ -1,5 +1,10 @@
+"use client";
+
+import { getPaginatedPosts } from "@/lib/sanity/client";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 const PLACEHOLDER = [
   {
@@ -38,26 +43,29 @@ const PLACEHOLDER = [
     image: "/vinyl.png",
   },
 ];
+const POSTS_PER_PAGE = 6;
 
 export default function ArticleListWithSearch() {
+  const searchParams = useSearchParams();
+  // const search = searchParams.get("search");
+  useEffect(() => {
+    async function fetchData() {
+      await getPaginatedPosts(POSTS_PER_PAGE, POSTS_PER_PAGE);
+    }
+    fetchData();
+  }, []);
   return (
     <section>
       <div className="flex md:flex-row flex-col justify-between md:items-center mb-8">
         <div className="flex flex-row gap-8 border-b py-2 border-slate-500 md:w-2/3 lg:w-3/4 max-md:mb-4 max-md:justify-between px-1">
-          <p className="font-semibold text-purple-700">view all</p>
-          <p className="font-semibold text-slate-500">artists</p>
-          <p className="font-semibold text-slate-500">venues</p>
-          <p className="font-semibold text-slate-500">groovers</p>
-          <p className="font-semibold text-slate-500">groovemail</p>
+          <button className="font-semibold text-purple-700">view all</button>
+          <button className="font-semibold text-slate-500">artists</button>
+          <button className="font-semibold text-slate-500">venues</button>
+          <button className="font-semibold text-slate-500">groovers</button>
+          <button className="font-semibold text-slate-500">groovemail</button>
         </div>
-        {/* <div>
-          <select className="flex-1 rounded-md py-2 px-8 border focus:outline-none bg-white border-black drop-shadow-[-4px_4px_0px_rgba(0,0,0,1)]">
-            <option value="">most recent</option>
-          </select>
-        </div> */}
       </div>
       <div className="md:grid md:grid-cols-3 max-md:w-full max-md:flex max-md:flex-col gap-8 mb-8">
-        {/* <div className="w-full md:h-full flex flex-col md:flex-row gap-4"> */}
         {PLACEHOLDER.map((item, index) => (
           <Link href="/grooveguide/1">
             <div className="h-full flex flex-row md:flex-col" key={index}>
