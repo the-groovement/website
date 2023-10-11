@@ -29,19 +29,20 @@ const PLACEHOLDER = [
     link: "/grooveguide/4",
   },
 ];
+export const formatDate = (inputDate: string) => {
+  const date = new Date(inputDate);
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return date.toLocaleDateString(undefined, options);
+};
 
 export default async function Article({ params }: { params: { id: string } }) {
   const recentPosts = await getHomePagePosts();
   const post = await getPostBySlug(params.id);
-  const formatDate = (inputDate: string) => {
-    const date = new Date(inputDate);
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return date.toLocaleDateString(undefined, options);
-  };
+
   return (
     <section>
       <div>
