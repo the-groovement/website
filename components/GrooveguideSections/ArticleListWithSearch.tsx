@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { formatDate } from "@/app/grooveguide/[id]/page";
 import { urlForImage } from "@/lib/sanity/image";
 import { PortableText } from "@portabletext/react";
 import { paginatedquery } from "@/lib/sanity/groq";
@@ -35,6 +34,16 @@ export default function ArticleListWithSearch({
   const paramsForQuery = {
     start: (pageIndex - 1) * POSTS_PER_PAGE,
     end: pageIndex * POSTS_PER_PAGE,
+  };
+
+  const formatDate = (inputDate: string) => {
+    const date = new Date(inputDate);
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return date.toLocaleDateString(undefined, options);
   };
 
   const {
