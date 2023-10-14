@@ -1,6 +1,6 @@
 import InstagramIcon from "@/components/Icons/InstagramIcon";
 import { getHomePagePosts, getPostById } from "@/lib/api";
-import { getPostBySlug } from "@/lib/sanity/client";
+import { getPaginatedPosts, getPostBySlug } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import Link from "next/link";
@@ -31,7 +31,8 @@ const PLACEHOLDER = [
 ];
 
 export default async function Article({ params }: { params: { id: string } }) {
-  const recentPosts = await getHomePagePosts();
+  const POSTS_PER_PAGE = 4;
+  const recommendedPosts = await getPaginatedPosts(0, POSTS_PER_PAGE);
   const post = await getPostBySlug(params.id);
   const formatDate = (inputDate: string) => {
     const date = new Date(inputDate);
@@ -94,25 +95,25 @@ export default async function Article({ params }: { params: { id: string } }) {
           <div className="flex flex-col mb-12 gap-8 mt-8">
             <p className="text-2xl font-semibold">recent news</p>
             <div className="w-full md:h-full flex flex-col md:flex-row gap-4">
-              {recentPosts.slice(0, 4).map((item: any, index: number) => (
+              {recommendedPosts.map((post: any, index: number) => (
                 <div
                   className="h-full flex flex-row md:flex-col md:w-1/4"
                   key={index}
                 >
                   <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
-                    <Link href={item.id}>
+                    <Link href={`/grooveguide/${post.slug.current}`}>
                       <Image
                         fill={true}
                         className="object-center object-cover rounded-2xl"
-                        src={item.featuredImage.node.sourceUrl}
+                        src={urlForImage(post.mainImage) || ""}
                         alt={"home"}
                       />
                     </Link>
                   </div>
                   <div className="max-md:ml-6 w-3/4">
-                    <Link href={item.id}>
+                    <Link href={`/grooveguide/${post.slug.current}`}>
                       <p className="text-xl md:mt-4 mb-2 font-semibold">
-                        {item.title}
+                        {post.title}
                       </p>
                     </Link>
                   </div>

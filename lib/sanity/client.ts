@@ -14,6 +14,8 @@ import {
   searchquery,
   limitFeaturedquery,
   limitNonFeaturedquery,
+  eventsPaginatedQuery,
+  singleEventQuery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -47,6 +49,13 @@ export async function getAllPosts() {
     return (await client.fetch(postquery)) || [];
   }
   return [];
+}
+
+export async function getEventBySlug(slug: string) {
+  if (client) {
+    return (await client.fetch(singleEventQuery, { slug })) || {};
+  }
+  return {};
 }
 
 export async function getPostBySlug(slug: string) {
@@ -108,6 +117,18 @@ export async function getTopCategories() {
     return (await client.fetch(catquery)) || [];
   }
   return [];
+}
+
+export async function getPaginatedEvents(start: number, end: number) {
+  if (client) {
+    return (
+      (await client.fetch(eventsPaginatedQuery, {
+        start: start,
+        end: end,
+      })) || {}
+    );
+  }
+  return {};
 }
 
 export async function getPaginatedPosts(start: number, end: number) {
