@@ -31,7 +31,10 @@ export default async function TopOfPageSection() {
             </div>
           </Link>
           <div className="flex flex-col w-72 justify-between max-sm:hidden mt-4">
-            <div className="flex flex-col bg-cover bg-center rounded-2xl bg-gradient-to-t from-red-300  via-yellow-100 to-yellow-200 px-6 justify-between h-64 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
+            <Link
+              href="/groovecal"
+              className="flex flex-col bg-cover bg-center rounded-2xl bg-gradient-to-t from-red-300  via-yellow-100 to-yellow-200 px-6 justify-between h-64 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
+            >
               <div className="mt-8 justify-between">
                 <p className="inline text-2xl font-bold underline">
                   groovecal top picks
@@ -43,11 +46,9 @@ export default async function TopOfPageSection() {
                 </p>
               </div>
               <div className="mb-4 whitespace-nowrap">
-                <Link href="/" className=" text-sm font-semibold">
-                  find shows + get tix
-                </Link>
+                <p className=" text-sm font-semibold">find shows + get tix</p>
               </div>
-            </div>
+            </Link>
             <div className="flex rounded-2xl flex-grow mt-8 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative p-4">
               <Image
                 fill={true}

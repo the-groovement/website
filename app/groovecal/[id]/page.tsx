@@ -58,9 +58,12 @@ export default async function GroovecalEvent({
         </div>
         <div className="flex flex-row items-center justify-between py-2 rounded-lg px-4 mb-16 md:mb-20 md:w-1/2 w-full bg-white border-groove1 border drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
           <p className="text-xl font-semibold ">{`$${event.ticketPrice}`}</p>
-          <button className="text-sm bg-green-300 px-4 py-3 rounded-2xl font-semibold">
+          <Link
+            href={event.ticketPurchaseURL}
+            className="text-sm bg-green-300 px-4 py-3 rounded-2xl font-semibold"
+          >
             BUY NOW
-          </button>
+          </Link>
         </div>
         <div>
           <div className="flex flex-row justify-between md:text-4xl mb-8 items-center">

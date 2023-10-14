@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { urlForImage } from "@/lib/sanity/image";
 import { PortableText } from "@portabletext/react";
-import { paginatedquery } from "@/lib/sanity/groq";
+import { paginatedCategoryQuery, paginatedquery } from "@/lib/sanity/groq";
 import { fetcher } from "@/lib/sanity/client";
 import useSWR from "swr";
 import ChevronLeftIcon from "../Icons/ChevronLeftIcon";
@@ -26,17 +26,16 @@ export default function ArticleListWithSearch({
   const page = searchParams.get("page");
   const category = searchParams.get("category");
   const pageIndex = page ? parseInt(page) : 1;
-
   const POSTS_PER_PAGE = 6;
 
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstPage, setIsFirstPage] = useState(false);
   const [isLastPage, setIsLastPage] = useState(false);
 
-  const query = category ? paginatedquery : paginatedquery;
+  const query = category ? paginatedCategoryQuery : paginatedquery;
   const paramsForQuery = category
     ? {
-        category: category,
+        categoryId: category,
         start: (pageIndex - 1) * POSTS_PER_PAGE,
         end: pageIndex * POSTS_PER_PAGE,
       }
@@ -64,14 +63,13 @@ export default function ArticleListWithSearch({
       setIsLoading(false);
     },
   });
-  console.log(posts);
 
   useEffect(() => {
-    setIsFirstPage(pageIndex < 2);
+    setIsFirstPage(posts === null ? false : pageIndex < 2);
   }, [pageIndex]);
 
   useEffect(() => {
-    setIsLastPage(posts.length < POSTS_PER_PAGE);
+    setIsLastPage(posts === null ? true : posts.length < POSTS_PER_PAGE);
   }, [posts]);
 
   const handleNextPage = () => {
@@ -86,31 +84,41 @@ export default function ArticleListWithSearch({
       <div className="flex md:flex-row flex-col justify-between md:items-center mb-8">
         <div className="flex flex-row gap-8 border-b py-2 border-slate-500 w-full max-md:mb-4 max-md:justify-between px-1">
           <button
-            className="font-semibold text-purple-700 max-sm:text-xs"
+            className={`font-semibold max-sm:text-xs ${
+              category === null ? "text-purple-700" : "text-slate-500"
+            }`}
             onClick={() => router.push("/grooveguide?page=1")}
           >
             view all
           </button>
           <button
-            className="font-semibold text-slate-500 max-sm:text-xs"
+            className={`font-semibold max-sm:text-xs ${
+              category === "artists" ? "text-purple-700" : "text-slate-500"
+            }`}
             onClick={() => router.push("/grooveguide?page=1&category=artists")}
           >
             artists
           </button>
           <button
-            className="font-semibold text-slate-500 max-sm:text-xs"
+            className={`font-semibold max-sm:text-xs ${
+              category === "venues" ? "text-purple-700" : "text-slate-500"
+            }`}
             onClick={() => router.push("/grooveguide?page=1&category=venues")}
           >
             venues
           </button>
           <button
-            className="font-semibold text-slate-500 max-sm:text-xs"
+            className={`font-semibold max-sm:text-xs ${
+              category === "groovers" ? "text-purple-700" : "text-slate-500"
+            }`}
             onClick={() => router.push("/grooveguide?page=1&category=groovers")}
           >
             groovers
           </button>
           <button
-            className="font-semibold text-slate-500 max-sm:text-xs"
+            className={`font-semibold max-sm:text-xs ${
+              category === "groovemail" ? "text-purple-700" : "text-slate-500"
+            }`}
             onClick={() =>
               router.push("/grooveguide?page=1&category=groovemail")
             }
@@ -120,8 +128,8 @@ export default function ArticleListWithSearch({
         </div>
       </div>
       <div className="md:grid md:grid-cols-3 max-md:w-full max-md:flex max-md:flex-col gap-8 mb-8">
-        {posts && !isLoading && !isValidating ? (
-          posts.map((post: any, index: number) => (
+        {!isLoading && !isValidating ? (
+          posts?.map((post: any, index: number) => (
             <Link href={`/grooveguide/${post.slug.current}`} key={index}>
               <div className="h-full flex flex-row md:flex-col" key={index}>
                 <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
@@ -134,11 +142,13 @@ export default function ArticleListWithSearch({
                 </div>
                 <div className="max-md:ml-6 flex flex-col gap-2">
                   <p className="text-sm md:mt-4 font-semibold text-purple-700">
-                    <span className="mr-2">
-                      {post.categories ? post.categories[0] : "test"}
-                    </span>{" "}
-                    <span className="">•</span>{" "}
-                    <span className="ml-2  font-normal">
+                    {post.categories && (
+                      <>
+                        <span className="mr-2">{post.categories[0].title}</span>{" "}
+                        <span className="mr-2">•</span>{" "}
+                      </>
+                    )}
+                    <span className="font-normal">
                       {formatDate(post.publishedAt)}
                     </span>
                   </p>
