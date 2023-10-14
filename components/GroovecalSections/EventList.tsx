@@ -94,38 +94,67 @@ export default function EventList({ initialEvents }: EventListProps) {
     router.push(`/groovecal?page=${pageIndex - 1}`);
   };
 
+  const formatDate = (inputDate: string) => {
+    const date = new Date(inputDate);
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return date.toLocaleDateString(undefined, options);
+  };
+  let previousStartTime = "";
+
   return (
     <section>
       <div className="mb-12">
-        <p className="uppercase text-3xl mb-8">MON, 7 AUG</p>
-        <div className="w-full flex flex-col gap-10">
+        <div className="w-full flex flex-col">
           {events && !isLoading && !isValidating ? (
-            events.map((event: any, index: number) => (
-              <div className="h-full flex sm:flex-row flex-col" key={index}>
-                <div
-                  className="relative h-40 w-64 max-sm:w-full max-sm:h-full"
-                  style={{
-                    aspectRatio: 256 / 160,
-                  }}
-                >
-                  <Link href={`/groovecal/${event.slug.current}`}>
-                    <Image
-                      fill={true}
-                      className="object-center object-cover rounded-2xl"
-                      src={urlForImage(event.eventImage) || ""}
-                      alt={"home"}
-                    />
-                  </Link>
-                </div>
-                <div className="sm:ml-6 flex flex-col gap-3 max-sm:mt-4">
-                  <Link href={`/groovecal/${event.slug.current}`}>
-                    <p className="text-2xl font-semibold">{event.eventName}</p>
-                  </Link>
-                  <p className="text-xl ">{event.lineup}</p>
-                  <p className="font-light">{event.venueName}</p>
-                </div>
-              </div>
-            ))
+            events.map((event: any, index: number) => {
+              const currentStartTime = formatDate(event.startTime);
+              const showTime = previousStartTime !== currentStartTime;
+
+              // Update the previousStartTime for comparison in the next iteration
+              previousStartTime = currentStartTime;
+              return (
+                <>
+                  {showTime && (
+                    <p className="uppercase text-3xl mb-8">
+                      {formatDate(event.startTime)}
+                    </p>
+                  )}
+                  <div
+                    className="h-full flex sm:flex-row flex-col mb-8"
+                    key={index}
+                  >
+                    <div
+                      className="relative h-40 w-64 max-sm:w-full max-sm:h-full"
+                      style={{
+                        aspectRatio: 256 / 160,
+                      }}
+                    >
+                      <Link href={`/groovecal/${event.slug.current}`}>
+                        <Image
+                          fill={true}
+                          className="object-center object-cover rounded-2xl"
+                          src={urlForImage(event.eventImage) || ""}
+                          alt={"home"}
+                        />
+                      </Link>
+                    </div>
+                    <div className="sm:ml-6 flex flex-col gap-3 max-sm:mt-4">
+                      <Link href={`/groovecal/${event.slug.current}`}>
+                        <p className="text-2xl font-semibold">
+                          {event.eventName}
+                        </p>
+                      </Link>
+                      <p className="text-xl ">{event.lineup}</p>
+                      <p className="font-light">{event.venueName}</p>
+                    </div>
+                  </div>
+                </>
+              );
+            })
           ) : (
             <>
               {new Array(1).fill(null).map((item, index) => (
