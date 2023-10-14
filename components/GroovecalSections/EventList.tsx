@@ -128,8 +128,8 @@ export default function EventList({ initialEvents }: EventListProps) {
             ))
           ) : (
             <>
-              {new Array(EVENTS_PER_PAGE).fill(null).map((item, index) => (
-                <div key={index}>
+              {new Array(1).fill(null).map((item, index) => (
+                <div key={index} className="w-1/2">
                   <SkeletonImg />
                 </div>
               ))}

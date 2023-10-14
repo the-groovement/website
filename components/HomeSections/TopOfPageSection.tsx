@@ -7,7 +7,7 @@ export default async function TopOfPageSection() {
   const sanityData = await getRecentFeaturedPosts(0, 1);
   return (
     <section>
-      <div className="flex flex-col h-[calc(100vh-84px)] pb-12">
+      <div className="flex flex-col h-[calc(100vh-84px)] pb-8">
         <div className="mt-2 sm:mt-8">
           <p className="text-[40px] sm:text-6xl md:text-7xl lg:text-8xl sm:inline font-shrikhand">
             what's groovin'
@@ -15,7 +15,7 @@ export default async function TopOfPageSection() {
         </div>
         <div className="flex flex-row h-full">
           <Link
-            className="flex text-lg rounded-2xl flex-grow mt-8 sm:mr-8 p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
+            className="flex text-lg rounded-2xl flex-grow mt-4 sm:mt-8 sm:mr-8 p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
             href={`/grooveguide/${sanityData[0].slug.current}`}
           >
             <Image
@@ -49,7 +49,10 @@ export default async function TopOfPageSection() {
                 <p className=" text-sm font-semibold">find shows + get tix</p>
               </div>
             </Link>
-            <div className="flex rounded-2xl flex-grow mt-8 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative p-4">
+            <Link
+              href="/grooveguide?page=1&category=venues"
+              className="flex rounded-2xl flex-grow mt-8 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative p-4"
+            >
               <Image
                 fill={true}
                 className="object-center object-cover rounded-2xl"
@@ -57,11 +60,11 @@ export default async function TopOfPageSection() {
                 alt={"venue"}
               />
               <div className="mt-auto relative">
-                <button className="bg-white py-4 px-6 font-semibold rounded-2xl whitespace-nowrap">
-                  more venues <span className="font-light">→</span>
-                </button>
+                <div className="bg-white py-4 px-6 font-semibold rounded-2xl whitespace-nowrap">
+                  explore venues <span className="font-light">→</span>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
