@@ -22,31 +22,33 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   return (
-    <nav className="w-full z-20 top-0 left-0 max-lg:hidden justify-between flex flex-row items-center">
-      <div className="flex flex-wrap py-4 gap-8">
-        <Link href="/" className="flex">
-          <div className="relative h-[54px] w-[244px]">
-            <Image
-              fill={true}
-              className="object-center object-cover transition-transform hover:scale-95 hover:translate-y-1"
-              src="/logo.png"
-              alt="logo"
-            />
-          </div>
-        </Link>
-        {NAV_ITEMS.map((navItem, index) => (
-          <Link href={navItem.link} className="flex" key={index}>
-            <p className="self-center text-lg whitespace-nowrap hover:font-semibold">
-              {navItem.navTitle}
-            </p>
+    <div className="bg-groove1">
+      <nav className="bg-groove1 max-w-screen-xl mx-auto z-20 top-0 left-0 right-0 max-lg:hidden justify-between flex flex-row items-center px-4">
+        <div className="flex flex-wrap py-4 gap-8">
+          <Link href="/" className="flex">
+            <div className="relative h-[54px] w-[244px]">
+              <Image
+                fill={true}
+                className="object-center object-cover transition-transform hover:scale-95 hover:translate-y-1"
+                src="/logo.png"
+                alt="logo"
+              />
+            </div>
           </Link>
-        ))}
-      </div>
-      <Link href="/signup">
-        <button className="bg-groove3 rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold transition-transform hover:scale-95 hover:translate-y-1">
-          join us
-        </button>
-      </Link>
-    </nav>
+          {NAV_ITEMS.map((navItem, index) => (
+            <Link href={navItem.link} className="flex" key={index}>
+              <p className="self-center text-lg whitespace-nowrap hover:font-semibold text-white">
+                {navItem.navTitle}
+              </p>
+            </Link>
+          ))}
+        </div>
+        <Link href="/signup">
+          <button className="bg-groove3 rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold transition-transform hover:scale-95 hover:translate-y-1">
+            join us
+          </button>
+        </Link>
+      </nav>
+    </div>
   );
 }

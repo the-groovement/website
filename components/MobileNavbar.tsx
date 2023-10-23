@@ -117,87 +117,83 @@ export default function MobileNavbar() {
   };
 
   return (
-    <motion.nav
-      initial="closed"
-      className="w-full z-20 top-0 left-0 lg:hidden"
-      animate={mobileNavOpen ? "opened" : "closed"}
-    >
-      <div className="flex flex-wrap py-4 items-center justify-between">
-        {/* <motion.h1
-          variants={hideNavItemsVariant}
-          className="self-center text-2xl font-bold whitespace-nowrap mr-6 mb-1"
-        >
-          the groovement
-        </motion.h1> */}
-        <motion.h1 variants={hideNavItemsVariant}>
-          <div className="relative h-[54px] w-[244px]">
-            <Link href="/">
-              <Image
-                fill={true}
-                className="object-center object-cover"
-                src="/logo.png"
-                alt="logo"
-              />
-            </Link>
-          </div>
-        </motion.h1>
+    <div className="bg-groove1">
+      <motion.nav
+        initial="closed"
+        className="w-full z-20 top-0 left-0 lg:hidden px-4"
+        animate={mobileNavOpen ? "opened" : "closed"}
+      >
+        <div className="flex flex-wrap py-4 items-center justify-between">
+          <motion.h1 variants={hideNavItemsVariant}>
+            <div className="relative h-[54px] w-[244px]">
+              <Link href="/">
+                <Image
+                  fill={true}
+                  className="object-center object-cover"
+                  src="/logo.png"
+                  alt="logo"
+                />
+              </Link>
+            </div>
+          </motion.h1>
 
-        <motion.div
-          variants={hideNavItemsVariant}
-          onClick={() => setMobileNavOpen(true)}
-          className="hover:cursor-pointer font-semibold"
-        >
-          <MenuIcon />
-        </motion.div>
-        <motion.div
-          variants={mobileMenuVariant}
-          className="w-full bg-groove1 items-center h-[100vh] top-0 left-0 absolute z-40 flex flex-col p-4"
-          style={{
-            backgroundColor: "#3a2a3c",
-            height: "100vh",
-          }}
-        >
-          <motion.button
-            variants={fadeInVariant}
-            onClick={() => setMobileNavOpen(false)}
-            className="text-white focus:ring-0"
-            style={{ marginLeft: "auto" }}
-          >
-            <CloseIcon />
-          </motion.button>
-          <motion.ul
-            variants={ulVariant}
-            style={{ marginTop: "auto", marginBottom: "auto" }}
-          >
-            {NAV_ITEMS.map((navItem, index) => (
-              <motion.li whileTap={{ scale: 0.95 }} key={index}>
-                <motion.div
-                  variants={liVariant}
-                  className="text-white text-center font-semibold text-3xl"
-                  style={{ marginBottom: "24px" }}
-                >
-                  <Link
-                    href={navItem.link}
-                    onClick={() => setMobileNavOpen(false)}
-                  >
-                    {navItem.navTitle}
-                  </Link>
-                </motion.div>
-              </motion.li>
-            ))}
-          </motion.ul>
           <motion.div
-            variants={fadeInVariant}
-            className="mt-auto"
-            style={{ marginTop: "auto" }}
+            variants={hideNavItemsVariant}
+            onClick={() => setMobileNavOpen(true)}
+            className="hover:cursor-pointer font-semibold"
           >
-            <h5 className="text-white text-center text-sm">+111 111 1111</h5>
-            <h5 className="text-white text-center text-sm">
-              boogie@thegroovement.co
-            </h5>
+            <MenuIcon />
           </motion.div>
-        </motion.div>
-      </div>
-    </motion.nav>
+          <motion.div
+            variants={mobileMenuVariant}
+            className="w-full bg-groove1 items-center h-[100vh] top-0 left-0 absolute z-40 flex flex-col p-4"
+            style={{
+              backgroundColor: "#3a2a3c",
+              height: "100vh",
+            }}
+          >
+            <motion.button
+              variants={fadeInVariant}
+              onClick={() => setMobileNavOpen(false)}
+              className="text-white focus:ring-0"
+              style={{ marginLeft: "auto" }}
+            >
+              <CloseIcon />
+            </motion.button>
+            <motion.ul
+              variants={ulVariant}
+              style={{ marginTop: "auto", marginBottom: "auto" }}
+            >
+              {NAV_ITEMS.map((navItem, index) => (
+                <motion.li whileTap={{ scale: 0.95 }} key={index}>
+                  <motion.div
+                    variants={liVariant}
+                    className="text-white text-center font-semibold text-3xl"
+                    style={{ marginBottom: "24px" }}
+                  >
+                    <Link
+                      href={navItem.link}
+                      onClick={() => setMobileNavOpen(false)}
+                    >
+                      {navItem.navTitle}
+                    </Link>
+                  </motion.div>
+                </motion.li>
+              ))}
+            </motion.ul>
+            <motion.div
+              variants={fadeInVariant}
+              className="mt-auto"
+              style={{ marginTop: "auto" }}
+            >
+              <h5 className="text-white text-center text-sm">+111 111 1111</h5>
+              <h5 className="text-white text-center text-sm">
+                boogie@thegroovement.co
+              </h5>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.nav>
+    </div>
   );
 }

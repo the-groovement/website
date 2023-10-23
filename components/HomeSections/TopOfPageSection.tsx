@@ -9,9 +9,13 @@ export default async function TopOfPageSection() {
     <section>
       <div className="flex flex-col h-[calc(100vh-84px)] pb-8">
         <div className="mt-2 sm:mt-8">
-          <p className="text-[40px] sm:text-6xl md:text-7xl lg:text-8xl sm:inline font-shrikhand">
+          <p
+            className="text-[40px] sm:text-6xl md:text-7xl lg:text-8xl sm:inline font-shrikhand"
+            style={{ textShadow: "1px 1px 3px #3a2a3c" }}
+          >
             what's groovin'
           </p>
+          <p className="text-3xl mt-2">your guide to the best shows & vibes</p>
         </div>
         <div className="flex flex-row h-full">
           <Link

@@ -12,37 +12,6 @@ import ChevronRightIcon from "../Icons/ChevronRightIcon";
 import SkeletonImg from "../SkeletonImg";
 import { urlForImage } from "@/lib/sanity/image";
 
-const PLACEHOLDER = [
-  {
-    title: "The Jungle Giantsasd;lfkas ;dfkla ;lsdkf laskjdfl ",
-    artist: "The Jungle Giants",
-    location: "Sultan Room",
-    image: "/home.png",
-    link: "/groovecal/1",
-  },
-  {
-    title: "Tiki Disco",
-    artist: "Eli Escobar",
-    location: "Knockdown Center",
-    image: "/tester.png",
-    link: "/groovecal/2",
-  },
-  {
-    title: "Mister Sunday",
-    artist: "Justin Carter",
-    location: "Nowadays",
-    image: "/venue.png",
-    link: "/groovecal/3",
-  },
-  {
-    title: "Resolute All Night Long",
-    artist: "Gene on Earth",
-    location: "H0l0",
-    image: "/vinyl.png",
-    link: "/groovecal/4",
-  },
-];
-
 type EventListProps = {
   initialEvents: any;
 };
@@ -104,7 +73,6 @@ export default function EventList({ initialEvents }: EventListProps) {
     return date.toLocaleDateString(undefined, options);
   };
   let previousStartTime = "";
-
   return (
     <section>
       <div className="mb-12">

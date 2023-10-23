@@ -117,28 +117,54 @@ export default async function BlogCamSection() {
         <div className="flex flex-col mt-8 gap-8">
           <p className="text-3xl font-semibold">more from grooveguide</p>
           <div className="w-full md:h-full flex flex-col md:flex-row gap-8">
-            {nonFeaturedPosts.map((post: any, index: number) => (
-              <Link
-                href={`/grooveguide/${post.slug.current}`}
-                className="h-full flex flex-row md:flex-col md:w-1/3"
-                key={index}
-              >
-                <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
-                  <Image
-                    fill={true}
-                    className="object-center object-cover rounded-2xl"
-                    src={urlForImage(post.mainImage) || ""}
-                    alt={"home"}
-                  />
-                </div>
-                <div className="max-md:ml-6 w-3/4">
-                  <p className="text-xl md:mt-4 mb-2 font-semibold">
-                    {post.title}
-                  </p>
-                  <p className="text-lg font-light">{post.author.name}</p>
-                </div>
-              </Link>
-            ))}
+            <Link
+              href={`/groovecode`}
+              className="h-full flex flex-row md:flex-col md:w-1/3"
+            >
+              <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
+                <Image
+                  fill={true}
+                  className="object-center object-cover rounded-2xl"
+                  src={"/vinyl.png"}
+                  alt={"home"}
+                />
+              </div>
+              <div className="max-md:ml-6 w-3/4">
+                <p className="text-xl md:mt-4 mb-2 font-semibold">groovecode</p>
+              </div>
+            </Link>
+            <Link
+              href={`/about`}
+              className="h-full flex flex-row md:flex-col md:w-1/3"
+            >
+              <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
+                <Image
+                  fill={true}
+                  className="object-center object-cover rounded-2xl"
+                  src={"/vinyl.png"}
+                  alt={"home"}
+                />
+              </div>
+              <div className="max-md:ml-6 w-3/4">
+                <p className="text-xl md:mt-4 mb-2 font-semibold">FAQs</p>
+              </div>
+            </Link>
+            <Link
+              href={`/groovefam`}
+              className="h-full flex flex-row md:flex-col md:w-1/3"
+            >
+              <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
+                <Image
+                  fill={true}
+                  className="object-center object-cover rounded-2xl"
+                  src={"/vinyl.png"}
+                  alt={"home"}
+                />
+              </div>
+              <div className="max-md:ml-6 w-3/4">
+                <p className="text-xl md:mt-4 mb-2 font-semibold">groovefam</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

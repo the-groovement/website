@@ -64,9 +64,9 @@ export default function Footer() {
               >
                 <SpotifyIcon />
               </a>
-              <a href="mailto:boogie@thegroovement.co">
+              <Link href="/signup">
                 <MailIcon />
-              </a>
+              </Link>
               <a href="https://www.tiktok.com/@thegroovement" target="_blank">
                 <TiktokIcon />
               </a>

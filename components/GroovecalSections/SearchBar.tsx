@@ -2,7 +2,12 @@ export default function SearchBar() {
   return (
     <section>
       <div className="flex flex-col mt-2 sm:mt-8 mb-20">
-        <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand">groovecal</p>
+        <p
+          className="text-[40px] sm:text-7xl mb-4 font-shrikhand"
+          style={{ textShadow: "1px 1px 3px #3a2a3c" }}
+        >
+          groovecal
+        </p>
         <p className="text-2xl sm:text-3xl mb-12">
           find the best shows. get tix.
         </p>

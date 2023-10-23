@@ -45,32 +45,37 @@ export default async function GroovecalEvent({
             </p>
             <p className="text-sm md:text-lg">{formatDate(event.endTime)}</p>
           </div>
-          <div className="flex flex-col flex-1 max-md:hidden">
+          {event.promoter && (
+            <div className="flex flex-col flex-1 max-md:hidden">
+              <p className="mb-4">Promoter</p>
+              <p className="text-lg md:text-3xl font-semibold underline">
+                {event.promoter}
+              </p>
+            </div>
+          )}
+        </div>
+        {event.promoter && (
+          <div className="flex flex-col md:hidden mb-12">
             <p className="mb-4">Promoter</p>
-            <p className="text-lg md:text-3xl font-semibold underline">
-              {event.promoter}
-            </p>
+            <p className="text-lg font-semibold underline">{event.promoter}</p>
           </div>
-        </div>
-        <div className="flex flex-col md:hidden mb-12">
-          <p className="mb-4">Promoter</p>
-          <p className="text-lg font-semibold underline">{event.promoter}</p>
-        </div>
-        <div className="flex flex-row items-center justify-between py-2 rounded-lg px-4 mb-16 md:mb-20 md:w-1/2 w-full bg-white border-groove1 border drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
-          <p className="text-xl font-semibold ">{`$${event.ticketPrice}`}</p>
-          <Link
-            href={event.ticketPurchaseURL}
-            className="text-sm bg-green-300 px-4 py-3 rounded-2xl font-semibold"
-          >
-            BUY NOW
+        )}
+        <div className="flex flex-row gap-12">
+          <Link href={event.ticketPurchaseURL} className="mb-16">
+            <button className="bg-green-300 rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold">
+              buy tix
+            </button>
+          </Link>
+          <Link href={event.ticketPurchaseURL} className="mb-16">
+            <button className="bg-white rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold">
+              add to cal
+            </button>
           </Link>
         </div>
+
         <div>
           <div className="flex flex-row justify-between md:text-4xl mb-8 items-center">
             <p className="text-3xl md:text-4xl font-bold">LINEUP</p>
-            {/* <button className="text-sm border border-black px-4 py-3 rounded-3xl shadow-md">
-              add to calendar
-            </button> */}
           </div>
           <div className="mb-8 md:mb-12">
             <p className="text-3xl md:text-4xl font-bold">{event.lineup}</p>
@@ -79,6 +84,14 @@ export default async function GroovecalEvent({
           <div className="flex flex-col md:flex-row h-full mb-12">
             <div className="flex-1 md:mr-16 max-md:mb-12">
               <PortableText value={event.body} />
+              asldfj
+              <Image
+                className="mt-4"
+                width={50}
+                height={50}
+                src="/groovestamp.png"
+                alt="logo"
+              />
             </div>
             <Image
               src={urlForImage(event.eventImage) || ""}
@@ -90,7 +103,7 @@ export default async function GroovecalEvent({
           </div>
         </div>
         <div className="flex flex-col mb-12 gap-8">
-          <p className="text-2xl font-semibold">recommended events</p>
+          <p className="text-2xl font-semibold">recommended shows</p>
           <div className="w-full md:h-full flex flex-col md:flex-row gap-4">
             {recommendedEvents.map((event: any, index: number) => (
               <div

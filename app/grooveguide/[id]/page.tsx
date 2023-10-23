@@ -59,6 +59,16 @@ export default async function Article({ params }: { params: { id: string } }) {
               <p className="font-semibold">author</p>
               <p>{post.author.name}</p>
             </div>
+            {post.categories && (
+              <div className="flex flex-col gap-1">
+                <p className="font-semibold">category</p>
+                <Link
+                  href={`/grooveguide?page=1&category=${post.categories[0].title}`}
+                >
+                  {post.categories[0].title}
+                </Link>
+              </div>
+            )}
           </div>
           <div className="flex flex-row mt-8 border-b border-black ">
             <div className="flex flex-col gap-4 mr-8 max-lg:hidden">
@@ -90,10 +100,17 @@ export default async function Article({ params }: { params: { id: string } }) {
                 </div>
               </div>
               <PortableText value={post.body} />
+              <Image
+                className="mt-4"
+                width={50}
+                height={50}
+                src="/groovestamp.png"
+                alt="logo"
+              />
             </div>
           </div>
           <div className="flex flex-col mb-12 gap-8 mt-8">
-            <p className="text-2xl font-semibold">recent news</p>
+            <p className="text-2xl font-semibold">recent posts</p>
             <div className="w-full md:h-full flex flex-col md:flex-row gap-4">
               {recommendedPosts.map((post: any, index: number) => (
                 <div

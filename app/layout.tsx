@@ -28,11 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${shrikhand.variable} ${space.variable}`}>
       <body className={"text-groove1 font-space bg-groove2"}>
-        <main className="max-w-screen-xl mx-auto px-4">
-          <Navbar />
-          <MobileNavbar />
-          {children}
-        </main>
+        <Navbar />
+        <MobileNavbar />
+        <main className="max-w-screen-xl mx-auto px-4">{children}</main>
         <footer>
           <Footer />
         </footer>

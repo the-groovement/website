@@ -144,7 +144,13 @@ export default function ArticleListWithSearch({
                   <p className="text-sm md:mt-4 font-semibold text-purple-700">
                     {post.categories && (
                       <>
-                        <span className="mr-2">{post.categories[0].title}</span>{" "}
+                        <Link
+                          href={`/grooveguide?page=1&category=${post.categories[0].title}`}
+                        >
+                          <span className="mr-2">
+                            {post.categories[0].title}
+                          </span>{" "}
+                        </Link>
                         <span className="mr-2">•</span>{" "}
                       </>
                     )}
