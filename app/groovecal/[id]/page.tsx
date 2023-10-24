@@ -12,15 +12,34 @@ export default async function GroovecalEvent({
   const EVENTS_PER_PAGE = 4;
   const recommendedEvents = await getPaginatedEvents(0, EVENTS_PER_PAGE);
   const event = await getEventBySlug(params.id);
-  const formatDate = (inputDate: string) => {
-    const date = new Date(inputDate);
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
+
+  function formatDateTime(dateString1: string, dateString2: string) {
+    const date1 = new Date(dateString1);
+    const date2 = new Date(dateString2);
+
+    const options1: Intl.DateTimeFormatOptions = {
+      weekday: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+
+    const options2: Intl.DateTimeFormatOptions = {
       month: "long",
       day: "numeric",
+      year: "numeric",
     };
-    return date.toLocaleDateString(undefined, options);
-  };
+
+    const formattedDate1 = date1.toLocaleString("en-US", options1);
+    const formattedDate2 = date2.toLocaleString("en-US", options1);
+
+    const formattedDate3 = date1.toLocaleString("en-US", options2);
+
+    const result1 = formattedDate3;
+    const result2 = `${formattedDate1} - ${formattedDate2}`;
+
+    return [result1, result2];
+  }
+  const times = formatDateTime(event.startTime, event.endTime);
   return (
     <section>
       <div className="flex flex-col mt-12">
@@ -41,9 +60,9 @@ export default async function GroovecalEvent({
           <div className="flex flex-col flex-1">
             <p className="mb-4">Date</p>
             <p className="text-lg md:text-3xl mb-2 font-semibold underline">
-              {formatDate(event.startTime)}
+              {times[0]}
             </p>
-            <p className="text-sm md:text-lg">{formatDate(event.endTime)}</p>
+            <p className="text-sm md:text-lg">{times[1]}</p>
           </div>
           {event.promoter && (
             <div className="flex flex-col flex-1 max-md:hidden">
@@ -84,7 +103,6 @@ export default async function GroovecalEvent({
           <div className="flex flex-col md:flex-row h-full mb-12">
             <div className="flex-1 md:mr-16 max-md:mb-12">
               <PortableText value={event.body} />
-              asldfj
               <Image
                 className="mt-4"
                 width={50}

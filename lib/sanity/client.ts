@@ -16,6 +16,7 @@ import {
   limitNonFeaturedquery,
   eventsPaginatedQuery,
   singleEventQuery,
+  paginatedCategoryQuery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -135,6 +136,23 @@ export async function getPaginatedPosts(start: number, end: number) {
   if (client) {
     return (
       (await client.fetch(paginatedquery, {
+        start: start,
+        end: end,
+      })) || {}
+    );
+  }
+  return {};
+}
+
+export async function getPaginatedCategoryPosts(
+  categoryId: string,
+  start: number,
+  end: number
+) {
+  if (client) {
+    return (
+      (await client.fetch(paginatedCategoryQuery, {
+        categoryId: categoryId,
         start: start,
         end: end,
       })) || {}
