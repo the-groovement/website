@@ -6,6 +6,10 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import MenuIcon from "./Icons/MenuIcon";
 import CloseIcon from "./Icons/CloseIcon";
+import CalendarIcon from "./Icons/CalendarIcon";
+import SearchIcon from "./Icons/SearchIcon";
+import LocationIcon from "./Icons/LocationIcon";
+import MusicIcon from "./Icons/MusicIcon";
 
 const NAV_ITEMS = [
   {
@@ -115,17 +119,32 @@ export default function MobileNavbar() {
       },
     },
   };
-
+  const getIconComponent = (navTitle: string) => {
+    switch (navTitle) {
+      case "groovecal":
+        return <CalendarIcon />;
+      case "grooveguide":
+        return <SearchIcon />;
+      case "groovemap":
+        return <LocationIcon />;
+      case "about":
+        return <MusicIcon />;
+      case "join us":
+        return <MusicIcon />;
+      default:
+        return null; // Return null or a default icon if no matching case is found
+    }
+  };
   return (
-    <div className="bg-groove1">
+    <div className="bg-groove1 fixed top-0 left-0 right-0 z-50">
       <motion.nav
         initial="closed"
         className="w-full z-20 top-0 left-0 lg:hidden px-4"
         animate={mobileNavOpen ? "opened" : "closed"}
       >
-        <div className="flex flex-wrap py-4 items-center justify-between">
+        <div className="flex flex-wrap py-3 items-center justify-between">
           <motion.h1 variants={hideNavItemsVariant}>
-            <div className="relative h-[54px] w-[244px]">
+            <div className="relative h-[50px] w-[225px]">
               <Link href="/">
                 <Image
                   fill={true}
@@ -155,26 +174,36 @@ export default function MobileNavbar() {
             <motion.button
               variants={fadeInVariant}
               onClick={() => setMobileNavOpen(false)}
-              className="text-white focus:ring-0"
-              style={{ marginLeft: "auto" }}
+              className="text-white focus:ring-0 flex flex-row justify-between"
+              style={{ width: "100%" }}
             >
+              <div className="relative h-[50px] w-[225px]">
+                <Image
+                  fill={true}
+                  className="object-center object-cover"
+                  src="/logo.png"
+                  alt="logo"
+                />
+              </div>
               <CloseIcon />
             </motion.button>
             <motion.ul
               variants={ulVariant}
-              style={{ marginTop: "auto", marginBottom: "auto" }}
+              style={{ marginTop: "auto", marginBottom: "auto", width: "100%" }}
             >
               {NAV_ITEMS.map((navItem, index) => (
                 <motion.li whileTap={{ scale: 0.95 }} key={index}>
                   <motion.div
                     variants={liVariant}
-                    className="text-white text-center font-semibold text-3xl"
-                    style={{ marginBottom: "24px" }}
+                    className="text-white text-left font-semibold text-3xl"
+                    style={{ marginBottom: "32px" }}
                   >
                     <Link
+                      className="flex items-center gap-2"
                       href={navItem.link}
                       onClick={() => setMobileNavOpen(false)}
                     >
+                      {getIconComponent(navItem.navTitle)}
                       {navItem.navTitle}
                     </Link>
                   </motion.div>
@@ -184,10 +213,9 @@ export default function MobileNavbar() {
             <motion.div
               variants={fadeInVariant}
               className="mt-auto"
-              style={{ marginTop: "auto" }}
+              style={{ marginTop: "auto", width: "100%" }}
             >
-              <h5 className="text-white text-center text-sm">+111 111 1111</h5>
-              <h5 className="text-white text-center text-sm">
+              <h5 className="text-white text-left text-sm">
                 boogie@thegroovement.co
               </h5>
             </motion.div>

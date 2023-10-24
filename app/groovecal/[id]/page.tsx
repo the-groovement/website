@@ -1,3 +1,4 @@
+import CalendarButton from "@/components/CalendarButton";
 import { getEventBySlug, getPaginatedEvents } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
 import { PortableText } from "@portabletext/react";
@@ -21,12 +22,14 @@ export default async function GroovecalEvent({
       weekday: "short",
       hour: "2-digit",
       minute: "2-digit",
+      timeZone: "America/New_York",
     };
 
     const options2: Intl.DateTimeFormatOptions = {
       month: "long",
       day: "numeric",
       year: "numeric",
+      timeZone: "America/New_York",
     };
 
     const formattedDate1 = date1.toLocaleString("en-US", options1);
@@ -40,6 +43,26 @@ export default async function GroovecalEvent({
     return [result1, result2];
   }
   const times = formatDateTime(event.startTime, event.endTime);
+
+  //Calendar button times
+  const startDate = new Date(event.startTime);
+  const endDate = new Date(event.endTime);
+  const options: Intl.DateTimeFormatOptions = {
+    timeZone: "America/New_York",
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+  };
+
+  const formattedStartDate = startDate.toISOString().slice(0, 10);
+  const formattedStartTime = startDate
+    .toLocaleTimeString("en-US", options)
+    .slice(0, 5);
+  const formattedEndDate = endDate.toISOString().slice(0, 10);
+  const formattedEndTime = endDate
+    .toLocaleTimeString("en-US", options)
+    .slice(0, 5);
+
   return (
     <section>
       <div className="flex flex-col mt-12">
@@ -85,11 +108,12 @@ export default async function GroovecalEvent({
               buy tix
             </button>
           </Link>
-          <Link href={event.ticketPurchaseURL} className="mb-16">
-            <button className="bg-white rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold">
-              add to cal
-            </button>
-          </Link>
+          <CalendarButton
+            startDate={formattedStartDate}
+            startTime={formattedStartTime}
+            endDate={formattedEndDate}
+            endTime={formattedEndTime}
+          />
         </div>
 
         <div>

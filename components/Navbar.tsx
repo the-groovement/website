@@ -1,5 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import MailIcon from "./Icons/MailIcon";
+import CalendarIcon from "./Icons/CalendarIcon";
+import SearchIcon from "./Icons/SearchIcon";
+import LocationIcon from "./Icons/LocationIcon";
+import MusicIcon from "./Icons/MusicIcon";
 
 const NAV_ITEMS = [
   {
@@ -21,12 +26,26 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
+  const getIconComponent = (navTitle: string) => {
+    switch (navTitle) {
+      case "groovecal":
+        return <CalendarIcon />;
+      case "grooveguide":
+        return <SearchIcon />;
+      case "groovemap":
+        return <LocationIcon />;
+      case "about":
+        return <MusicIcon />;
+      default:
+        return null; // Return null or a default icon if no matching case is found
+    }
+  };
   return (
-    <div className="bg-groove1">
+    <div className="bg-groove1 fixed top-0 left-0 right-0 z-50">
       <nav className="bg-groove1 max-w-screen-xl mx-auto z-20 top-0 left-0 right-0 max-lg:hidden justify-between flex flex-row items-center px-4">
-        <div className="flex flex-wrap py-4 gap-8">
+        <div className="flex flex-wrap py-3 gap-8">
           <Link href="/" className="flex">
-            <div className="relative h-[54px] w-[244px]">
+            <div className="relative h-[50px] w-[225px]">
               <Image
                 fill={true}
                 className="object-center object-cover transition-transform hover:scale-95 hover:translate-y-1"
@@ -36,7 +55,12 @@ export default function Navbar() {
             </div>
           </Link>
           {NAV_ITEMS.map((navItem, index) => (
-            <Link href={navItem.link} className="flex" key={index}>
+            <Link
+              href={navItem.link}
+              className="flex items-center gap-2"
+              key={index}
+            >
+              {getIconComponent(navItem.navTitle)}
               <p className="self-center text-lg whitespace-nowrap hover:font-semibold text-white">
                 {navItem.navTitle}
               </p>

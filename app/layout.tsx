@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={"text-groove1 font-space bg-groove2"}>
         <Navbar />
         <MobileNavbar />
-        <main className="max-w-screen-xl mx-auto px-4">{children}</main>
+        <main className="max-w-screen-xl mx-auto px-4 mt-20">{children}</main>
         <footer>
           <Footer />
         </footer>

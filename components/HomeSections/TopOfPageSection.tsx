@@ -9,7 +9,6 @@ import {
 export default async function TopOfPageSection() {
   const sanityData = await getRecentFeaturedPosts(0, 1);
   const featuredArticle = await getPaginatedCategoryPosts("venues", 0, 1);
-  console.log(featuredArticle);
   return (
     <section>
       <div className="flex flex-col h-[calc(100vh-84px)] pb-8">

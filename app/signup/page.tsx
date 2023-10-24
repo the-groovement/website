@@ -1,10 +1,23 @@
 "use client";
 import JoinInput from "@/components/JoinInput";
-import { FormEvent, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { FormEvent, useRef, useState } from "react";
 
 export default function SignUp() {
+  const recaptchaRef = useRef<any>(null);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+
+  const handleCaptchaChange = (value: string | null) => {
+    // When the user completes the reCAPTCHA challenge, this function will be called.
+    if (value) {
+      setIsCaptchaVerified(true);
+    }
+  };
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    const formData = new FormData(event.currentTarget);
+    if (isCaptchaVerified) {
+      const formData = new FormData(event.currentTarget);
+    }
     //fetch
   }
 
@@ -66,11 +79,17 @@ export default function SignUp() {
           unsubscribe link in emails or by reaching out to
           boogie@thegroovement.co.
         </label>
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          onChange={handleCaptchaChange}
+          sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+        />
       </div>
       <div className="lg:w-1/2 mx-auto mt-6">
         <button
           type="submit"
           className="bg-green-300 py-3 px-4 rounded-2xl font-bold"
+          disabled={!isCaptchaVerified}
         >
           submit
         </button>
