@@ -103,12 +103,8 @@ export default function Footer() {
             <Link href="/">
               <p className="text-white text-sm">•</p>
             </Link>
-            <Link href="/">
-              <p className="text-white text-sm">privacy</p>
-            </Link>
-            <p className="text-white text-sm">•</p>
-            <Link href="/">
-              <p className="text-white text-sm">terms</p>
+            <Link href="/terms-conditions">
+              <p className="text-white text-sm">terms & conditions</p>
             </Link>
           </div>
           <p className="pt-2 text-zinc-400 border-t border-zinc-600 text-sm">

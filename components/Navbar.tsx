@@ -61,7 +61,7 @@ export default function Navbar() {
               key={index}
             >
               {getIconComponent(navItem.navTitle)}
-              <p className="self-center text-lg whitespace-nowrap hover:font-semibold text-white">
+              <p className="self-center text-lg whitespace-nowrap text-white">
                 {navItem.navTitle}
               </p>
             </Link>
