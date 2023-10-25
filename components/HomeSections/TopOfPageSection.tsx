@@ -11,7 +11,7 @@ export default async function TopOfPageSection() {
   const featuredArticle = await getPaginatedCategoryPosts("venues", 0, 1);
   return (
     <section>
-      <div className="flex flex-col h-[calc(100vh-84px)] pb-8">
+      <div className="flex flex-col h-[calc(100dvh-84px)] pb-8">
         <div className="mt-2 sm:mt-2">
           <p
             className="text-[40px] sm:text-6xl md:text-7xl lg:text-8xl sm:inline font-shrikhand"
