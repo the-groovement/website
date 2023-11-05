@@ -22,6 +22,14 @@ const NAV_ITEMS = [
     navTitle: "groovemail",
     url: "/signup",
   },
+  {
+    navTitle: "groovefam",
+    url: "/groovefam",
+  },
+  {
+    navTitle: "about",
+    url: "/about",
+  },
 ];
 
 const OTHER = [
@@ -97,12 +105,10 @@ export default function Footer() {
         </div>
         <div className="flex flex-col">
           <div className="ml-auto mb-2 flex flex-row gap-2">
-            <Link href="/">
+            <Link href="/groovecode">
               <p className="text-white text-sm">groovecode </p>
             </Link>
-            <Link href="/">
-              <p className="text-white text-sm">•</p>
-            </Link>
+            <p className="text-white text-sm">•</p>
             <Link href="/terms-conditions">
               <p className="text-white text-sm">terms & conditions</p>
             </Link>

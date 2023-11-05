@@ -130,42 +130,48 @@ export default function ArticleListWithSearch({
       <div className="md:grid md:grid-cols-3 max-md:w-full max-md:flex max-md:flex-col gap-8 mb-8">
         {!isLoading && !isValidating ? (
           posts?.map((post: any, index: number) => (
-            <Link href={`/grooveguide/${post.slug.current}`} key={index}>
-              <div className="h-full flex flex-row md:flex-col" key={index}>
-                <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
-                  <Image
-                    fill={true}
-                    className="object-center object-cover rounded-2xl"
-                    src={urlForImage(post.mainImage) || ""}
-                    alt={"home"}
-                  />
-                </div>
-                <div className="max-md:ml-6 flex flex-col gap-2">
-                  <p className="text-sm md:mt-4 font-semibold text-purple-700">
-                    {post.categories && (
-                      <>
-                        <Link
-                          href={`/grooveguide?page=1&category=${post.categories[0].title}`}
-                        >
-                          <span className="mr-2">
-                            {post.categories[0].title}
-                          </span>{" "}
-                        </Link>
-                        <span className="mr-2">•</span>{" "}
-                      </>
-                    )}
-                    <span className="font-normal">
-                      {formatDate(post.publishedAt)}
-                    </span>
-                  </p>
+            <div className="h-full flex flex-row md:flex-col" key={index}>
+              <Link
+                href={`/grooveguide/${post.slug.current}`}
+                key={index}
+                className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square"
+              >
+                <Image
+                  fill={true}
+                  className="object-center object-cover rounded-2xl"
+                  src={urlForImage(post.mainImage) || ""}
+                  alt={"home"}
+                />
+              </Link>
+              <div className="max-md:ml-6 flex flex-col gap-2">
+                <p className="text-sm md:mt-4 font-semibold text-purple-700">
+                  {post.categories && (
+                    <>
+                      <Link
+                        href={`/grooveguide?page=1&category=${post.categories[0].title}`}
+                      >
+                        <span className="mr-2">{post.categories[0].title}</span>{" "}
+                      </Link>
+                      <span className="mr-2">•</span>{" "}
+                    </>
+                  )}
+                  <span className="font-normal">
+                    {formatDate(post.publishedAt)}
+                  </span>
+                </p>
+                <Link
+                  href={`/grooveguide/${post.slug.current}`}
+                  key={index}
+                  className="flex flex-col gap-2"
+                >
                   <p className="text-xl font-semibold">{post.title}</p>
-                  <p className="font-light line-clamp-2">
+                  <div className="font-light line-clamp-2">
                     <PortableText value={post.body} />
-                  </p>
+                  </div>
                   <p className="text-sm font-semibold">{post.author.name}</p>
-                </div>
+                </Link>
               </div>
-            </Link>
+            </div>
           ))
         ) : (
           <>

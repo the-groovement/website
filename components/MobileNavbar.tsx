@@ -198,14 +198,26 @@ export default function MobileNavbar() {
                     className="text-white text-left font-semibold text-3xl"
                     style={{ marginBottom: "32px" }}
                   >
-                    <Link
-                      className="flex items-center gap-2"
-                      href={navItem.link}
-                      onClick={() => setMobileNavOpen(false)}
-                    >
-                      {getIconComponent(navItem.navTitle)}
-                      {navItem.navTitle}
-                    </Link>
+                    {navItem.navTitle === "groovemap" ? (
+                      <a
+                        className="flex items-center gap-2"
+                        href={navItem.link}
+                        onClick={() => setMobileNavOpen(false)}
+                        target="_blank"
+                      >
+                        {getIconComponent(navItem.navTitle)}
+                        {navItem.navTitle}
+                      </a>
+                    ) : (
+                      <Link
+                        className="flex items-center gap-2"
+                        href={navItem.link}
+                        onClick={() => setMobileNavOpen(false)}
+                      >
+                        {getIconComponent(navItem.navTitle)}
+                        {navItem.navTitle}
+                      </Link>
+                    )}
                   </motion.div>
                 </motion.li>
               ))}

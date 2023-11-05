@@ -115,7 +115,7 @@ export default async function BlogCamSection() {
           </div>
         </div>
         <div className="flex flex-col mt-8 gap-8">
-          <p className="text-3xl font-semibold">more from grooveguide</p>
+          <p className="text-3xl font-semibold">more from the grooveguide</p>
           <div className="w-full md:h-full flex flex-col md:flex-row gap-8">
             <Link
               href={`/groovecode`}

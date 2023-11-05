@@ -54,23 +54,37 @@ export default function Navbar() {
               />
             </div>
           </Link>
-          {NAV_ITEMS.map((navItem, index) => (
-            <Link
-              href={navItem.link}
-              className="flex items-center gap-2"
-              key={index}
-            >
-              {getIconComponent(navItem.navTitle)}
-              <p className="self-center text-lg whitespace-nowrap text-white">
-                {navItem.navTitle}
-              </p>
-            </Link>
-          ))}
+          {NAV_ITEMS.map((navItem, index) =>
+            navItem.navTitle === "groovemap" ? (
+              <a
+                href={navItem.link}
+                className="flex items-center gap-2"
+                key={index}
+                target="_blank"
+              >
+                {getIconComponent(navItem.navTitle)}
+                <p className="self-center text-lg whitespace-nowrap text-white">
+                  {navItem.navTitle}
+                </p>
+              </a>
+            ) : (
+              <Link
+                href={navItem.link}
+                className="flex items-center gap-2"
+                key={index}
+              >
+                {getIconComponent(navItem.navTitle)}
+                <p className="self-center text-lg whitespace-nowrap text-white">
+                  {navItem.navTitle}
+                </p>
+              </Link>
+            )
+          )}
         </div>
         <Link href="/signup">
-          <button className="bg-groove3 rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold transition-transform hover:scale-95 hover:translate-y-1">
+          <div className="bg-white py-3 px-6 font-semibold rounded-2xl whitespace-nowrap">
             join us
-          </button>
+          </div>
         </Link>
       </nav>
     </div>

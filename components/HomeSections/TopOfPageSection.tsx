@@ -54,7 +54,9 @@ export default async function TopOfPageSection() {
                 </p>
               </div>
               <div className="mb-4 whitespace-nowrap">
-                <p className=" text-sm font-semibold">find shows + get tix</p>
+                <div className="bg-white py-4 px-6 font-semibold rounded-2xl whitespace-nowrap">
+                  find shows + get tix
+                </div>
               </div>
             </Link>
             <Link
