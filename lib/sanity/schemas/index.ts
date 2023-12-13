@@ -4,6 +4,7 @@ import post from "./post";
 import author from "./author";
 import photographer from "./photographer";
 import event from "./event";
+import venue from "./venue";
 
 export const schemaTypes = [
   post,
@@ -12,4 +13,5 @@ export const schemaTypes = [
   category,
   blockContent,
   event,
+  venue,
 ];

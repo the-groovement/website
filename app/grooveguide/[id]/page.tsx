@@ -66,7 +66,7 @@ export default async function Article({ params }: { params: { id: string } }) {
             </div>
             <div className="flex flex-col gap-1">
               <p className="font-semibold">author</p>
-              <p>{currentPost.author.name}</p>
+              <p>{currentPost.authors[0].name}</p>
             </div>
             {currentPost.categories && (
               <div className="flex flex-col gap-1">
@@ -96,7 +96,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-2xl"
-                  src={urlForImage(currentPost.mainImage) || ""}
+                  src={urlForImage(currentPost.images[0]) || ""}
                   alt={"home"}
                 />
               </div>
@@ -134,7 +134,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                         <Image
                           fill={true}
                           className="object-center object-cover rounded-2xl"
-                          src={urlForImage(post.mainImage) || ""}
+                          src={urlForImage(post.images[0]) || ""}
                           alt={"home"}
                         />
                       </Link>

@@ -139,7 +139,7 @@ export default function ArticleListWithSearch({
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-2xl"
-                  src={urlForImage(post.mainImage) || ""}
+                  src={urlForImage(post.images[0]) || ""}
                   alt={"home"}
                 />
               </Link>
@@ -168,7 +168,9 @@ export default function ArticleListWithSearch({
                   <div className="font-light line-clamp-2">
                     <PortableText value={post.body} />
                   </div>
-                  <p className="text-sm font-semibold">{post.author.name}</p>
+                  <p className="text-sm font-semibold">
+                    {post.authors[0].name}
+                  </p>
                 </Link>
               </div>
             </div>

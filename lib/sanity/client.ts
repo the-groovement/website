@@ -36,7 +36,7 @@ export const fetcher = async ([query, params]: [string, any]) => {
 
 (async () => {
   if (client) {
-    const data = await client.fetch(getAll);
+    const data = await client.fetch(getAll, { next: { revalidate: 1 } });
     if (!data || !data.length) {
       console.error(
         "Sanity returns empty array. Are you sure the dataset is public?"
@@ -47,28 +47,36 @@ export const fetcher = async ([query, params]: [string, any]) => {
 
 export async function getAllPosts() {
   if (client) {
-    return (await client.fetch(postquery)) || [];
+    return (await client.fetch(postquery, { next: { revalidate: 1 } })) || [];
   }
   return [];
 }
 
 export async function getEventBySlug(slug: string) {
   if (client) {
-    return (await client.fetch(singleEventQuery, { slug })) || {};
+    return (
+      (await client.fetch(singleEventQuery, {
+        slug,
+        next: { revalidate: 1 },
+      })) || {}
+    );
   }
   return {};
 }
 
 export async function getPostBySlug(slug: string) {
   if (client) {
-    return (await client.fetch(singlequery, { slug })) || {};
+    return (
+      (await client.fetch(singlequery, { slug, next: { revalidate: 1 } })) || {}
+    );
   }
   return {};
 }
 
 export async function getAllPostsSlugs() {
   if (client) {
-    const slugs: string[] = (await client.fetch(pathquery)) || [];
+    const slugs: string[] =
+      (await client.fetch(pathquery, { next: { revalidate: 1 } })) || [];
     return slugs.map((slug) => ({ slug }));
   }
   return [];
@@ -76,7 +84,8 @@ export async function getAllPostsSlugs() {
 // Author
 export async function getAllAuthorsSlugs() {
   if (client) {
-    const slugs: string[] = (await client.fetch(authorsquery)) || [];
+    const slugs: string[] =
+      (await client.fetch(authorsquery, { next: { revalidate: 1 } })) || [];
     return slugs.map((slug) => ({ author: slug }));
   }
   return [];
@@ -84,14 +93,21 @@ export async function getAllAuthorsSlugs() {
 
 export async function getAuthorPostsBySlug(slug: string) {
   if (client) {
-    return (await client.fetch(postsbyauthorquery, { slug })) || {};
+    return (
+      (await client.fetch(postsbyauthorquery, {
+        slug,
+        next: { revalidate: 1 },
+      })) || {}
+    );
   }
   return {};
 }
 
 export async function getAllAuthors() {
   if (client) {
-    return (await client.fetch(allauthorsquery)) || [];
+    return (
+      (await client.fetch(allauthorsquery, { next: { revalidate: 1 } })) || []
+    );
   }
   return [];
 }
@@ -101,21 +117,26 @@ export async function getAllAuthors() {
 export async function getAllCategories() {
   if (client) {
     const slugs: string[] = (await client.fetch(catpathquery)) || [];
-    return slugs.map((slug) => ({ category: slug }));
+    return slugs.map((slug) => ({ category: slug, next: { revalidate: 1 } }));
   }
   return [];
 }
 
 export async function getPostsByCategory(slug: string) {
   if (client) {
-    return (await client.fetch(postsbycatquery, { slug })) || {};
+    return (
+      (await client.fetch(postsbycatquery, {
+        slug,
+        next: { revalidate: 1 },
+      })) || {}
+    );
   }
   return {};
 }
 
 export async function getTopCategories() {
   if (client) {
-    return (await client.fetch(catquery)) || [];
+    return (await client.fetch(catquery, { next: { revalidate: 1 } })) || [];
   }
   return [];
 }
@@ -126,6 +147,7 @@ export async function getPaginatedEvents(start: number, end: number) {
       (await client.fetch(eventsPaginatedQuery, {
         start: start,
         end: end,
+        next: { revalidate: 1 },
       })) || {}
     );
   }
@@ -138,6 +160,7 @@ export async function getPaginatedPosts(start: number, end: number) {
       (await client.fetch(paginatedquery, {
         start: start,
         end: end,
+        next: { revalidate: 1 },
       })) || {}
     );
   }
@@ -155,6 +178,7 @@ export async function getPaginatedCategoryPosts(
         categoryId: categoryId,
         start: start,
         end: end,
+        next: { revalidate: 1 },
       })) || {}
     );
   }
@@ -167,6 +191,7 @@ export async function getRecentFeaturedPosts(start: number, end: number) {
       (await client.fetch(limitFeaturedquery, {
         start: start,
         end: end,
+        next: { revalidate: 1 },
       })) || {}
     );
   }
@@ -179,6 +204,7 @@ export async function getRecentNonFeaturedPosts(start: number, end: number) {
       (await client.fetch(limitNonFeaturedquery, {
         start: start,
         end: end,
+        next: { revalidate: 1 },
       })) || {}
     );
   }

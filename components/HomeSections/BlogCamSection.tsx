@@ -6,32 +6,10 @@ import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import Link from "next/link";
 
-const PLACEHOLDER = [
-  {
-    title: "obssessed with the life that could've ",
-    author: "jane doe",
-    image: "/home.png",
-  },
-  {
-    title: "obssessed with the life that could've been",
-    author: "bob smith",
-    image: "/tester.png",
-  },
-  {
-    title: "obssessed with the life that could've been",
-    author: "tom brad",
-    image: "/venue.png",
-  },
-  {
-    title: "obssessed with the life that could've been",
-    author: "joe jackson",
-    image: "/vinyl.png",
-  },
-];
-
 export default async function BlogCamSection() {
   const featuredPosts = await getRecentFeaturedPosts(1, 5);
-  const nonFeaturedPosts = await getRecentNonFeaturedPosts(0, 3);
+  console.log(featuredPosts[0]);
+  // const nonFeaturedPosts = await getRecentNonFeaturedPosts(0, 3);
   return (
     <section>
       <div className="pb-8">
@@ -100,13 +78,13 @@ export default async function BlogCamSection() {
                   <p className="text-xl lg:text-2xl font-semibold max-w-sm mb-2">
                     {post.title}
                   </p>
-                  <p className="text-lg font-light">{post.author.name}</p>
+                  <p className="text-lg font-light">{post.authors[0].name}</p>
                 </div>
                 <div className="relative ml-auto h-[80%] aspect-square flex my-auto">
                   <Image
                     fill={true}
                     className="object-center object-cover rounded-2xl"
-                    src={urlForImage(post.mainImage) || ""}
+                    src={urlForImage(post.images[0]) || ""}
                     alt={"home"}
                   />
                 </div>

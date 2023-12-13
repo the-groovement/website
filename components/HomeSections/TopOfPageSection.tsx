@@ -8,6 +8,7 @@ import {
 
 export default async function TopOfPageSection() {
   const sanityData = await getRecentFeaturedPosts(0, 1);
+  console.log(sanityData);
   const featuredArticle = await getPaginatedCategoryPosts("venues", 0, 1);
   return (
     <section>
@@ -29,7 +30,7 @@ export default async function TopOfPageSection() {
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={urlForImage(sanityData[0].mainImage) || ""}
+              src={urlForImage(sanityData[0].images[0]) || ""}
               alt={"home"}
             />
             <div className="mt-auto max-w-sm relative">
