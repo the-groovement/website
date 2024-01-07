@@ -48,7 +48,7 @@ export default function EventList({ initialEvents }: EventListProps) {
     const formattedDate1 = date1.toLocaleString("en-US", options1);
     const formattedDate3 = date1.toLocaleString("en-US", options2);
 
-    return [formattedDate1, formattedDate3];
+    return `${formattedDate1} – ${formattedDate3}`;
   }
 
   useEffect(() => {
