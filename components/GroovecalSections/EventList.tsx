@@ -9,7 +9,6 @@ import ChevronLeftIcon from "../Icons/ChevronLeftIcon";
 import ChevronRightIcon from "../Icons/ChevronRightIcon";
 import SkeletonImg from "../SkeletonImg";
 import { urlForImage } from "@/lib/sanity/image";
-import { formatDateTime } from "@/app/groovecal/[id]/page";
 
 type EventListProps = {
   initialEvents: any;
@@ -26,6 +25,31 @@ export default function EventList({ initialEvents }: EventListProps) {
   const [isGridView, setIsGridView] = useState(true);
   const [events, setEvents] = useState(initialEvents);
   const EVENTS_PER_PAGE = 6;
+
+  function formatDateTime(dateString1: string) {
+    const date1 = new Date(dateString1);
+
+    const options1: Intl.DateTimeFormatOptions = {
+      weekday: "short",
+      hour: "numeric",
+      minute: "numeric",
+      timeZone: "America/New_York",
+      hour12: true,
+    };
+
+    const options2: Intl.DateTimeFormatOptions = {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      timeZone: "America/New_York",
+      hour12: true,
+    };
+
+    const formattedDate1 = date1.toLocaleString("en-US", options1);
+    const formattedDate3 = date1.toLocaleString("en-US", options2);
+
+    return [formattedDate1, formattedDate3];
+  }
 
   useEffect(() => {
     const getData = async () => {
@@ -140,11 +164,7 @@ export default function EventList({ initialEvents }: EventListProps) {
                       <p className="text-xl ">{event.lineup}</p>
                       <p className="font-light">{event.venue?.name}</p>
                       <p className="font-light">
-                        {`${
-                          formatDateTime(event.startTime, event.endTime)[1]
-                        } – ${
-                          formatDateTime(event.startTime, event.endTime)[0]
-                        }`}
+                        {formatDateTime(event.startTime)}
                       </p>
                     </div>
                   </div>
@@ -178,9 +198,7 @@ export default function EventList({ initialEvents }: EventListProps) {
                     <p className="text-xl">{event.lineup}</p>
                     <p className="font-light">{event.venue?.name}</p>
                     <p className="font-light">
-                      {`${
-                        formatDateTime(event.startTime, event.endTime)[1]
-                      } – ${formatDateTime(event.startTime, event.endTime)[0]}`}
+                      {formatDateTime(event.startTime)}
                     </p>
                   </div>
                 </div>

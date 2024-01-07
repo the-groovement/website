@@ -5,38 +5,6 @@ import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 
-export function formatDateTime(dateString1: string, dateString2: string) {
-  const date1 = new Date(dateString1);
-  const date2 = new Date(dateString2);
-
-  const options1: Intl.DateTimeFormatOptions = {
-    weekday: "short",
-    hour: "numeric",
-    minute: "numeric",
-    timeZone: "America/New_York",
-    hour12: true,
-  };
-
-  const options2: Intl.DateTimeFormatOptions = {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-    timeZone: "America/New_York",
-    hour12: true,
-  };
-
-  const formattedDate1 = date1.toLocaleString("en-US", options1);
-  const formattedDate2 = date2.toLocaleString("en-US", options1);
-
-  const formattedDate3 = date1.toLocaleString("en-US", options2);
-
-  const result1 = formattedDate3;
-  const result2 = formattedDate1;
-  const result3 = formattedDate2;
-
-  return [result1, result2, result3];
-}
-
 export default async function GroovecalEvent({
   params,
 }: {
@@ -45,7 +13,38 @@ export default async function GroovecalEvent({
   const EVENTS_PER_PAGE = 4;
   const recommendedEvents = await getPaginatedEvents(0, EVENTS_PER_PAGE + 1);
   const currentEvent = await getEventBySlug(params.id);
-  console.log(currentEvent);
+
+  function formatDateTime(dateString1: string, dateString2: string) {
+    const date1 = new Date(dateString1);
+    const date2 = new Date(dateString2);
+
+    const options1: Intl.DateTimeFormatOptions = {
+      weekday: "short",
+      hour: "numeric",
+      minute: "numeric",
+      timeZone: "America/New_York",
+      hour12: true,
+    };
+
+    const options2: Intl.DateTimeFormatOptions = {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      timeZone: "America/New_York",
+      hour12: true,
+    };
+
+    const formattedDate1 = date1.toLocaleString("en-US", options1);
+    const formattedDate2 = date2.toLocaleString("en-US", options1);
+
+    const formattedDate3 = date1.toLocaleString("en-US", options2);
+
+    const result1 = formattedDate3;
+    const result2 = formattedDate1;
+    const result3 = formattedDate2;
+
+    return [result1, result2, result3];
+  }
 
   const times = formatDateTime(currentEvent.startTime, currentEvent.endTime);
 
