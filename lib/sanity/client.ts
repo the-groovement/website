@@ -17,6 +17,7 @@ import {
   eventsPaginatedQuery,
   singleEventQuery,
   paginatedCategoryQuery,
+  singleVenueQuery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -54,13 +55,23 @@ export async function getAllPosts() {
 
 export async function getEventBySlug(slug: string) {
   if (client) {
-    return (
-      (await client.fetch(singleEventQuery, {
-        slug,
+    const event = await client.fetch(singleEventQuery, {
+      slug,
+      next: { revalidate: 1 },
+    });
+
+    if (event && event.venue && event.venue._ref) {
+      const venue = await client.fetch(singleVenueQuery, {
+        id: event.venue._ref,
         next: { revalidate: 1 },
-      })) || {}
-    );
+      });
+      const combinedData = { ...event, venue };
+      return combinedData;
+    }
+
+    return event || {};
   }
+
   return {};
 }
 
@@ -143,14 +154,36 @@ export async function getTopCategories() {
 
 export async function getPaginatedEvents(start: number, end: number) {
   if (client) {
-    return (
-      (await client.fetch(eventsPaginatedQuery, {
-        start: start,
-        end: end,
-        next: { revalidate: 1 },
-      })) || {}
-    );
+    const events = await client.fetch(eventsPaginatedQuery, {
+      start: start,
+      end: end,
+      next: { revalidate: 1 },
+    });
+
+    if (events && events.length > 0) {
+      // Fetch venues for each event
+      const eventsWithVenues = await Promise.all(
+        events.map(async (event: any) => {
+          if (event.venue && event.venue._ref) {
+            const venue = await client.fetch(singleVenueQuery, {
+              id: event.venue._ref,
+              next: { revalidate: 1 },
+            });
+
+            // Combine event and venue data
+            return { ...event, venue };
+          }
+
+          return event;
+        })
+      );
+
+      return eventsWithVenues;
+    }
+
+    return events || {};
   }
+
   return {};
 }
 

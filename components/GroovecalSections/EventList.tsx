@@ -1,16 +1,15 @@
 "use client";
 
-import { eventsPaginatedQuery } from "@/lib/sanity/groq";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
-import { fetcher } from "@/lib/sanity/client";
-import useSWR from "swr";
+import { getPaginatedEvents } from "@/lib/sanity/client";
 import { useEffect, useState } from "react";
 import ChevronLeftIcon from "../Icons/ChevronLeftIcon";
 import ChevronRightIcon from "../Icons/ChevronRightIcon";
 import SkeletonImg from "../SkeletonImg";
 import { urlForImage } from "@/lib/sanity/image";
+import { formatDateTime } from "@/app/groovecal/[id]/page";
 
 type EventListProps = {
   initialEvents: any;
@@ -20,32 +19,26 @@ export default function EventList({ initialEvents }: EventListProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = searchParams.get("page");
-  const category = searchParams.get("category");
   const pageIndex = page ? parseInt(page) : 1;
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isFirstPage, setIsFirstPage] = useState(false);
   const [isLastPage, setIsLastPage] = useState(false);
+  const [isGridView, setIsGridView] = useState(true);
+  const [events, setEvents] = useState(initialEvents);
   const EVENTS_PER_PAGE = 6;
-  const query = category ? eventsPaginatedQuery : eventsPaginatedQuery;
-  const paramsForQuery = category
-    ? {
-        start: (pageIndex - 1) * EVENTS_PER_PAGE,
-        end: pageIndex * EVENTS_PER_PAGE,
-      }
-    : {
-        start: (pageIndex - 1) * EVENTS_PER_PAGE,
-        end: pageIndex * EVENTS_PER_PAGE,
-      };
-  const {
-    data: events,
-    error,
-    isValidating,
-  } = useSWR([query, paramsForQuery], fetcher, {
-    fallbackData: initialEvents,
-    onSuccess: () => {
+
+  useEffect(() => {
+    const getData = async () => {
+      setIsLoading(true);
+      const events = await getPaginatedEvents(
+        (pageIndex - 1) * EVENTS_PER_PAGE,
+        pageIndex * EVENTS_PER_PAGE
+      );
+      setEvents(events);
       setIsLoading(false);
-    },
-  });
+    };
+    getData();
+  }, [pageIndex]);
 
   useEffect(() => {
     setIsFirstPage(pageIndex < 2);
@@ -73,18 +66,46 @@ export default function EventList({ initialEvents }: EventListProps) {
     return date.toLocaleDateString(undefined, options);
   };
   let previousStartTime = "";
+
+  const handleGridViewChange = () => {
+    setIsGridView(!isGridView);
+  };
+
+  // const mappedEvents = events?.map((event: any) => {
+  //   const matchingVenue = venues?.find(
+  //     (venue: any) => venue._id === event.venue._ref
+  //   );
+  //   return { ...event, venueData: matchingVenue };
+  // });
+
+  // console.log(mappedEvents);
+
   return (
     <section>
+      <div className="mb-4 flex flex-row font-semibold gap-[6px]">
+        Grid View
+        <input
+          type="checkbox"
+          checked={isGridView}
+          onChange={handleGridViewChange}
+        />
+      </div>
       <div className="mb-12">
-        <div className="w-full flex flex-col">
-          {events && !isLoading && !isValidating ? (
+        <div
+          className={
+            !isGridView
+              ? "w-full flex flex-col"
+              : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+          }
+        >
+          {events && !isLoading ? (
             events.map((event: any, index: number) => {
               const currentStartTime = formatDate(event.startTime);
               const showTime = previousStartTime !== currentStartTime;
 
               // Update the previousStartTime for comparison in the next iteration
               previousStartTime = currentStartTime;
-              return (
+              return !isGridView ? (
                 <>
                   {showTime && (
                     <p className="uppercase text-3xl mb-8">
@@ -105,7 +126,7 @@ export default function EventList({ initialEvents }: EventListProps) {
                         <Image
                           fill={true}
                           className="object-center object-cover rounded-2xl"
-                          src={urlForImage(event.eventImage) || ""}
+                          src={urlForImage(event.venue?.images[0]) || ""}
                           alt={"home"}
                         />
                       </Link>
@@ -117,10 +138,52 @@ export default function EventList({ initialEvents }: EventListProps) {
                         </p>
                       </Link>
                       <p className="text-xl ">{event.lineup}</p>
-                      <p className="font-light">{event.venueName}</p>
+                      <p className="font-light">{event.venue?.name}</p>
+                      <p className="font-light">
+                        {`${
+                          formatDateTime(event.startTime, event.endTime)[1]
+                        } – ${
+                          formatDateTime(event.startTime, event.endTime)[0]
+                        }`}
+                      </p>
                     </div>
                   </div>
                 </>
+              ) : (
+                <div
+                  className="h-full flex flex-col mb-8 col-span-1"
+                  key={index}
+                >
+                  <div
+                    className="relative w-full"
+                    style={{
+                      aspectRatio: 256 / 160,
+                    }}
+                  >
+                    <Link href={`/groovecal/${event.slug.current}`}>
+                      <Image
+                        fill={true}
+                        className="object-center object-cover rounded-2xl"
+                        src={urlForImage(event.venue?.images[0]) || ""}
+                        alt={"home"}
+                      />
+                    </Link>
+                  </div>
+                  <div className="flex flex-col gap-3 mt-4">
+                    <Link href={`/groovecal/${event.slug.current}`}>
+                      <p className="text-2xl font-semibold">
+                        {event.eventName}
+                      </p>
+                    </Link>
+                    <p className="text-xl">{event.lineup}</p>
+                    <p className="font-light">{event.venue?.name}</p>
+                    <p className="font-light">
+                      {`${
+                        formatDateTime(event.startTime, event.endTime)[1]
+                      } – ${formatDateTime(event.startTime, event.endTime)[0]}`}
+                    </p>
+                  </div>
+                </div>
               );
             })
           ) : (

@@ -5,6 +5,38 @@ import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 
+export function formatDateTime(dateString1: string, dateString2: string) {
+  const date1 = new Date(dateString1);
+  const date2 = new Date(dateString2);
+
+  const options1: Intl.DateTimeFormatOptions = {
+    weekday: "short",
+    hour: "numeric",
+    minute: "numeric",
+    timeZone: "America/New_York",
+    hour12: true,
+  };
+
+  const options2: Intl.DateTimeFormatOptions = {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "America/New_York",
+    hour12: true,
+  };
+
+  const formattedDate1 = date1.toLocaleString("en-US", options1);
+  const formattedDate2 = date2.toLocaleString("en-US", options1);
+
+  const formattedDate3 = date1.toLocaleString("en-US", options2);
+
+  const result1 = formattedDate3;
+  const result2 = formattedDate1;
+  const result3 = formattedDate2;
+
+  return [result1, result2, result3];
+}
+
 export default async function GroovecalEvent({
   params,
 }: {
@@ -13,35 +45,8 @@ export default async function GroovecalEvent({
   const EVENTS_PER_PAGE = 4;
   const recommendedEvents = await getPaginatedEvents(0, EVENTS_PER_PAGE + 1);
   const currentEvent = await getEventBySlug(params.id);
+  console.log(currentEvent);
 
-  function formatDateTime(dateString1: string, dateString2: string) {
-    const date1 = new Date(dateString1);
-    const date2 = new Date(dateString2);
-
-    const options1: Intl.DateTimeFormatOptions = {
-      weekday: "short",
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "America/New_York",
-    };
-
-    const options2: Intl.DateTimeFormatOptions = {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-      timeZone: "America/New_York",
-    };
-
-    const formattedDate1 = date1.toLocaleString("en-US", options1);
-    const formattedDate2 = date2.toLocaleString("en-US", options1);
-
-    const formattedDate3 = date1.toLocaleString("en-US", options2);
-
-    const result1 = formattedDate3;
-    const result2 = `${formattedDate1} - ${formattedDate2}`;
-
-    return [result1, result2];
-  }
   const times = formatDateTime(currentEvent.startTime, currentEvent.endTime);
 
   //Calendar button times
@@ -76,16 +81,16 @@ export default async function GroovecalEvent({
           <div className="flex flex-col flex-1 mr-16">
             <p className="mb-4">Venue</p>
             <p className="text-lg md:text-3xl mb-2 font-semibold underline">
-              {currentEvent.eventName}
+              {currentEvent.venue.name}
             </p>
-            <p className="text-sm md:text-lg">{currentEvent.venueAddress}</p>
+            <p className="text-sm md:text-lg">{currentEvent.venue.address}</p>
           </div>
           <div className="flex flex-col flex-1">
             <p className="mb-4">Date</p>
             <p className="text-lg md:text-3xl mb-2 font-semibold underline">
               {times[0]}
             </p>
-            <p className="text-sm md:text-lg">{times[1]}</p>
+            <p className="text-sm md:text-lg">{`${times[1]} - ${times[2]}`}</p>
           </div>
           {currentEvent.promoter && (
             <div className="flex flex-col flex-1 max-md:hidden">
@@ -140,7 +145,7 @@ export default async function GroovecalEvent({
               />
             </div>
             <Image
-              src={urlForImage(currentEvent.eventImage) || ""}
+              src={urlForImage(currentEvent.venue.images[0]) || ""}
               className="object-contain rounded-2xl mb-auto max-md:mx-auto"
               alt="poster"
               width={450}
@@ -164,7 +169,7 @@ export default async function GroovecalEvent({
                       <Image
                         fill={true}
                         className="object-center object-cover rounded-2xl"
-                        src={urlForImage(event.eventImage) || ""}
+                        src={urlForImage(event.venue.images[0]) || ""}
                         alt={"home"}
                       />
                     </Link>
