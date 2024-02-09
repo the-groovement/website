@@ -41,6 +41,7 @@ export default async function BlogCamSection() {
               className="object-center object-cover rounded-2xl"
               src={"/venue.png"}
               alt={"venue"}
+              sizes="100%"
             />
             <div className="mt-auto relative">
               <div className="bg-white py-4 px-6 font-semibold rounded-2xl whitespace-nowrap">
@@ -86,6 +87,7 @@ export default async function BlogCamSection() {
                     className="object-center object-cover rounded-2xl"
                     src={urlForImage(post.images[0]) || ""}
                     alt={"home"}
+                    sizes="100%"
                   />
                 </div>
               </Link>
@@ -93,7 +95,7 @@ export default async function BlogCamSection() {
           </div>
         </div>
         <div className="flex flex-col mt-8 gap-8">
-          <p className="text-3xl font-semibold">more from the grooveguide</p>
+          <p className="text-3xl font-semibold">about the groovement</p>
           <div className="w-full md:h-full flex flex-col md:flex-row gap-8">
             <Link
               href={`/groovecode`}
@@ -105,6 +107,7 @@ export default async function BlogCamSection() {
                   className="object-center object-cover rounded-2xl"
                   src={"/vinyl.png"}
                   alt={"home"}
+                  sizes="100%"
                 />
               </div>
               <div className="max-md:ml-6 w-3/4">
@@ -121,6 +124,7 @@ export default async function BlogCamSection() {
                   className="object-center object-cover rounded-2xl"
                   src={"/vinyl.png"}
                   alt={"home"}
+                  sizes="100%"
                 />
               </div>
               <div className="max-md:ml-6 w-3/4">
@@ -137,6 +141,7 @@ export default async function BlogCamSection() {
                   className="object-center object-cover rounded-2xl"
                   src={"/vinyl.png"}
                   alt={"home"}
+                  sizes="100%"
                 />
               </div>
               <div className="max-md:ml-6 w-3/4">

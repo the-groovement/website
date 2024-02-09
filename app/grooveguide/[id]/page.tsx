@@ -98,6 +98,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                   className="object-center object-cover rounded-2xl"
                   src={urlForImage(currentPost.images[0]) || ""}
                   alt={"home"}
+                  sizes="100%"
                 />
               </div>
               <div className="flex flex-col gap-2 lg:hidden mb-8">
@@ -136,6 +137,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                           className="object-center object-cover rounded-2xl"
                           src={urlForImage(post.images[0]) || ""}
                           alt={"home"}
+                          sizes="100%"
                         />
                       </Link>
                     </div>

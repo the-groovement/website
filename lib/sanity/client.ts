@@ -18,6 +18,9 @@ import {
   singleEventQuery,
   paginatedCategoryQuery,
   singleVenueQuery,
+  eventsSearchQuery,
+  eventsQuery,
+  eventsSearchQueryNoEndTime,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -150,6 +153,85 @@ export async function getTopCategories() {
     return (await client.fetch(catquery, { next: { revalidate: 1 } })) || [];
   }
   return [];
+}
+
+export async function searchEvents(
+  searchInput: string,
+  startTime: string,
+  endTime: string
+) {
+  const currentTime = new Date().toISOString();
+  const futureDate = new Date("9999-12-31T23:59:59").toISOString();
+
+  if (client) {
+    const events = !endTime
+      ? await client.fetch(eventsSearchQueryNoEndTime, {
+          searchInput: `*${searchInput}*`,
+          startTime: startTime ? startTime : currentTime,
+        })
+      : await client.fetch(eventsSearchQuery, {
+          searchInput: `*${searchInput}*`,
+          startTime: startTime ? startTime : currentTime,
+          endTime: endTime,
+        });
+
+    if (events && events.length > 0) {
+      // Fetch venues for each event
+      const eventsWithVenues = await Promise.all(
+        events.map(async (event: any) => {
+          if (event.venue && event.venue._ref) {
+            const venue = await client.fetch(singleVenueQuery, {
+              id: event.venue._ref,
+            });
+
+            // Combine event and venue data
+            return { ...event, venue };
+          }
+
+          return event;
+        })
+      );
+
+      return eventsWithVenues;
+    }
+
+    return events || [];
+  }
+
+  return [];
+}
+
+export async function getEvents() {
+  if (client) {
+    const events = await client.fetch(eventsQuery, {
+      next: { revalidate: 1 },
+    });
+
+    if (events && events.length > 0) {
+      // Fetch venues for each event
+      const eventsWithVenues = await Promise.all(
+        events.map(async (event: any) => {
+          if (event.venue && event.venue._ref) {
+            const venue = await client.fetch(singleVenueQuery, {
+              id: event.venue._ref,
+              next: { revalidate: 1 },
+            });
+
+            // Combine event and venue data
+            return { ...event, venue };
+          }
+
+          return event;
+        })
+      );
+
+      return eventsWithVenues;
+    }
+
+    return events || {};
+  }
+
+  return {};
 }
 
 export async function getPaginatedEvents(start: number, end: number) {

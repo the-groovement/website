@@ -45,7 +45,6 @@ export default async function GroovecalEvent({
 
     return [result1, result2, result3];
   }
-
   const times = formatDateTime(currentEvent.startTime, currentEvent.endTime);
 
   //Calendar button times
@@ -72,9 +71,20 @@ export default async function GroovecalEvent({
       <div className="flex flex-col mt-12">
         <div className="flex flex-col">
           <p className="mb-4">New York • groovecal</p>
-          <p className="text-4xl md:text-5xl lg:text-6xl mb-8 font-bold">
+          <p
+            className={
+              currentEvent.lineup
+                ? "text-4xl md:text-5xl lg:text-6xl mb-2 font-bold"
+                : "text-4xl md:text-5xl lg:text-6xl mb-8 font-bold"
+            }
+          >
             {currentEvent.eventName}
           </p>
+          {currentEvent.lineup && (
+            <p className="text-2xl md:text-3xl lg:text-4xl mb-8 font-bold">
+              LINEUP: {currentEvent.lineup}
+            </p>
+          )}
         </div>
         <div className="flex flex-row justify-between mb-8 md:mb-12">
           <div className="flex flex-col flex-1 mr-16">
@@ -82,7 +92,17 @@ export default async function GroovecalEvent({
             <p className="text-lg md:text-3xl mb-2 font-semibold underline">
               {currentEvent.venue.name}
             </p>
-            <p className="text-sm md:text-lg">{currentEvent.venue.address}</p>
+            {currentEvent.venue.googlemaps ? (
+              <a
+                href={currentEvent.venue.googlemaps}
+                target="_blank"
+                className="text-sm md:text-lg hover:text-blue-400 underline"
+              >
+                {currentEvent.venue.address}
+              </a>
+            ) : (
+              <p className="text-sm md:text-lg">{currentEvent.venue.address}</p>
+            )}
           </div>
           <div className="flex flex-col flex-1">
             <p className="mb-4">Date</p>
@@ -122,16 +142,7 @@ export default async function GroovecalEvent({
           />
         </div>
 
-        <div>
-          <div className="flex flex-row justify-between md:text-4xl mb-8 items-center">
-            <p className="text-3xl md:text-4xl font-bold">LINEUP</p>
-          </div>
-          <div className="mb-8 md:mb-12">
-            <p className="text-3xl md:text-4xl font-bold">
-              {currentEvent.lineup}
-            </p>
-          </div>
-
+        {/* <div>
           <div className="flex flex-col md:flex-row h-full mb-12">
             <div className="flex-1 md:mr-16 max-md:mb-12">
               <PortableText value={currentEvent.body} />
@@ -151,7 +162,7 @@ export default async function GroovecalEvent({
               height={450}
             />
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col mb-12 gap-8">
           <p className="text-2xl font-semibold">recommended shows</p>
           <div className="w-full md:h-full flex flex-col md:flex-row gap-4">
@@ -170,6 +181,7 @@ export default async function GroovecalEvent({
                         className="object-center object-cover rounded-2xl"
                         src={urlForImage(event.venue.images[0]) || ""}
                         alt={"home"}
+                        sizes="100%"
                       />
                     </Link>
                   </div>

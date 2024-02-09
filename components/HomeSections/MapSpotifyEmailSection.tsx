@@ -15,6 +15,7 @@ export default function MapSpotifyEmailSection() {
               className="object-center object-cover rounded-2xl"
               src={"/tester.png"}
               alt={"test"}
+              sizes="100%"
             />
             <div className="mt-auto relative">
               <button className="text-xl font-semibold bg-white py-4 px-6 rounded-2xl">

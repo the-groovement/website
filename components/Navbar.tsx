@@ -51,6 +51,7 @@ export default function Navbar() {
                 className="object-center object-cover transition-transform hover:scale-95 hover:translate-y-1"
                 src="/logo.png"
                 alt="logo"
+                sizes="100%"
               />
             </div>
           </Link>

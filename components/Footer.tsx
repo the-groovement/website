@@ -59,6 +59,7 @@ export default function Footer() {
                 className="object-center object-cover"
                 src="/logo.png"
                 alt="logo"
+                sizes="100%"
               />
             </div>
             <div className="gap-8 flex flex-row">

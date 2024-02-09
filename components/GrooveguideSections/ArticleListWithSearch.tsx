@@ -141,6 +141,7 @@ export default function ArticleListWithSearch({
                   className="object-center object-cover rounded-2xl"
                   src={urlForImage(post.images[0]) || ""}
                   alt={"home"}
+                  sizes="100%"
                 />
               </Link>
               <div className="max-md:ml-6 flex flex-col gap-2">

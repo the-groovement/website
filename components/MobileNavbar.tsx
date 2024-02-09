@@ -151,6 +151,7 @@ export default function MobileNavbar() {
                   className="object-center object-cover"
                   src="/logo.png"
                   alt="logo"
+                  sizes="100%"
                 />
               </Link>
             </div>
@@ -183,6 +184,7 @@ export default function MobileNavbar() {
                   className="object-center object-cover"
                   src="/logo.png"
                   alt="logo"
+                  sizes="100%"
                 />
               </div>
               <CloseIcon />

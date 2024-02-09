@@ -32,6 +32,7 @@ export default async function TopOfPageSection() {
               className="object-center object-cover rounded-2xl"
               src={urlForImage(sanityData[0].images[0]) || ""}
               alt={"home"}
+              sizes="100%"
             />
             <div className="mt-auto max-w-sm relative">
               <p className="bg-white p-4 text-2xl md:text-4xl rounded-2xl font-semi">
@@ -69,6 +70,7 @@ export default async function TopOfPageSection() {
                 className="object-center object-cover rounded-2xl"
                 src={"/venue.png"}
                 alt={"venue"}
+                sizes="100%"
               />
               <div className="mt-auto relative">
                 <div className="bg-white py-4 px-6 font-semibold rounded-2xl whitespace-nowrap">
