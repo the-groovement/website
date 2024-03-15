@@ -141,28 +141,6 @@ export default async function GroovecalEvent({
             endTime={formattedEndTime}
           />
         </div>
-
-        {/* <div>
-          <div className="flex flex-col md:flex-row h-full mb-12">
-            <div className="flex-1 md:mr-16 max-md:mb-12">
-              <PortableText value={currentEvent.body} />
-              <Image
-                className="mt-4"
-                width={50}
-                height={50}
-                src="/groovestamp.png"
-                alt="logo"
-              />
-            </div>
-            <Image
-              src={urlForImage(currentEvent.venue.images[0]) || ""}
-              className="object-contain rounded-2xl mb-auto max-md:mx-auto"
-              alt="poster"
-              width={450}
-              height={450}
-            />
-          </div>
-        </div> */}
         <div className="flex flex-col mb-12 gap-8">
           <p className="text-2xl font-semibold">recommended shows</p>
           <div className="w-full md:h-full flex flex-col md:flex-row gap-4">
@@ -180,7 +158,7 @@ export default async function GroovecalEvent({
                         fill={true}
                         className="object-center object-cover rounded-2xl"
                         src={urlForImage(event.venue.images[0]) || ""}
-                        alt={"home"}
+                        alt={event.venue?.alt || "Image of venue"}
                         sizes="100%"
                       />
                     </Link>
