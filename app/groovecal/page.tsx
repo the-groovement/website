@@ -15,6 +15,7 @@ export default function Groovecal() {
   const debouncedSearchText = useDebounce(searchText, 300);
   const [startTime, setStartTime] = useState(new Date().toISOString());
   const [endTime, setEndTime] = useState("");
+
   useEffect(() => {
     const getInitialEvents = async () => {
       setEvents(await getEvents());
