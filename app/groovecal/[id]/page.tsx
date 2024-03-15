@@ -1,7 +1,6 @@
 import CalendarButton from "@/components/CalendarButton";
 import { getEventBySlug, getPaginatedEvents } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
-import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 

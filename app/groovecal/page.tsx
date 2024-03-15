@@ -99,9 +99,9 @@ export default function Groovecal() {
                 onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
-            <div className="h-1/2 flex flex-row py-3 border-t text-sm">
+            <div className="h-1/2 flex flex-row py-3 border-t text-sm w-full gap-3">
               <input
-                className="px-3 py-3 text-gray-500 w-full rounded-tr-3xl focus:outline-none"
+                className="px-3 py-3 text-gray-500 w-full focus:outline-none bg-transparent"
                 type="date"
                 onKeyDown={(event) => {
                   event.preventDefault();
@@ -109,7 +109,7 @@ export default function Groovecal() {
                 onChange={(e) => setStartTime(e.target.value)}
               />
               <input
-                className="px-3 border-l py-3 text-gray-500 w-full rounded-tr-3xl focus:outline-none"
+                className="px-3 border-l py-3 text-gray-500 w-full focus:outline-none bg-transparent"
                 type="date"
                 onKeyDown={(event) => {
                   event.preventDefault();

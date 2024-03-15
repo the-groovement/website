@@ -24,7 +24,7 @@ export default function EventList({
   events,
   isSearchLoading,
 }: EventListProps) {
-  const [isGridView, setIsGridView] = useState(true);
+  const [isGridView, setIsGridView] = useState(false);
 
   function formatDateTime(dateString1: string, dateString2: string) {
     const date1 = new Date(dateString1);
@@ -79,22 +79,22 @@ export default function EventList({
         <button
           className={
             isGridView
-              ? "bg-slate-200 border-t-blue-500 border-t-[3px] py-2 px-3 border"
-              : "bg-white py-2 px-3 border hover:opacity-80"
-          }
-          onClick={() => setIsGridView(true)}
-        >
-          Grid View
-        </button>
-        <button
-          className={
-            isGridView
               ? "bg-white py-2 px-3 border hover:opacity-80"
               : "bg-slate-200 border-t-blue-500 border-t-[3px] py-2 px-3 border"
           }
           onClick={() => setIsGridView(false)}
         >
           List View
+        </button>
+        <button
+          className={
+            isGridView
+              ? "bg-slate-200 border-t-blue-500 border-t-[3px] py-2 px-3 border"
+              : "bg-white py-2 px-3 border hover:opacity-80"
+          }
+          onClick={() => setIsGridView(true)}
+        >
+          Grid View
         </button>
       </div>
       <div className="mb-12">
