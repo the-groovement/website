@@ -1,4 +1,11 @@
+import { getGroovefam } from "@/lib/sanity/client";
+import { urlForImage } from "@/lib/sanity/image";
+import { PortableText } from "@portabletext/react";
+import Image from "next/image";
+
 export default async function Groovefam() {
+  const groovefam = await getGroovefam();
+  console.log(groovefam);
   return (
     <div>
       <section>
@@ -13,10 +20,25 @@ export default async function Groovefam() {
             meet our writers and photographers
           </p>
         </div>
-        <div className="flex flex-col">
-          <div>Iman Adami</div>
-          <div>Writer</div>
-          <div></div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+          {groovefam.map((member: any) => (
+            <div
+              key={member._id}
+              className="bg-gray-100 p-4 rounded-lg shadow-md"
+            >
+              <div className="relative h-[300px] w-[300px] mx-auto mb-4">
+                <Image
+                  fill={true}
+                  className="object-center object-cover rounded-lg"
+                  src={urlForImage(member.image) || ""}
+                  alt="logo"
+                  sizes="100%"
+                />
+              </div>
+              <div className="text-lg mb-4">{member.name}</div>
+              <PortableText value={member.bio} />
+            </div>
+          ))}
         </div>
       </section>
     </div>

@@ -82,7 +82,7 @@ export default function ArticleListWithSearch({
   return (
     <section>
       <div className="flex md:flex-row flex-col justify-between md:items-center mb-8">
-        <div className="flex flex-row gap-8 border-b py-2 border-slate-500 w-full max-md:mb-4 max-md:justify-between px-1">
+        <div className="flex flex-row gap-8 border-b py-2 border-slate-500 w-full max-md:mb-4 px-1 flex-wrap">
           <button
             className={`font-semibold max-sm:text-xs ${
               category === null ? "text-purple-700" : "text-slate-500"
@@ -124,6 +124,14 @@ export default function ArticleListWithSearch({
             }
           >
             groovemail
+          </button>
+          <button
+            className={`font-semibold max-sm:text-xs ${
+              category === "more" ? "text-purple-700" : "text-slate-500"
+            }`}
+            onClick={() => router.push("/grooveguide?page=1&category=more")}
+          >
+            more
           </button>
         </div>
       </div>

@@ -22,6 +22,8 @@ import {
   eventsQuery,
   eventsSearchQueryNoEndTime,
   singleVenueQueryBySlug,
+  allgroovefamauthors,
+  allgroovefamphotographers,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -94,7 +96,11 @@ export async function getVenueBySlug(slug: string) {
 export async function getPostBySlug(slug: string) {
   if (client) {
     return (
-      (await client.fetch(singlequery, { slug, next: { revalidate: 1 } })) || {}
+      (await client.fetch(singlequery, {
+        slug,
+        next: { revalidate: 1 },
+        cache: "no-store",
+      })) || {}
     );
   }
   return {};
@@ -116,6 +122,37 @@ export async function getAllAuthorsSlugs() {
     return slugs.map((slug) => ({ author: slug }));
   }
   return [];
+}
+
+// Author
+export async function getGroovefam() {
+  let groovefamAuthors = [];
+  let groovefamPhotographers = [];
+
+  if (client) {
+    groovefamAuthors = await client.fetch(allgroovefamauthors, {
+      next: { revalidate: 1 },
+    });
+    groovefamPhotographers = await client.fetch(allgroovefamphotographers, {
+      next: { revalidate: 1 },
+    });
+  }
+
+  // Add role field to groovefamAuthors and groovefamPhotographers
+  const groovefamAuthorsWithRole = groovefamAuthors.map((author: any) => ({
+    ...author,
+    role: "Author",
+  }));
+  const groovefamPhotographersWithRole = groovefamPhotographers.map(
+    (photographer: any) => ({ ...photographer, role: "Photographer" })
+  );
+
+  // Concatenate both arrays
+  const groovefam = groovefamAuthorsWithRole.concat(
+    groovefamPhotographersWithRole
+  );
+
+  return groovefam;
 }
 
 export async function getAuthorPostsBySlug(slug: string) {

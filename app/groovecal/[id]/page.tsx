@@ -90,7 +90,7 @@ export default async function GroovecalEvent({
             <div className="mb-4">Venue</div>
             <Link
               href={`/venue/${currentEvent.venue.slug.current}`}
-              className="text-lg md:text-3xl mb-2 font-semibold underline"
+              className="text-lg md:text-3xl mb-2 font-semibold hover:text-blue-400 underline"
             >
               {currentEvent.venue.name}
             </Link>
