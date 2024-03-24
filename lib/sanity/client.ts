@@ -21,6 +21,7 @@ import {
   eventsSearchQuery,
   eventsQuery,
   eventsSearchQueryNoEndTime,
+  singleVenueQueryBySlug,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -75,6 +76,18 @@ export async function getEventBySlug(slug: string) {
     return event || {};
   }
 
+  return {};
+}
+
+export async function getVenueBySlug(slug: string) {
+  if (client) {
+    return (
+      (await client.fetch(singleVenueQueryBySlug, {
+        slug,
+        next: { revalidate: 1 },
+      })) || {}
+    );
+  }
   return {};
 }
 

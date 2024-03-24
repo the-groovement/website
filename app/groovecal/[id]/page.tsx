@@ -87,10 +87,13 @@ export default async function GroovecalEvent({
         </div>
         <div className="flex flex-row justify-between mb-8 md:mb-12">
           <div className="flex flex-col flex-1 mr-16">
-            <p className="mb-4">Venue</p>
-            <p className="text-lg md:text-3xl mb-2 font-semibold underline">
+            <div className="mb-4">Venue</div>
+            <Link
+              href={`/venue/${currentEvent.venue.slug.current}`}
+              className="text-lg md:text-3xl mb-2 font-semibold underline"
+            >
               {currentEvent.venue.name}
-            </p>
+            </Link>
             {currentEvent.venue.googlemaps ? (
               <a
                 href={currentEvent.venue.googlemaps}

@@ -6,30 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
 
-const PLACEHOLDER = [
-  {
-    title:
-      "This is the title of the article lakjsdfl kasj dlfkjaja sdlkfjas ldkjfalskj",
-    image: "/home.png",
-    link: "/grooveguide/1",
-  },
-  {
-    title: "Thsijdlfkajs dlfkjasl kdfjalskjdfalksjd flkajsd",
-    image: "/tester.png",
-    link: "/grooveguide/2",
-  },
-  {
-    title: "Mister Sunday",
-    image: "/venue.png",
-    link: "/grooveguide/3",
-  },
-  {
-    title: "Resolute All Night Long",
-    image: "/vinyl.png",
-    link: "/grooveguide/4",
-  },
-];
-
 export default async function Article({ params }: { params: { id: string } }) {
   const POSTS_PER_PAGE = 4;
   const recommendedPosts = await getPaginatedPosts(0, POSTS_PER_PAGE + 1);
@@ -43,6 +19,7 @@ export default async function Article({ params }: { params: { id: string } }) {
     };
     return date.toLocaleDateString(undefined, options);
   };
+  console.log(currentPost.body);
   return (
     <section>
       <div>
@@ -80,12 +57,6 @@ export default async function Article({ params }: { params: { id: string } }) {
             )}
           </div>
           <div className="flex flex-row mt-8 border-b border-black">
-            <div className="flex flex-col gap-4 mr-8 max-lg:hidden">
-              <p className="font-semibold">share</p>
-              <InstagramIcon color="black" />
-              <InstagramIcon color="black" />
-              <InstagramIcon color="black" />
-            </div>
             <div className="flex flex-col lg:w-1/2 mb-8 max-lg:w-full">
               <div
                 className="flex text-lg rounded-2xl relative mb-4 lg:mb-8"
@@ -100,14 +71,6 @@ export default async function Article({ params }: { params: { id: string } }) {
                   alt={"home"}
                   sizes="100%"
                 />
-              </div>
-              <div className="flex flex-col gap-2 lg:hidden mb-8">
-                <p className="font-semibold">share</p>
-                <div className="flex flex-row gap-4">
-                  <InstagramIcon color="black" />
-                  <InstagramIcon color="black" />
-                  <InstagramIcon color="black" />
-                </div>
               </div>
               <PortableText value={currentPost.body} />
               <Image

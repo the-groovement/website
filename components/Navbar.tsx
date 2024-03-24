@@ -5,6 +5,7 @@ import CalendarIcon from "./Icons/CalendarIcon";
 import SearchIcon from "./Icons/SearchIcon";
 import LocationIcon from "./Icons/LocationIcon";
 import MusicIcon from "./Icons/MusicIcon";
+import { BookOpenText } from "lucide-react";
 
 const NAV_ITEMS = [
   {
@@ -31,7 +32,7 @@ export default function Navbar() {
       case "groovecal":
         return <CalendarIcon />;
       case "grooveguide":
-        return <SearchIcon />;
+        return <BookOpenText size={24} className="text-white" />;
       case "groovemap":
         return <LocationIcon />;
       case "about":

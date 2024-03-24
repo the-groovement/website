@@ -26,7 +26,7 @@ export default function ArticleListWithSearch({
   const page = searchParams.get("page");
   const category = searchParams.get("category");
   const pageIndex = page ? parseInt(page) : 1;
-  const POSTS_PER_PAGE = 6;
+  const POSTS_PER_PAGE = 9;
 
   const [isLoading, setIsLoading] = useState(false);
   const [isFirstPage, setIsFirstPage] = useState(false);

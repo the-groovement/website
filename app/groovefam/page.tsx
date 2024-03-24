@@ -1,10 +1,4 @@
-import ArticleListWithSearch from "@/components/GrooveguideSections/ArticleListWithSearch";
-import LandingArticle from "@/components/GrooveguideSections/LandingArticle";
-import { getPaginatedPosts } from "@/lib/sanity/client";
-
 export default async function Groovefam() {
-  const POSTS_PER_PAGE = 6;
-  const posts = await getPaginatedPosts(0, POSTS_PER_PAGE);
   return (
     <div>
       <section>
@@ -18,6 +12,11 @@ export default async function Groovefam() {
           <p className="text-2xl sm:text-3xl">
             meet our writers and photographers
           </p>
+        </div>
+        <div className="flex flex-col">
+          <div>Iman Adami</div>
+          <div>Writer</div>
+          <div></div>
         </div>
       </section>
     </div>
