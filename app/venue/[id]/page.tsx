@@ -40,9 +40,10 @@ export default async function GroovecalVenue({
             />
           </div>
         </div>
+        <div className="mb-8">{venue.intro}</div>
         <div className="flex flex-col mb-8 gap-2">
-          <p className="text-2xl font-semibold">intro</p>
-          <div>This is an intro</div>
+          <p className="text-2xl font-semibold">history</p>
+          <div>{venue.history}</div>
         </div>
         <div className="flex flex-col mb-8 gap-2">
           <p className="text-2xl font-semibold">on-site info</p>

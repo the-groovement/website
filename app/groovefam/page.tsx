@@ -5,7 +5,6 @@ import Image from "next/image";
 
 export default async function Groovefam() {
   const groovefam = await getGroovefam();
-  console.log(groovefam);
   return (
     <div>
       <section>
