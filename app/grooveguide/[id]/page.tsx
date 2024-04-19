@@ -94,8 +94,12 @@ export default async function Article({ params }: { params: { id: string } }) {
                     )
                   )}
                 </CarouselContent>
-                <CarouselPrevious />
-                <CarouselNext />
+                {currentPost.images.length > 2 && (
+                  <>
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </>
+                )}
               </Carousel>
               <PortableText value={currentPost.body} />
               <Image
