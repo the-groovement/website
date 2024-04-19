@@ -5,6 +5,13 @@ import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@/lib/sanity/plugins/portabletext";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/Carousel";
 
 export default async function Article({ params }: { params: { id: string } }) {
   const POSTS_PER_PAGE = 4;
@@ -19,7 +26,7 @@ export default async function Article({ params }: { params: { id: string } }) {
     };
     return date.toLocaleDateString(undefined, options);
   };
-  console.log(currentPost.body);
+
   return (
     <section>
       <div>
@@ -36,7 +43,7 @@ export default async function Article({ params }: { params: { id: string } }) {
               {currentPost.title}
             </p>
           )}
-          <div className="flex flex-row gap-16 mt-8 border-b border-black pb-4">
+          <div className="flex flex-row flex-wrap gap-8 sm:gap-16 mt-8 border-b border-black pb-4">
             <div className="flex flex-col gap-1">
               <p className="font-semibold">published</p>
               <p>{formatDate(currentPost.publishedAt)}</p>
@@ -45,6 +52,12 @@ export default async function Article({ params }: { params: { id: string } }) {
               <p className="font-semibold">author</p>
               <p>{currentPost.authors[0].name}</p>
             </div>
+            {currentPost.photographers[0].name && (
+              <div className="flex flex-col gap-1">
+                <p className="font-semibold">photographer</p>
+                <p>{currentPost.photographers[0].name}</p>
+              </div>
+            )}
             {currentPost.categories && (
               <div className="flex flex-col gap-1">
                 <p className="font-semibold">category</p>
@@ -57,21 +70,33 @@ export default async function Article({ params }: { params: { id: string } }) {
             )}
           </div>
           <div className="flex flex-row mt-8 border-b border-black">
-            <div className="flex flex-col lg:w-1/2 mb-8 max-lg:w-full">
-              <div
-                className="flex text-lg rounded-2xl relative mb-4 lg:mb-8"
-                style={{
-                  aspectRatio: 16 / 9,
-                }}
-              >
-                <Image
-                  fill={true}
-                  className="object-center object-cover rounded-2xl"
-                  src={urlForImage(currentPost.images[0]) || ""}
-                  alt={"home"}
-                  sizes="100%"
-                />
-              </div>
+            <div className="flex flex-col xl:w-2/3 mb-8 max-lg:w-full">
+              <Carousel>
+                <CarouselContent>
+                  {Array.from({ length: currentPost.images.length }).map(
+                    (_, index) => (
+                      <CarouselItem key={index}>
+                        <div
+                          className="flex text-lg relative mb-4 lg:mb-8"
+                          style={{
+                            aspectRatio: 16 / 9,
+                          }}
+                        >
+                          <Image
+                            fill={true}
+                            className="object-center object-cover"
+                            src={urlForImage(currentPost.images[index]) || ""}
+                            alt={"home"}
+                            sizes="100%"
+                          />
+                        </div>
+                      </CarouselItem>
+                    )
+                  )}
+                </CarouselContent>
+                <CarouselPrevious />
+                <CarouselNext />
+              </Carousel>
               <PortableText value={currentPost.body} />
               <Image
                 className="mt-4"

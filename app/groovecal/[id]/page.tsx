@@ -74,14 +74,19 @@ export default async function GroovecalEvent({
             className={
               currentEvent.lineup
                 ? "text-4xl md:text-5xl lg:text-6xl mb-2 font-bold"
-                : "text-4xl md:text-5xl lg:text-6xl mb-8 font-bold"
+                : "text-4xl md:text-5xl lg:text-6xl font-bold"
             }
           >
             {currentEvent.eventName}
           </p>
           {currentEvent.lineup && (
-            <p className="text-2xl md:text-3xl lg:text-4xl mb-8 font-bold">
+            <p className="text-2xl md:text-3xl lg:text-4xl mb-2 font-bold">
               LINEUP: {currentEvent.lineup}
+            </p>
+          )}
+          {currentEvent.genre && (
+            <p className="text-lg md:text-xl lg:text-2xl mb-8 font-bold text-purple-700">
+              {currentEvent.genre}
             </p>
           )}
         </div>
