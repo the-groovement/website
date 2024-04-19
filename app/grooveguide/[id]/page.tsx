@@ -52,7 +52,7 @@ export default async function Article({ params }: { params: { id: string } }) {
               <p className="font-semibold">author</p>
               <p>{currentPost.authors[0].name}</p>
             </div>
-            {currentPost.photographers[0].name && (
+            {currentPost.photographers && (
               <div className="flex flex-col gap-1">
                 <p className="font-semibold">photographer</p>
                 <p>{currentPost.photographers[0].name}</p>
