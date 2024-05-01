@@ -164,7 +164,7 @@ export default async function GroovecalEvent({
                       <Image
                         fill={true}
                         className="object-center object-cover rounded-2xl"
-                        src={urlForImage(event.venue.images[0]) || ""}
+                        src={urlForImage(event.venue.images?.[0]) ?? ""}
                         alt={event.venue?.alt || "Image of venue"}
                         sizes="100%"
                       />

@@ -30,7 +30,7 @@ export default async function TopOfPageSection() {
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={urlForImage(sanityData[0].images[0]) || ""}
+              src={urlForImage(sanityData[0].images?.[0]) ?? ""}
               alt={"home"}
               sizes="100%"
             />

@@ -136,7 +136,7 @@ export default function EventList({
                             <Image
                               fill={true}
                               className="object-center object-cover rounded-2xl"
-                              src={urlForImage(event.venue?.images[0]) || ""}
+                              src={urlForImage(event.venue?.images?.[0]) ?? ""}
                               alt={"home"}
                               sizes="100%"
                             />

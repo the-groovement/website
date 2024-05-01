@@ -147,7 +147,7 @@ export default function ArticleListWithSearch({
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-2xl"
-                  src={urlForImage(post.images[0]) || ""}
+                  src={urlForImage(post.images?.[0]) ?? ""}
                   alt={"home"}
                   sizes="100%"
                 />

@@ -29,7 +29,7 @@ export default async function Groovefam() {
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-lg"
-                  src={urlForImage(member.image) || ""}
+                  src={urlForImage(member?.image) ?? ""}
                   alt="logo"
                   sizes="100%"
                 />

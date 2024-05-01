@@ -85,7 +85,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                           <Image
                             fill={true}
                             className="object-center object-cover"
-                            src={urlForImage(currentPost.images[index]) || ""}
+                            src={urlForImage(currentPost.images?.[index]) ?? ""}
                             alt={"home"}
                             sizes="100%"
                           />
@@ -127,7 +127,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                         <Image
                           fill={true}
                           className="object-center object-cover rounded-2xl"
-                          src={urlForImage(post.images[0]) || ""}
+                          src={urlForImage(post.images?.[0]) ?? ""}
                           alt={"home"}
                           sizes="100%"
                         />
