@@ -25,12 +25,12 @@ export default async function TopOfPageSection() {
         <div className="flex flex-row h-full">
           <Link
             className="flex text-lg rounded-2xl flex-grow mt-4 sm:mt-8 sm:mr-8 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
-            href={`/grooveguide/${sanityData[0].slug.current}`}
+            href={`/grooveguide/${sanityData?.[0].slug.current}`}
           >
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={urlForImage(sanityData[0].images?.[0]) ?? ""}
+              src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
               alt={"home"}
               sizes="100%"
             />
@@ -44,7 +44,7 @@ export default async function TopOfPageSection() {
                   SHOWS
                 </div>
                 <div className="text-2xl md:text-4xl rounded-2xl tracking-wider text-white font-shrikhand">
-                  {sanityData[0].title}
+                  {sanityData?.[0].title}
                 </div>
                 <div className="flex flex-row justify-between items-center font-sans text-lg md:text-2xl">
                   <div className="w-fit flex flex-row items-center gap-3">
@@ -67,7 +67,7 @@ export default async function TopOfPageSection() {
               <Image
                 fill={true}
                 className="object-center object-cover rounded-2xl"
-                src={urlForImage(sanityData[0].images?.[0]) ?? ""}
+                src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
                 alt={"home"}
                 sizes="100%"
               />
@@ -88,7 +88,7 @@ export default async function TopOfPageSection() {
               <Image
                 fill={true}
                 className="object-center object-cover rounded-2xl"
-                src={urlForImage(sanityData[0].images?.[0]) ?? ""}
+                src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
                 alt={"home"}
                 sizes="100%"
               />

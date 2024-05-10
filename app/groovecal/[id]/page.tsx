@@ -115,7 +115,7 @@ export default async function GroovecalEvent({
           <div className="flex flex-col flex-1">
             <p className="mb-4">Date</p>
             <p className="text-lg md:text-3xl mb-2 font-semibold underline">
-              {times[0]}
+              {times?.[0]}
             </p>
             <p className="text-sm md:text-lg">{`${times[1]} - ${times[2]}`}</p>
           </div>

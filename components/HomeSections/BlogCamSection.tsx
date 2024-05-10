@@ -22,7 +22,7 @@ export default async function BlogCamSection() {
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={urlForImage(sanityData[0].images?.[0]) ?? ""}
+              src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
               alt={"home"}
               sizes="100%"
             />
@@ -43,7 +43,7 @@ export default async function BlogCamSection() {
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={urlForImage(sanityData[0].images?.[0]) ?? ""}
+              src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
               alt={"home"}
               sizes="100%"
             />
@@ -103,7 +103,7 @@ export default async function BlogCamSection() {
                   <p className="text-xl lg:text-2xl font-semibold max-w-sm mb-2">
                     {post.title}
                   </p>
-                  <p className="text-lg font-light">{post.authors[0].name}</p>
+                  <p className="text-lg font-light">{post.authors?.[0].name}</p>
                 </div>
                 <div className="relative ml-auto h-[80%] aspect-square flex my-auto">
                   <Image

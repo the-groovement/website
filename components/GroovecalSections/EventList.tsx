@@ -136,7 +136,7 @@ export default function EventList({
                           aspectRatio: 256 / 160,
                         }}
                       >
-                        {event.venue?.images[0] && (
+                        {event.venue?.images?.[0] && (
                           <Link href={`/groovecal/${event.slug.current}`}>
                             <Image
                               fill={true}
@@ -157,8 +157,8 @@ export default function EventList({
                         <p className="text-xl ">{event.lineup}</p>
                         <p className="font-light">{event.venue?.name}</p>
                         <p className="font-light">
-                          {formatDateTime(event.startTime, event.endTime)[0]} -{" "}
-                          {formatDateTime(event.startTime, event.endTime)[1]}
+                          {formatDateTime(event.startTime, event.endTime)?.[0]}{" "}
+                          - {formatDateTime(event.startTime, event.endTime)[1]}
                         </p>
                       </div>
                     </div>
@@ -174,12 +174,12 @@ export default function EventList({
                         aspectRatio: 256 / 160,
                       }}
                     >
-                      {urlForImage(event.venue?.images[0]) && (
+                      {urlForImage(event.venue?.images?.[0]) && (
                         <Link href={`/groovecal/${event.slug.current}`}>
                           <Image
                             fill={true}
                             className="object-center object-cover rounded-2xl"
-                            src={urlForImage(event.venue?.images[0]) || ""}
+                            src={urlForImage(event.venue?.images?.[0]) || ""}
                             alt={"home"}
                             sizes="100%"
                           />

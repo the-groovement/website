@@ -157,9 +157,11 @@ export default function ArticleListWithSearch({
                   {post.categories && (
                     <>
                       <Link
-                        href={`/grooveguide?page=1&category=${post.categories[0].title}`}
+                        href={`/grooveguide?page=1&category=${post.categories?.[0].title}`}
                       >
-                        <span className="mr-2">{post.categories[0].title}</span>{" "}
+                        <span className="mr-2">
+                          {post.categories?.[0].title}
+                        </span>{" "}
                       </Link>
                       <span className="mr-2">•</span>{" "}
                     </>
@@ -178,7 +180,7 @@ export default function ArticleListWithSearch({
                     <PortableText value={post.body} />
                   </div>
                   <p className="text-sm font-semibold">
-                    {post.authors[0].name}
+                    {post.authors?.[0].name}
                   </p>
                 </Link>
               </div>

@@ -50,21 +50,21 @@ export default async function Article({ params }: { params: { id: string } }) {
             </div>
             <div className="flex flex-col gap-1">
               <p className="font-semibold">author</p>
-              <p>{currentPost.authors[0].name}</p>
+              <p>{currentPost.authors?.[0].name}</p>
             </div>
             {currentPost.photographers && (
               <div className="flex flex-col gap-1">
                 <p className="font-semibold">photographer</p>
-                <p>{currentPost.photographers[0].name}</p>
+                <p>{currentPost.photographers?.[0].name}</p>
               </div>
             )}
             {currentPost.categories && (
               <div className="flex flex-col gap-1">
                 <p className="font-semibold">category</p>
                 <Link
-                  href={`/grooveguide?page=1&category=${currentPost.categories[0].title}`}
+                  href={`/grooveguide?page=1&category=${currentPost.categories?.[0].title}`}
                 >
-                  {currentPost.categories[0].title}
+                  {currentPost.categories?.[0].title}
                 </Link>
               </div>
             )}
