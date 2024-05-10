@@ -60,7 +60,7 @@ export default async function BlogCamSection() {
         </div>
         <div className="flex flex-row max-md:hidden mb-8">
           <p className="lg:text-5xl text-4xl font-semibold w-1/2">
-            from the groovecam
+            from the groovemap
           </p>
           <p className="lg:text-5xl text-4xl font-semibold w-1/2 ml-8">
             popular stories
@@ -68,11 +68,27 @@ export default async function BlogCamSection() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-8">
-          <p className="text-3xl font-semibold md:hidden">from the groovecam</p>
-          <div
-            className="bg-black md:w-1/2 rounded-2xl"
-            style={{ aspectRatio: 1 / 1 }}
-          />
+          <p className="text-3xl font-semibold md:hidden">from the groovemap</p>
+          <Link
+            className="flex rounded-2xl md:w-1/2 relative h-96"
+            href="https://www.google.com/maps/d/viewer?mid=1ZcNuDKiNxyAdpnEy_i3IqRIbLCYEC7M8&ll=40.7290605124509%2C-73.92850645&z=11"
+          >
+            <Image
+              fill={true}
+              className="object-center object-cover rounded-2xl"
+              src={"/tester.png"}
+              alt={"test"}
+              sizes="100%"
+            />
+            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
+              <div className="flex flex-row justify-between items-center">
+                <div className="text-xl md:text-2xl rounded-2xl tracking-wider text-white font-shrikhand">
+                  Explore the groovemap
+                </div>
+                <ArrowRight />
+              </div>
+            </div>
+          </Link>
           <p className="text-3xl font-semibold md:hidden">popular stories</p>
           <div className="md:w-1/2 flex flex-col">
             {featuredPosts.map((post: any, index: number) => (
@@ -107,13 +123,13 @@ export default async function BlogCamSection() {
           <div className="w-full md:h-full flex flex-col md:flex-row gap-8">
             <Link
               href={`/groovecode`}
-              className="h-full flex flex-row md:flex-col md:w-1/3"
+              className="h-full flex flex-row md:flex-col md:w-1/3 w-full"
             >
-              <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
+              <div className="relative h-32 w-64 md:h-64 md:w-full max-sm:aspect-square">
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-2xl"
-                  src={"/vinyl.png"}
+                  src={"/groove-code.png"}
                   alt={"home"}
                   sizes="100%"
                 />
@@ -131,7 +147,7 @@ export default async function BlogCamSection() {
               href={`/grooveguide`}
               className="h-full flex flex-row md:flex-col md:w-1/3"
             >
-              <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
+              <div className="relative h-32 w-64 md:h-64 md:w-full max-sm:aspect-square">
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-2xl"
@@ -155,11 +171,11 @@ export default async function BlogCamSection() {
               href={`/groovefam`}
               className="h-full flex flex-row md:flex-col md:w-1/3"
             >
-              <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
+              <div className="relative h-32 w-64 md:h-64 md:w-full max-sm:aspect-square">
                 <Image
                   fill={true}
                   className="object-center object-cover rounded-2xl"
-                  src={"/vinyl.png"}
+                  src={"/groovefam.png"}
                   alt={"home"}
                   sizes="100%"
                 />

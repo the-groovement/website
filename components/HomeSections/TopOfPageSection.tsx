@@ -6,7 +6,6 @@ import {
   getRecentFeaturedPosts,
 } from "@/lib/sanity/client";
 import { ArrowRight, CalendarDaysIcon, TicketIcon } from "lucide-react";
-import CalendarIcon from "../Icons/CalendarIcon";
 
 export default async function TopOfPageSection() {
   const sanityData = await getRecentFeaturedPosts(0, 1);

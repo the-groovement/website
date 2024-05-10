@@ -39,9 +39,11 @@ export default function EventList({
     };
 
     const options2: Intl.DateTimeFormatOptions = {
+      weekday: "short",
+      hour: "numeric",
+      minute: "numeric",
       month: "long",
       day: "numeric",
-      year: "numeric",
       timeZone: "America/New_York",
       hour12: true,
     };
@@ -50,12 +52,15 @@ export default function EventList({
     const formattedDate2 = date2.toLocaleString("en-US", options1);
 
     const formattedDate3 = date1.toLocaleString("en-US", options2);
+    const formattedDate4 = date2.toLocaleString("en-US", options2);
 
-    const result1 = formattedDate3;
-    const result2 = formattedDate1;
-    const result3 = formattedDate2;
+    const result1 = formattedDate1;
+    const result2 = formattedDate2;
+    const result3 = formattedDate3;
+    const result4 = formattedDate4;
+    console.log(result1, result2, result3, result4);
 
-    return [result1, result2, result3];
+    return [result1, result2, result3, result4];
   }
 
   const formatDate = (inputDate: string) => {
@@ -152,8 +157,8 @@ export default function EventList({
                         <p className="text-xl ">{event.lineup}</p>
                         <p className="font-light">{event.venue?.name}</p>
                         <p className="font-light">
-                          {formatDateTime(event.startTime, event.endTime)[1]} -{" "}
-                          {formatDateTime(event.startTime, event.endTime)[2]}
+                          {formatDateTime(event.startTime, event.endTime)[0]} -{" "}
+                          {formatDateTime(event.startTime, event.endTime)[1]}
                         </p>
                       </div>
                     </div>
@@ -190,8 +195,17 @@ export default function EventList({
                       <p className="text-xl">{event.lineup}</p>
                       <p className="font-light">{event.venue?.name}</p>
                       <p className="font-light">
-                        {formatDateTime(event.startTime, event.endTime)[1]} -{" "}
-                        {formatDateTime(event.startTime, event.endTime)[2]}
+                        {
+                          formatDateTime(event.startTime, event.endTime)[
+                            isGridView ? 2 : 0
+                          ]
+                        }{" "}
+                        -{" "}
+                        {
+                          formatDateTime(event.startTime, event.endTime)[
+                            isGridView ? 3 : 1
+                          ]
+                        }
                       </p>
                     </div>
                   </div>

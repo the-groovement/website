@@ -1,5 +1,6 @@
 import { getVenueBySlug } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
+import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 
 export default async function GroovecalVenue({
@@ -40,10 +41,14 @@ export default async function GroovecalVenue({
             />
           </div>
         </div>
-        <div className="mb-8">{venue.intro}</div>
+        <div className="mb-8">
+          <PortableText value={venue.intro} />
+        </div>
         <div className="flex flex-col mb-8 gap-2">
           <p className="text-2xl font-semibold">history</p>
-          <div>{venue.history}</div>
+          <div>
+            <PortableText value={venue.history} />
+          </div>
         </div>
         <div className="flex flex-col mb-8 gap-2">
           <p className="text-2xl font-semibold">on-site info</p>

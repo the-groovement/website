@@ -7,19 +7,19 @@ import TiktokIcon from "./Icons/TikTokIcon";
 
 const NAV_ITEMS = [
   {
-    navTitle: "groovecal",
+    navTitle: "calendar",
     url: "/groovecal",
   },
   {
-    navTitle: "grooveguide",
+    navTitle: "guide",
     url: "/grooveguide",
   },
   {
-    navTitle: "groovemap",
+    navTitle: "map",
     url: "https://www.google.com/maps/d/viewer?mid=1ZcNuDKiNxyAdpnEy_i3IqRIbLCYEC7M8&ll=40.7290605124509%2C-73.92850645&z=11",
   },
   {
-    navTitle: "groovemail",
+    navTitle: "mail",
     url: "/signup",
   },
   {
@@ -49,7 +49,7 @@ const OTHER = [
 
 export default function Footer() {
   return (
-    <div className="bg-groove1 h-[640px] md:h-[564px] pt-12 pb-16">
+    <div className="bg-groove1 h-[680px] md:h-[564px] pt-12 pb-16">
       <div className="max-w-screen-xl mx-auto px-4 justify-between h-full flex flex-col">
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col md:w-1/2">
