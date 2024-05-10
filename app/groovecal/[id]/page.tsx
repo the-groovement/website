@@ -64,7 +64,7 @@ export default async function GroovecalEvent({
   const formattedEndTime = endDate
     .toLocaleTimeString("en-US", options)
     .slice(0, 5);
-
+  console.log(currentEvent);
   return (
     <section>
       <div className="flex flex-col mt-12">
@@ -86,7 +86,8 @@ export default async function GroovecalEvent({
           )}
           {currentEvent.genre && (
             <p className="text-lg md:text-xl lg:text-2xl mb-8 font-bold text-purple-700">
-              {currentEvent.genre}
+              {currentEvent.genre}{" "}
+              {currentEvent.age ? "– " + currentEvent.age : ""}
             </p>
           )}
         </div>
@@ -173,10 +174,17 @@ export default async function GroovecalEvent({
                   <div className="max-md:ml-6 w-3/4">
                     <Link href={`/groovecal/${event.slug.current}`}>
                       <p className="text-2xl md:mt-4 mb-2 font-semibold">
-                        {event.eventName}
+                        {event?.eventName}
                       </p>
                     </Link>
-                    <p className="text-xl">{event.lineup}</p>
+                    <p className="text-xl">{event?.lineup}</p>
+                    <p className="font-light mt-2">{event?.venue?.name}</p>
+                    {event?.startTime && event?.endTime && (
+                      <p className="font-light mt-2">
+                        {formatDateTime(event.startTime, event.endTime)[1]} -{" "}
+                        {formatDateTime(event.startTime, event.endTime)[2]}
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}

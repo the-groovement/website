@@ -5,10 +5,11 @@ import {
   getPaginatedCategoryPosts,
   getRecentFeaturedPosts,
 } from "@/lib/sanity/client";
+import { ArrowRight, CalendarDaysIcon, TicketIcon } from "lucide-react";
+import CalendarIcon from "../Icons/CalendarIcon";
 
 export default async function TopOfPageSection() {
   const sanityData = await getRecentFeaturedPosts(0, 1);
-  console.log(sanityData);
   const featuredArticle = await getPaginatedCategoryPosts("venues", 0, 1);
   return (
     <section>
@@ -24,7 +25,7 @@ export default async function TopOfPageSection() {
         </div>
         <div className="flex flex-row h-full">
           <Link
-            className="flex text-lg rounded-2xl flex-grow mt-4 sm:mt-8 sm:mr-8 p-4 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
+            className="flex text-lg rounded-2xl flex-grow mt-4 sm:mt-8 sm:mr-8 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
             href={`/grooveguide/${sanityData[0].slug.current}`}
           >
             <Image
@@ -34,47 +35,71 @@ export default async function TopOfPageSection() {
               alt={"home"}
               sizes="100%"
             />
-            <div className="mt-auto max-w-sm relative">
-              <p className="bg-white p-4 text-2xl md:text-4xl rounded-2xl font-semi">
-                {sanityData[0].title}
-              </p>
-            </div>
-          </Link>
-          <div className="flex flex-col w-72 justify-between max-sm:hidden mt-4">
-            <Link
-              href="/groovecal"
-              className="flex flex-col bg-cover bg-center rounded-2xl bg-gradient-to-t from-red-300  via-yellow-100 to-yellow-200 px-6 justify-between h-64 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
-            >
-              <div className="mt-8 justify-between">
-                <p className="inline text-2xl font-bold underline">
-                  groovecal top picks
-                </p>
+            <div className="w-full flex flex-col justify-between">
+              <div className="m-4 bg-orange-400 text-groove1 w-fit text-sm px-2 py-1 font-sans font-bold rounded-lg mb-2 tracking-normal relative flex flex-row items-center gap-2">
+                <CalendarDaysIcon className="text-groove1" />
+                MARK YOUR CALENDAR
               </div>
-              <div>
-                <p className="text-xl line-clamp-3 max-w-[80%]">
-                  The Revivalists, Band of Horses, The Heavy Heavy
-                </p>
-              </div>
-              <div className="mb-4 whitespace-nowrap">
-                <div className="bg-white py-4 px-6 font-semibold rounded-2xl whitespace-nowrap">
-                  find shows + get tix
+              <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto relative">
+                <div className="bg-white text-groove1 w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+                  SHOWS
+                </div>
+                <div className="text-2xl md:text-4xl rounded-2xl tracking-wider text-white font-shrikhand">
+                  {sanityData[0].title}
+                </div>
+                <div className="flex flex-row justify-between items-center font-sans text-lg md:text-2xl">
+                  <div className="w-fit flex flex-row items-center gap-3">
+                    <p>
+                      Wed April 17{" "}
+                      <span className="font-thin">@ Brooklyn Bowl</span>
+                    </p>
+                    <TicketIcon />
+                  </div>
+                  <ArrowRight />
                 </div>
               </div>
-            </Link>
+            </div>
+          </Link>
+          <div className="flex flex-col w-96 justify-between max-sm:hidden mt-4 gap-8">
             <Link
-              href="/grooveguide?page=1&category=venues"
-              className="flex rounded-2xl flex-grow mt-8 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative p-4"
+              href="/groovecal"
+              className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-full border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
             >
               <Image
                 fill={true}
                 className="object-center object-cover rounded-2xl"
-                src={"/venue.png"}
-                alt={"venue"}
+                src={urlForImage(sanityData[0].images?.[0]) ?? ""}
+                alt={"home"}
                 sizes="100%"
               />
-              <div className="mt-auto relative">
-                <div className="bg-white py-4 px-6 font-semibold rounded-2xl whitespace-nowrap">
-                  explore venues <span className="font-light">→</span>
+              <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
+                <div className="bg-orange-500 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+                  ARTISTS
+                </div>
+                <div className="flex flex-row justify-between items-center">
+                  <p>Sunflower Bean debuts in Brooklyn, New York</p>
+                  <ArrowRight />
+                </div>
+              </div>
+            </Link>
+            <Link
+              href="/groovecal"
+              className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-full border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
+            >
+              <Image
+                fill={true}
+                className="object-center object-cover rounded-2xl"
+                src={urlForImage(sanityData[0].images?.[0]) ?? ""}
+                alt={"home"}
+                sizes="100%"
+              />
+              <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
+                <div className="bg-purple-500 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+                  VENUES
+                </div>
+                <div className="flex flex-row justify-between items-center">
+                  <p>Sunflower Bean debuts in Brooklyn, New York</p>
+                  <ArrowRight />
                 </div>
               </div>
             </Link>

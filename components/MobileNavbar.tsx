@@ -13,15 +13,15 @@ import { BookOpenText } from "lucide-react";
 
 const NAV_ITEMS = [
   {
-    navTitle: "groovecal",
+    navTitle: "calendar",
     link: "/groovecal",
   },
   {
-    navTitle: "grooveguide",
+    navTitle: "guide",
     link: "/grooveguide",
   },
   {
-    navTitle: "groovemap",
+    navTitle: "map",
     link: "/groovemap",
   },
   {
@@ -121,11 +121,11 @@ export default function MobileNavbar() {
   };
   const getIconComponent = (navTitle: string) => {
     switch (navTitle) {
-      case "groovecal":
+      case "calendar":
         return <CalendarIcon />;
-      case "grooveguide":
+      case "guide":
         return <BookOpenText size={24} className="text-white" />;
-      case "groovemap":
+      case "map":
         return <LocationIcon />;
       case "about":
         return <MusicIcon />;
@@ -200,7 +200,7 @@ export default function MobileNavbar() {
                     className="text-white text-left font-semibold text-3xl"
                     style={{ marginBottom: "32px" }}
                   >
-                    {navItem.navTitle === "groovemap" ? (
+                    {navItem.navTitle === "map" ? (
                       <a
                         className="flex items-center gap-2"
                         href={navItem.link}

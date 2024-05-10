@@ -3,49 +3,57 @@ import {
   getRecentNonFeaturedPosts,
 } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function BlogCamSection() {
   const featuredPosts = await getRecentFeaturedPosts(1, 5);
-  console.log(featuredPosts[0]);
+  const sanityData = await getRecentFeaturedPosts(0, 1);
   // const nonFeaturedPosts = await getRecentNonFeaturedPosts(0, 3);
   return (
     <section>
       <div className="pb-8">
-        <div className="flex flex-col justify-between sm:hidden">
+        <div className="flex flex-col justify-between sm:hidden gap-8 mb-8">
           <Link
             href="/groovecal"
-            className="flex flex-col bg-cover bg-center rounded-2xl bg-gradient-to-t from-red-300 via-yellow-100 to-yellow-200 px-6 justify-between h-52 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
-          >
-            <div className="mt-8 justify-between">
-              <p className="inline text-2xl font-bold underline">
-                groovecal top picks
-              </p>
-            </div>
-            <div>
-              <p className="text-xl line-clamp-3 max-w-[80%]">
-                The Revivalists, Band of Horses, The Heavy Heavy
-              </p>
-            </div>
-            <div className="mb-4 whitespace-nowrap">
-              <p className=" text-sm font-semibold">find shows + get tix</p>
-            </div>
-          </Link>
-          <Link
-            href="/grooveguide?page=1&category=venues"
-            className="flex rounded-2xl flex-grow mt-8 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative p-4 h-52 mb-8"
+            className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
           >
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={"/venue.png"}
-              alt={"venue"}
+              src={urlForImage(sanityData[0].images?.[0]) ?? ""}
+              alt={"home"}
               sizes="100%"
             />
-            <div className="mt-auto relative">
-              <div className="bg-white py-4 px-6 font-semibold rounded-2xl whitespace-nowrap">
-                explore venues <span className="font-light">→</span>
+            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
+              <div className="bg-orange-500 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+                ARTISTS
+              </div>
+              <div className="flex flex-row justify-between items-center">
+                <p>Sunflower Bean debuts in Brooklyn, New York</p>
+                <ArrowRight />
+              </div>
+            </div>
+          </Link>
+          <Link
+            href="/groovecal"
+            className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
+          >
+            <Image
+              fill={true}
+              className="object-center object-cover rounded-2xl"
+              src={urlForImage(sanityData[0].images?.[0]) ?? ""}
+              alt={"home"}
+              sizes="100%"
+            />
+            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
+              <div className="bg-purple-500 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+                VENUES
+              </div>
+              <div className="flex flex-row justify-between items-center">
+                <p>Sunflower Bean debuts in Brooklyn, New York</p>
+                <ArrowRight />
               </div>
             </div>
           </Link>
@@ -110,12 +118,17 @@ export default async function BlogCamSection() {
                   sizes="100%"
                 />
               </div>
-              <div className="max-md:ml-6 w-3/4">
+              <div className="max-md:ml-6 max-md:w-3/4">
                 <p className="text-xl md:mt-4 mb-2 font-semibold">groovecode</p>
+                <p className="text-lg md:mt-4 mb-2">
+                  Aka the way we groove. Our community supports each other to
+                  maintain a safe and groovy environment for all. Read on for a
+                  sense of our ethos
+                </p>
               </div>
             </Link>
             <Link
-              href={`/about`}
+              href={`/grooveguide`}
               className="h-full flex flex-row md:flex-col md:w-1/3"
             >
               <div className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square">
@@ -127,8 +140,15 @@ export default async function BlogCamSection() {
                   sizes="100%"
                 />
               </div>
-              <div className="max-md:ml-6 w-3/4">
-                <p className="text-xl md:mt-4 mb-2 font-semibold">FAQs</p>
+              <div className="max-md:ml-6 max-md:w-3/4">
+                <p className="text-xl md:mt-4 mb-2 font-semibold">
+                  grooveguide
+                </p>
+                <p className="text-lg md:mt-4 mb-2">
+                  Our online magazine. Learn more about our favorite artists and
+                  venues and amplify your concert experience with hot tips and
+                  tricks.
+                </p>
               </div>
             </Link>
             <Link
@@ -144,8 +164,12 @@ export default async function BlogCamSection() {
                   sizes="100%"
                 />
               </div>
-              <div className="max-md:ml-6 w-3/4">
+              <div className="max-md:ml-6 max-md:w-3/4">
                 <p className="text-xl md:mt-4 mb-2 font-semibold">groovefam</p>
+                <p className="text-lg md:mt-4 mb-2">
+                  Meet the team who puts the groove in groovement: our founders,
+                  writers, photographers, content creators and contributors.
+                </p>
               </div>
             </Link>
           </div>
