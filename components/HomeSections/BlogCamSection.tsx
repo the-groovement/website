@@ -17,7 +17,7 @@ export default async function BlogCamSection() {
         <div className="flex flex-col justify-between sm:hidden gap-8 mb-8">
           <Link
             href="/groovecal"
-            className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
+            className="flex flex-col bg-groove1 bg-cover bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
           >
             <Image
               fill={true}
@@ -38,7 +38,7 @@ export default async function BlogCamSection() {
           </Link>
           <Link
             href="/groovecal"
-            className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
+            className="flex flex-col bg-cover bg-groove1 bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
           >
             <Image
               fill={true}
