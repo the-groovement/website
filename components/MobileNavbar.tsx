@@ -13,7 +13,7 @@ import { BookOpenText } from "lucide-react";
 
 const NAV_ITEMS = [
   {
-    navTitle: "calendar",
+    navTitle: "shows",
     link: "/groovecal",
   },
   {
@@ -121,7 +121,7 @@ export default function MobileNavbar() {
   };
   const getIconComponent = (navTitle: string) => {
     switch (navTitle) {
-      case "calendar":
+      case "shows":
         return <CalendarIcon />;
       case "guide":
         return <BookOpenText size={24} className="text-white" />;

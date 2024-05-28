@@ -132,12 +132,13 @@ export async function getGroovefam() {
   if (client) {
     groovefamAuthors = await client.fetch(allgroovefamauthors, {
       next: { revalidate: 1 },
+      cache: "no-store",
     });
     groovefamPhotographers = await client.fetch(allgroovefamphotographers, {
       next: { revalidate: 1 },
+      cache: "no-store",
     });
   }
-
   // Add role field to groovefamAuthors and groovefamPhotographers
   const groovefamAuthorsWithRole = groovefamAuthors.map((author: any) => ({
     ...author,
@@ -147,9 +148,11 @@ export async function getGroovefam() {
     (photographer: any) => ({ ...photographer, role: "Photographer" })
   );
 
-  // Concatenate both arrays
   const groovefam = groovefamAuthorsWithRole.concat(
     groovefamPhotographersWithRole
+  );
+  const sortedGroovefam = groovefam.sort((a: any, b: any) =>
+    a.name.localeCompare(b.name)
   );
 
   return groovefam;

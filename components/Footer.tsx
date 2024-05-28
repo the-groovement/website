@@ -7,7 +7,7 @@ import TiktokIcon from "./Icons/TikTokIcon";
 
 const NAV_ITEMS = [
   {
-    navTitle: "calendar",
+    navTitle: "shows",
     url: "/groovecal",
   },
   {
