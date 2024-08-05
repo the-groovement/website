@@ -19,7 +19,7 @@ const NAV_ITEMS = [
     url: "https://www.google.com/maps/d/viewer?mid=1ZcNuDKiNxyAdpnEy_i3IqRIbLCYEC7M8&ll=40.7290605124509%2C-73.92850645&z=11",
   },
   {
-    navTitle: "mail",
+    navTitle: "newsletter",
     url: "/signup",
   },
   {

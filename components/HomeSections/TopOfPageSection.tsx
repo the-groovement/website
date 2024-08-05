@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { urlForImage } from "@/lib/sanity/image";
 import {
+  getFeaturedVenue,
   getPaginatedCategoryPosts,
   getRecentFeaturedPosts,
 } from "@/lib/sanity/client";
@@ -9,7 +10,7 @@ import { ArrowRight, CalendarDaysIcon, TicketIcon } from "lucide-react";
 
 export default async function TopOfPageSection() {
   const sanityData = await getRecentFeaturedPosts(0, 1);
-  const featuredArticle = await getPaginatedCategoryPosts("venues", 0, 1);
+  const featuredArticle = await getFeaturedVenue();
   return (
     <section>
       <div className="flex flex-col h-[calc(100svh-84px)] pb-8">
@@ -35,12 +36,12 @@ export default async function TopOfPageSection() {
               sizes="100%"
             />
             <div className="w-full flex flex-col justify-between">
-              <div className="m-4 bg-orange-400 text-groove1 w-fit text-sm px-2 py-1 font-sans font-bold rounded-lg mb-2 tracking-normal relative flex flex-row items-center gap-2">
+              <div className="m-4 bg-grooveBrandColor3 text-groove1 w-fit text-sm px-2 py-1 font-sans font-bold rounded-lg mb-2 tracking-normal relative flex flex-row items-center gap-2">
                 <CalendarDaysIcon className="text-groove1" />
                 MARK YOUR CALENDAR
               </div>
               <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto relative">
-                <div className="bg-white text-groove1 w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+                <div className="bg-grooveBrandColor3 text-groove1 w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
                   SHOWS
                 </div>
                 <div className="text-2xl md:text-4xl rounded-2xl tracking-wider text-white font-shrikhand">
@@ -72,7 +73,7 @@ export default async function TopOfPageSection() {
                 sizes="100%"
               />
               <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
-                <div className="bg-orange-500 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+                <div className="bg-grooveBrandColor1 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
                   ARTISTS
                 </div>
                 <div className="flex flex-row justify-between items-center">
@@ -88,16 +89,16 @@ export default async function TopOfPageSection() {
               <Image
                 fill={true}
                 className="object-center object-cover rounded-2xl"
-                src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
+                src={urlForImage(featuredArticle?.[0].images?.[0]) ?? ""}
                 alt={"home"}
                 sizes="100%"
               />
               <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
-                <div className="bg-purple-500 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+                <div className="bg-grooveBrandColor2 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
                   VENUES
                 </div>
                 <div className="flex flex-row justify-between items-center">
-                  <p>Sunflower Bean debuts in Brooklyn, New York</p>
+                  <p>{featuredArticle[0].titleLink}</p>
                   <ArrowRight />
                 </div>
               </div>

@@ -11,11 +11,7 @@ export default async function GroovecalEvent({
 }) {
   const currentEvent = await getEventBySlug(params.id);
   const EVENTS_PER_PAGE = 4;
-  const recommendedEvents = await getPaginatedEvents(
-    0,
-    EVENTS_PER_PAGE + 1,
-    currentEvent.genre
-  );
+  const recommendedEvents = await getPaginatedEvents(0, EVENTS_PER_PAGE + 1);
 
   function formatDateTime(dateString1: string, dateString2: string) {
     const date1 = new Date(dateString1);

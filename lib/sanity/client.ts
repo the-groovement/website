@@ -25,6 +25,7 @@ import {
   allgroovefamauthors,
   allgroovefamphotographers,
   eventsGenrePaginatedQuery,
+  featuredVenueQuery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -44,7 +45,7 @@ export const fetcher = async ([query, params]: [string, any]) => {
 
 (async () => {
   if (client) {
-    const data = await client.fetch(getAll, { next: { revalidate: 1 } });
+    const data = await client.fetch(getAll, { cache: "no-store" });
     if (!data || !data.length) {
       console.error(
         "Sanity returns empty array. Are you sure the dataset is public?"
@@ -55,7 +56,7 @@ export const fetcher = async ([query, params]: [string, any]) => {
 
 export async function getAllPosts() {
   if (client) {
-    return (await client.fetch(postquery, { next: { revalidate: 1 } })) || [];
+    return (await client.fetch(postquery, { cache: "no-store" })) || [];
   }
   return [];
 }
@@ -64,13 +65,13 @@ export async function getEventBySlug(slug: string) {
   if (client) {
     const event = await client.fetch(singleEventQuery, {
       slug,
-      next: { revalidate: 1 },
+      cache: "no-store",
     });
 
     if (event && event.venue && event.venue._ref) {
       const venue = await client.fetch(singleVenueQuery, {
         id: event.venue._ref,
-        next: { revalidate: 1 },
+        cache: "no-store",
       });
       const combinedData = { ...event, venue };
       return combinedData;
@@ -82,12 +83,23 @@ export async function getEventBySlug(slug: string) {
   return {};
 }
 
+export async function getFeaturedVenue() {
+  if (client) {
+    return (
+      (await client.fetch(featuredVenueQuery, {
+        cache: "no-store",
+      })) || {}
+    );
+  }
+  return {};
+}
+
 export async function getVenueBySlug(slug: string) {
   if (client) {
     return (
       (await client.fetch(singleVenueQueryBySlug, {
         slug,
-        next: { revalidate: 1 },
+        cache: "no-store",
       })) || {}
     );
   }
@@ -99,7 +111,6 @@ export async function getPostBySlug(slug: string) {
     return (
       (await client.fetch(singlequery, {
         slug,
-        next: { revalidate: 1 },
         cache: "no-store",
       })) || {}
     );
@@ -110,7 +121,7 @@ export async function getPostBySlug(slug: string) {
 export async function getAllPostsSlugs() {
   if (client) {
     const slugs: string[] =
-      (await client.fetch(pathquery, { next: { revalidate: 1 } })) || [];
+      (await client.fetch(pathquery, { cache: "no-store" })) || [];
     return slugs.map((slug) => ({ slug }));
   }
   return [];
@@ -119,7 +130,7 @@ export async function getAllPostsSlugs() {
 export async function getAllAuthorsSlugs() {
   if (client) {
     const slugs: string[] =
-      (await client.fetch(authorsquery, { next: { revalidate: 1 } })) || [];
+      (await client.fetch(authorsquery, { cache: "no-store" })) || [];
     return slugs.map((slug) => ({ author: slug }));
   }
   return [];
@@ -132,11 +143,9 @@ export async function getGroovefam() {
 
   if (client) {
     groovefamAuthors = await client.fetch(allgroovefamauthors, {
-      next: { revalidate: 1 },
       cache: "no-store",
     });
     groovefamPhotographers = await client.fetch(allgroovefamphotographers, {
-      next: { revalidate: 1 },
       cache: "no-store",
     });
   }
@@ -164,7 +173,7 @@ export async function getAuthorPostsBySlug(slug: string) {
     return (
       (await client.fetch(postsbyauthorquery, {
         slug,
-        next: { revalidate: 1 },
+        cache: "no-store",
       })) || {}
     );
   }
@@ -173,9 +182,7 @@ export async function getAuthorPostsBySlug(slug: string) {
 
 export async function getAllAuthors() {
   if (client) {
-    return (
-      (await client.fetch(allauthorsquery, { next: { revalidate: 1 } })) || []
-    );
+    return (await client.fetch(allauthorsquery, { cache: "no-store" })) || [];
   }
   return [];
 }
@@ -185,7 +192,7 @@ export async function getAllAuthors() {
 export async function getAllCategories() {
   if (client) {
     const slugs: string[] = (await client.fetch(catpathquery)) || [];
-    return slugs.map((slug) => ({ category: slug, next: { revalidate: 1 } }));
+    return slugs.map((slug) => ({ category: slug, cache: "no-store" }));
   }
   return [];
 }
@@ -195,7 +202,7 @@ export async function getPostsByCategory(slug: string) {
     return (
       (await client.fetch(postsbycatquery, {
         slug,
-        next: { revalidate: 1 },
+        cache: "no-store",
       })) || {}
     );
   }
@@ -204,7 +211,7 @@ export async function getPostsByCategory(slug: string) {
 
 export async function getTopCategories() {
   if (client) {
-    return (await client.fetch(catquery, { next: { revalidate: 1 } })) || [];
+    return (await client.fetch(catquery, { cache: "no-store" })) || [];
   }
   return [];
 }
@@ -258,7 +265,7 @@ export async function searchEvents(
 export async function getEvents() {
   if (client) {
     const events = await client.fetch(eventsQuery, {
-      next: { revalidate: 1 },
+      cache: "no-store",
     });
 
     if (events && events.length > 0) {
@@ -268,7 +275,7 @@ export async function getEvents() {
           if (event.venue && event.venue._ref) {
             const venue = await client.fetch(singleVenueQuery, {
               id: event.venue._ref,
-              next: { revalidate: 1 },
+              cache: "no-store",
             });
 
             // Combine event and venue data
@@ -300,14 +307,14 @@ export async function getPaginatedEvents(
         start: start,
         end: end,
         genre: genre,
-        next: { revalidate: 1 },
+        cache: "no-store",
       });
       console.log(events);
     } else {
       events = await client.fetch(eventsPaginatedQuery, {
         start: start,
         end: end,
-        next: { revalidate: 1 },
+        cache: "no-store",
       });
     }
 
@@ -318,7 +325,7 @@ export async function getPaginatedEvents(
           if (event.venue && event.venue._ref) {
             const venue = await client.fetch(singleVenueQuery, {
               id: event.venue._ref,
-              next: { revalidate: 1 },
+              cache: "no-store",
             });
 
             // Combine event and venue data
@@ -344,7 +351,7 @@ export async function getPaginatedPosts(start: number, end: number) {
       (await client.fetch(paginatedquery, {
         start: start,
         end: end,
-        next: { revalidate: 1 },
+        cache: "no-store",
       })) || {}
     );
   }
@@ -362,7 +369,7 @@ export async function getPaginatedCategoryPosts(
         categoryId: categoryId,
         start: start,
         end: end,
-        next: { revalidate: 1 },
+        cache: "no-store",
       })) || {}
     );
   }
@@ -375,7 +382,7 @@ export async function getRecentFeaturedPosts(start: number, end: number) {
       (await client.fetch(limitFeaturedquery, {
         start: start,
         end: end,
-        next: { revalidate: 1 },
+        cache: "no-store",
       })) || {}
     );
   }
@@ -388,7 +395,7 @@ export async function getRecentNonFeaturedPosts(start: number, end: number) {
       (await client.fetch(limitNonFeaturedquery, {
         start: start,
         end: end,
-        next: { revalidate: 1 },
+        cache: "no-store",
       })) || {}
     );
   }

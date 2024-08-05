@@ -10,6 +10,10 @@ module.exports = {
         groove1: "#3a2a3c",
         groove2: "#fef1d9",
         groove3: "#ffd1d1",
+        grooveBrandColor1: "#FF692E",
+        grooveBrandColor2: "#E77B92",
+        grooveBrandColor3: "#FCBE7A",
+        grooveBrandColor4: "#FF9400",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         btn: {

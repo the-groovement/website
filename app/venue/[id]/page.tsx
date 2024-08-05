@@ -24,7 +24,7 @@ export default async function GroovecalVenue({
   return (
     <section>
       <div className="flex flex-col mt-12">
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-8">
           <p className="text-4xl md:text-5xl lg:text-6xl mb-2 font-bold">
             {venue.name}
           </p>

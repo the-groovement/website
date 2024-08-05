@@ -1,4 +1,5 @@
 import {
+  getFeaturedVenue,
   getRecentFeaturedPosts,
   getRecentNonFeaturedPosts,
 } from "@/lib/sanity/client";
@@ -8,9 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function BlogCamSection() {
-  const featuredPosts = await getRecentFeaturedPosts(1, 5);
-  const sanityData = await getRecentFeaturedPosts(0, 1);
-  // const nonFeaturedPosts = await getRecentNonFeaturedPosts(0, 3);
+  const sanityData = await getRecentFeaturedPosts(0, 6);
+  const featuredArticle = await getFeaturedVenue();
   return (
     <section>
       <div className="pb-8">
@@ -27,7 +27,7 @@ export default async function BlogCamSection() {
               sizes="100%"
             />
             <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
-              <div className="bg-orange-500 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+              <div className="bg-grooveBrandColor1 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
                 ARTISTS
               </div>
               <div className="flex flex-row justify-between items-center">
@@ -43,16 +43,16 @@ export default async function BlogCamSection() {
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
+              src={urlForImage(featuredArticle?.[0].images?.[0]) ?? ""}
               alt={"home"}
               sizes="100%"
             />
             <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
-              <div className="bg-purple-500 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+              <div className="bg-grooveBrandColor2 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
                 VENUES
               </div>
               <div className="flex flex-row justify-between items-center">
-                <p>Sunflower Bean debuts in Brooklyn, New York</p>
+                <p>{featuredArticle[0].titleLink}</p>
                 <ArrowRight />
               </div>
             </div>
@@ -91,7 +91,7 @@ export default async function BlogCamSection() {
           </Link>
           <p className="text-3xl font-semibold md:hidden">popular stories</p>
           <div className="md:w-1/2 flex flex-col">
-            {featuredPosts.map((post: any, index: number) => (
+            {sanityData.map((post: any, index: number) => (
               <Link
                 href={`/grooveguide/${post.slug.current}`}
                 className={`flex-grow h-36 md:h-full flex flex-row border-b border-black ${
