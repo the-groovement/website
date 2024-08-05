@@ -5,6 +5,8 @@ import useDebounce from "@/hooks/useDebounce";
 import { getEvents, searchEvents } from "@/lib/sanity/client";
 import moment from "moment-timezone";
 import { useEffect, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Groovecal() {
   const [visibleEvents, setVisibleEvents] = useState(12);
@@ -13,8 +15,8 @@ export default function Groovecal() {
   const [isSearchLoading, setIsSearchLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const debouncedSearchText = useDebounce(searchText, 300);
-  const [startTime, setStartTime] = useState(new Date().toISOString());
-  const [endTime, setEndTime] = useState("");
+  const [startTime, setStartTime] = useState<string | undefined>();
+  const [endTime, setEndTime] = useState<string | undefined>();
 
   useEffect(() => {
     const getInitialEvents = async () => {
@@ -69,30 +71,30 @@ export default function Groovecal() {
           <p className="text-2xl sm:text-3xl mb-12">
             find the best shows. get tix.
           </p>
-          <div className="w-full bg-white h-4 rounded-2xl py-8 items-center flex max-md:hidden border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
+          <div className="w-full bg-white h-4 rounded-2xl py-8 items-center flex max-lg:hidden border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
             <input
               className="py-3 rounded-tl-3xl rounded-bl-3xl w-full px-6 focus:outline-none text-gray-500 placeholder-gray-500"
               placeholder="search for artist, venue, or location"
               onChange={(e) => setSearchText(e.target.value)}
             />
-            <input
-              className="px-6 border-l py-3 text-gray-500 w-80 focus:outline-none"
-              type="date"
-              onKeyDown={(event) => {
-                event.preventDefault();
-              }}
-              onChange={(e) => setStartTime(e.target.value)}
+            <DatePicker
+              selected={startTime ? new Date(startTime) : undefined}
+              onChange={(date) => setStartTime(date ? date?.toISOString() : "")}
+              className="px-6 border-l py-3 text-gray-500 placeholder-gray-500 w-80 focus:outline-none drop-shadow-none"
+              dateFormat="yyyy-MM-dd"
+              placeholderText="start date"
+              locale="en"
             />
-            <input
-              className="px-6 border-l py-3 text-gray-500 w-80 focus:outline-none rounded-r-3xl"
-              type="date"
-              onKeyDown={(event) => {
-                event.preventDefault();
-              }}
-              onChange={(e) => setEndTime(e.target.value)}
+            <DatePicker
+              selected={endTime ? new Date(endTime) : undefined}
+              onChange={(date) => setEndTime(date ? date?.toISOString() : "")}
+              className="px-6 border-l py-3 text-gray-500 placeholder-gray-500 w-80 focus:outline-none drop-shadow-none rounded-r-xl"
+              dateFormat="yyyy-MM-dd"
+              placeholderText="end date"
+              locale="en"
             />
           </div>
-          <div className="w-full h-32 bg-white rounded-2xl flex flex-col justify-between px-2 md:hidden border-groove1 border drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
+          <div className="w-full h-32 bg-white rounded-2xl flex flex-col justify-between px-2 lg:hidden border-groove1 border drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
             <div className="h-1/2 flex flex-row py-3">
               <input
                 className="py-3 rounded-tl-3xl px-3 focus:outline-none text-gray-500 placeholder-gray-500 w-full text-sm "
@@ -100,23 +102,33 @@ export default function Groovecal() {
                 onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
-            <div className="h-1/2 flex flex-row py-3 border-t text-sm w-full gap-3">
-              <input
-                className="px-3 py-3 text-gray-500 w-full focus:outline-none bg-transparent"
-                type="date"
-                onKeyDown={(event) => {
-                  event.preventDefault();
-                }}
-                onChange={(e) => setStartTime(e.target.value)}
-              />
-              <input
-                className="px-3 border-l py-3 text-gray-500 w-full focus:outline-none bg-transparent"
-                type="date"
-                onKeyDown={(event) => {
-                  event.preventDefault();
-                }}
-                onChange={(e) => setEndTime(e.target.value)}
-              />
+            <div className="h-1/2 flex flex-row py-3 border-t text-sm w-full gap-3 justify-start">
+              <div className="flex-1">
+                <DatePicker
+                  selected={startTime ? new Date(startTime) : undefined}
+                  onChange={(date) =>
+                    setStartTime(date ? date?.toISOString() : "")
+                  }
+                  className="w-full px-6 py-3 text-gray-500 placeholder-gray-500 focus:outline-none"
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="start date"
+                  locale="en"
+                  popperPlacement="top-end"
+                />
+              </div>
+              <div className="flex-1">
+                <DatePicker
+                  selected={endTime ? new Date(endTime) : undefined}
+                  onChange={(date) =>
+                    setEndTime(date ? date?.toISOString() : "")
+                  }
+                  className="w-full px-6 border-l py-3 text-gray-500 placeholder-gray-500 focus:outline-none"
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="end date"
+                  locale="en"
+                  popperPlacement="top-end"
+                />
+              </div>
             </div>
           </div>
         </div>

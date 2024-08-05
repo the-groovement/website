@@ -136,7 +136,7 @@ export default function EventList({
                           <Link href={`/shows/${event.slug.current}`}>
                             <Image
                               fill={true}
-                              className="object-center object-cover rounded-2xl"
+                              className="object-center object-cover rounded-2xl z-0"
                               src={urlForImage(event.venue?.images?.[0]) ?? ""}
                               alt={"home"}
                               sizes="100%"
