@@ -8,7 +8,7 @@ import TiktokIcon from "./Icons/TikTokIcon";
 const NAV_ITEMS = [
   {
     navTitle: "shows",
-    url: "/groovecal",
+    url: "/shows",
   },
   {
     navTitle: "guide",

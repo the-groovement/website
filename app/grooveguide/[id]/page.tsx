@@ -31,6 +31,13 @@ export default async function Article({ params }: { params: { id: string } }) {
     <section>
       <div>
         <div className="flex flex-col mt-8">
+          <div className="mb-2 text-purple-700">
+            <Link
+              href={`/grooveguide?page=1&category=${currentPost.categories?.[0].title}`}
+            >
+              {currentPost.categories?.[0].title}
+            </Link>
+          </div>
           {currentPost.titleLink ? (
             <Link
               href={currentPost.titleLink}
@@ -56,16 +63,6 @@ export default async function Article({ params }: { params: { id: string } }) {
               <div className="flex flex-col gap-1">
                 <p className="font-semibold">photographer</p>
                 <p>{currentPost.photographers?.[0].name}</p>
-              </div>
-            )}
-            {currentPost.categories && (
-              <div className="flex flex-col gap-1">
-                <p className="font-semibold">category</p>
-                <Link
-                  href={`/grooveguide?page=1&category=${currentPost.categories?.[0].title}`}
-                >
-                  {currentPost.categories?.[0].title}
-                </Link>
               </div>
             )}
           </div>

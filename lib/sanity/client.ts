@@ -24,6 +24,7 @@ import {
   singleVenueQueryBySlug,
   allgroovefamauthors,
   allgroovefamphotographers,
+  eventsGenrePaginatedQuery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -287,13 +288,28 @@ export async function getEvents() {
   return {};
 }
 
-export async function getPaginatedEvents(start: number, end: number) {
+export async function getPaginatedEvents(
+  start: number,
+  end: number,
+  genre?: string
+) {
   if (client) {
-    const events = await client.fetch(eventsPaginatedQuery, {
-      start: start,
-      end: end,
-      next: { revalidate: 1 },
-    });
+    let events;
+    if (genre) {
+      events = await client.fetch(eventsGenrePaginatedQuery, {
+        start: start,
+        end: end,
+        genre: genre,
+        next: { revalidate: 1 },
+      });
+      console.log(events);
+    } else {
+      events = await client.fetch(eventsPaginatedQuery, {
+        start: start,
+        end: end,
+        next: { revalidate: 1 },
+      });
+    }
 
     if (events && events.length > 0) {
       // Fetch venues for each event

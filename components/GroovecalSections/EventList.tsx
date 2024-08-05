@@ -58,7 +58,6 @@ export default function EventList({
     const result2 = formattedDate2;
     const result3 = formattedDate3;
     const result4 = formattedDate4;
-    console.log(result1, result2, result3, result4);
 
     return [result1, result2, result3, result4];
   }
@@ -77,7 +76,6 @@ export default function EventList({
   const handleShowMore = () => {
     setVisibleEvents((prevVisibleEvents) => prevVisibleEvents + 12);
   };
-
   return (
     <section>
       <div className="mb-4 flex flex-row font-semibold max-sm:hidden">
@@ -116,8 +114,6 @@ export default function EventList({
               .map((event: any, index: number) => {
                 const currentStartTime = formatDate(event.startTime);
                 const showTime = previousStartTime !== currentStartTime;
-
-                // Update the previousStartTime for comparison in the next iteration
                 previousStartTime = currentStartTime;
                 return !isGridView ? (
                   <div key={index}>
@@ -137,7 +133,7 @@ export default function EventList({
                         }}
                       >
                         {event.venue?.images?.[0] && (
-                          <Link href={`/groovecal/${event.slug.current}`}>
+                          <Link href={`/shows/${event.slug.current}`}>
                             <Image
                               fill={true}
                               className="object-center object-cover rounded-2xl"
@@ -149,16 +145,22 @@ export default function EventList({
                         )}
                       </div>
                       <div className="sm:ml-6 flex flex-col gap-3 max-sm:mt-4">
-                        <Link href={`/groovecal/${event.slug.current}`}>
+                        <Link href={`/shows/${event.slug.current}`}>
                           <p className="text-2xl font-semibold">
                             {event.eventName}
                           </p>
                         </Link>
-                        <p className="text-xl ">{event.lineup}</p>
-                        <p className="font-light">{event.venue?.name}</p>
+                        {event?.lineup && (
+                          <p className="text-xl ">{event.lineup}</p>
+                        )}
+                        <Link
+                          href={`/venue/${event.venue?.slug.current}`}
+                          className="font-light underline hover:text-blue-400"
+                        >
+                          {event.venue?.name}
+                        </Link>
                         <p className="font-light">
-                          {formatDateTime(event.startTime, event.endTime)?.[0]}{" "}
-                          - {formatDateTime(event.startTime, event.endTime)[1]}
+                          {formatDateTime(event.startTime, event.endTime)?.[0]}
                         </p>
                       </div>
                     </div>
@@ -175,7 +177,7 @@ export default function EventList({
                       }}
                     >
                       {urlForImage(event.venue?.images?.[0]) && (
-                        <Link href={`/groovecal/${event.slug.current}`}>
+                        <Link href={`/shows/${event.slug.current}`}>
                           <Image
                             fill={true}
                             className="object-center object-cover rounded-2xl"
@@ -187,7 +189,7 @@ export default function EventList({
                       )}
                     </div>
                     <div className="flex flex-col gap-3 mt-4">
-                      <Link href={`/groovecal/${event.slug.current}`}>
+                      <Link href={`/shows/${event.slug.current}`}>
                         <p className="text-2xl font-semibold">
                           {event.eventName}
                         </p>
@@ -198,12 +200,6 @@ export default function EventList({
                         {
                           formatDateTime(event.startTime, event.endTime)[
                             isGridView ? 2 : 0
-                          ]
-                        }{" "}
-                        -{" "}
-                        {
-                          formatDateTime(event.startTime, event.endTime)[
-                            isGridView ? 3 : 1
                           ]
                         }
                       </p>

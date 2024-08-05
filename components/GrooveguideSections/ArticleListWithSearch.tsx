@@ -73,11 +73,19 @@ export default function ArticleListWithSearch({
   }, [posts]);
 
   const handleNextPage = () => {
-    router.push(`/grooveguide?page=${pageIndex + 1}`);
+    router.push(
+      `/grooveguide?page=${pageIndex + 1}${
+        category ? "&category=" + category : ""
+      }`
+    );
   };
 
   const handlePrevPage = () => {
-    router.push(`/grooveguide?page=${pageIndex - 1}`);
+    router.push(
+      `/grooveguide?page=${pageIndex - 1}${
+        category ? "&category=" + category : ""
+      }`
+    );
   };
   return (
     <section>
@@ -114,16 +122,6 @@ export default function ArticleListWithSearch({
             onClick={() => router.push("/grooveguide?page=1&category=groovers")}
           >
             groovers
-          </button>
-          <button
-            className={`font-semibold max-sm:text-xs ${
-              category === "groovemail" ? "text-purple-700" : "text-slate-500"
-            }`}
-            onClick={() =>
-              router.push("/grooveguide?page=1&category=groovemail")
-            }
-          >
-            groovemail
           </button>
           <button
             className={`font-semibold max-sm:text-xs ${
@@ -179,9 +177,6 @@ export default function ArticleListWithSearch({
                   <div className="font-light line-clamp-2">
                     <PortableText value={post.body} />
                   </div>
-                  <p className="text-sm font-semibold">
-                    {post.authors?.[0].name}
-                  </p>
                 </Link>
               </div>
             </div>

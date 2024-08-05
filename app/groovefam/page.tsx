@@ -15,9 +15,7 @@ export default async function Groovefam() {
           >
             groovefam
           </p>
-          <p className="text-2xl sm:text-3xl">
-            meet our writers and photographers
-          </p>
+          <p className="text-2xl sm:text-3xl">meet our team</p>
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-8">
           {groovefam.map((member: any) => (

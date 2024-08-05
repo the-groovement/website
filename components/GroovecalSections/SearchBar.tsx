@@ -6,7 +6,7 @@ export default function SearchBar() {
           className="text-[40px] sm:text-7xl mb-4 font-shrikhand"
           style={{ textShadow: "1px 1px 3px #3a2a3c" }}
         >
-          groovecal
+          shows
         </p>
         <p className="text-2xl sm:text-3xl mb-12">
           find the best shows. get tix.

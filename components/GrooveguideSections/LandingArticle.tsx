@@ -12,7 +12,7 @@ export default function LandingArticle() {
           grooveguide
         </p>
         <p className="text-2xl sm:text-3xl">
-          learn more about the community & amplify your concert experience
+          artist interviews, venue guides, community spotlights & more
         </p>
         {/* <Link href="/grooveguide/1">
           <div

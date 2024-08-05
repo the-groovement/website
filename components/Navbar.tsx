@@ -10,7 +10,7 @@ import { BookOpenText } from "lucide-react";
 const NAV_ITEMS = [
   {
     navTitle: "shows",
-    link: "/groovecal",
+    link: "/shows",
   },
   {
     navTitle: "guide",
@@ -84,9 +84,9 @@ export default function Navbar() {
           )}
         </div>
         <Link href="/signup">
-          <div className="bg-white py-3 px-6 font-semibold rounded-2xl whitespace-nowrap">
+          <button className="bg-white rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold">
             join us
-          </div>
+          </button>
         </Link>
       </nav>
     </div>

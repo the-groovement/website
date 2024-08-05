@@ -16,7 +16,7 @@ export default async function BlogCamSection() {
       <div className="pb-8">
         <div className="flex flex-col justify-between sm:hidden gap-8 mb-8">
           <Link
-            href="/groovecal"
+            href="/shows"
             className="flex flex-col bg-groove1 bg-cover bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
           >
             <Image
@@ -37,7 +37,7 @@ export default async function BlogCamSection() {
             </div>
           </Link>
           <Link
-            href="/groovecal"
+            href="/shows"
             className="flex flex-col bg-cover bg-groove1 bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
           >
             <Image
@@ -76,14 +76,14 @@ export default async function BlogCamSection() {
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={"/tester.png"}
-              alt={"test"}
+              src={"/groovemap.png"}
+              alt={"map"}
               sizes="100%"
             />
-            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
+            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-b-2xl mt-auto w-full relative">
               <div className="flex flex-row justify-between items-center">
-                <div className="text-xl md:text-2xl rounded-2xl tracking-wider text-white font-shrikhand">
-                  Explore the groovemap
+                <div className="text-xl md:text-2xl rounded-b-2xl tracking-wider text-white font-shrikhand">
+                  Explore the map
                 </div>
                 <ArrowRight />
               </div>
@@ -128,7 +128,7 @@ export default async function BlogCamSection() {
               <div className="relative h-32 w-64 md:h-64 md:w-full max-sm:aspect-square">
                 <Image
                   fill={true}
-                  className="object-center object-cover rounded-2xl"
+                  className="object-center object-contain pl-4 rounded-2xl border border-groove1"
                   src={"/groove-code.png"}
                   alt={"home"}
                   sizes="100%"
@@ -139,7 +139,7 @@ export default async function BlogCamSection() {
                 <p className="text-lg md:mt-4 mb-2">
                   Aka the way we groove. Our community supports each other to
                   maintain a safe and groovy environment for all. Read on for a
-                  sense of our ethos
+                  sense of our ethos.
                 </p>
               </div>
             </Link>
@@ -150,20 +150,17 @@ export default async function BlogCamSection() {
               <div className="relative h-32 w-64 md:h-64 md:w-full max-sm:aspect-square">
                 <Image
                   fill={true}
-                  className="object-center object-cover rounded-2xl"
-                  src={"/vinyl.png"}
+                  className="object-center object-contain rounded-2xl border border-groove1"
+                  src={"/groovestamp.png"}
                   alt={"home"}
                   sizes="100%"
                 />
               </div>
               <div className="max-md:ml-6 max-md:w-3/4">
-                <p className="text-xl md:mt-4 mb-2 font-semibold">
-                  grooveguide
-                </p>
+                <p className="text-xl md:mt-4 mb-2 font-semibold">FAQs</p>
                 <p className="text-lg md:mt-4 mb-2">
-                  Our online magazine. Learn more about our favorite artists and
-                  venues and amplify your concert experience with hot tips and
-                  tricks.
+                  Discover more about the Groovement by exploring our frequently
+                  asked questions.
                 </p>
               </div>
             </Link>
@@ -174,7 +171,7 @@ export default async function BlogCamSection() {
               <div className="relative h-32 w-64 md:h-64 md:w-full max-sm:aspect-square">
                 <Image
                   fill={true}
-                  className="object-center object-cover rounded-2xl"
+                  className="object-center object-contain rounded-2xl border border-groove1"
                   src={"/groovefam.png"}
                   alt={"home"}
                   sizes="100%"

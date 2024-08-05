@@ -61,7 +61,7 @@ export default async function TopOfPageSection() {
           </Link>
           <div className="flex flex-col w-96 justify-between max-sm:hidden mt-4 gap-8">
             <Link
-              href="/groovecal"
+              href="/shows"
               className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-full border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
             >
               <Image
@@ -82,7 +82,7 @@ export default async function TopOfPageSection() {
               </div>
             </Link>
             <Link
-              href="/groovecal"
+              href="/shows"
               className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-full border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
             >
               <Image

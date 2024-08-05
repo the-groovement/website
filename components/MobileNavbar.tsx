@@ -14,7 +14,7 @@ import { BookOpenText } from "lucide-react";
 const NAV_ITEMS = [
   {
     navTitle: "shows",
-    link: "/groovecal",
+    link: "/shows",
   },
   {
     navTitle: "guide",
