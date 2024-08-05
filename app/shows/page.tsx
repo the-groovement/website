@@ -84,6 +84,7 @@ export default function Groovecal() {
               dateFormat="yyyy-MM-dd"
               placeholderText="start date"
               locale="en"
+              popperPlacement="top-end"
             />
             <DatePicker
               selected={endTime ? new Date(endTime) : undefined}
@@ -92,6 +93,7 @@ export default function Groovecal() {
               dateFormat="yyyy-MM-dd"
               placeholderText="end date"
               locale="en"
+              popperPlacement="top-end"
             />
           </div>
           <div className="w-full h-32 bg-white rounded-2xl flex flex-col justify-between px-2 lg:hidden border-groove1 border drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
