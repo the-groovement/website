@@ -26,7 +26,7 @@ export default async function Article({ params }: { params: { id: string } }) {
     };
     return date.toLocaleDateString(undefined, options);
   };
-
+  console.log(currentPost.authors?.[0]?.instagram_or_website);
   return (
     <section>
       <div>
@@ -57,47 +57,75 @@ export default async function Article({ params }: { params: { id: string } }) {
             </div>
             <div className="flex flex-col gap-1">
               <p className="font-semibold">author</p>
-              <p>{currentPost.authors?.[0].name}</p>
+              <a
+                className={
+                  currentPost.authors?.[0]?.instagram_or_website
+                    ? "underline hover:text-blue-400"
+                    : ""
+                }
+                href={currentPost.authors?.[0]?.instagram_or_website}
+                target="_blank"
+              >
+                {currentPost.authors?.[0].name}
+              </a>
             </div>
             {currentPost.photographers && (
               <div className="flex flex-col gap-1">
                 <p className="font-semibold">photographer</p>
-                <p>{currentPost.photographers?.[0].name}</p>
+                <a
+                  className={
+                    currentPost.photographers?.[0]?.instagram_or_website
+                      ? "underline hover:text-blue-400"
+                      : ""
+                  }
+                  href={currentPost.photographers?.[0]?.instagram_or_website}
+                  target="_blank"
+                >
+                  {currentPost.photographers?.[0].name}
+                </a>
               </div>
             )}
           </div>
           <div className="flex flex-row mt-8 border-b border-black">
             <div className="flex flex-col xl:w-2/3 mb-8 max-lg:w-full">
-              <Carousel>
-                <CarouselContent>
-                  {Array.from({ length: currentPost.images.length }).map(
-                    (_, index) => (
-                      <CarouselItem key={index}>
-                        <div
-                          className="flex text-lg relative mb-4 lg:mb-8"
-                          style={{
-                            aspectRatio: 16 / 9,
-                          }}
-                        >
-                          <Image
-                            fill={true}
-                            className="object-center object-cover"
-                            src={urlForImage(currentPost.images?.[index]) ?? ""}
-                            alt={"home"}
-                            sizes="100%"
-                          />
-                        </div>
-                      </CarouselItem>
-                    )
-                  )}
-                </CarouselContent>
-                {currentPost.images.length > 2 && (
-                  <>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                  </>
-                )}
-              </Carousel>
+              {currentPost.images && (
+                <Carousel>
+                  <CarouselContent>
+                    {Array.from({ length: currentPost.images.length }).map(
+                      (_, index) => (
+                        <CarouselItem key={index}>
+                          <div
+                            className="flex text-lg relative mb-4 lg:mb-8"
+                            style={{
+                              aspectRatio: 16 / 9,
+                            }}
+                          >
+                            {urlForImage(currentPost.images?.[index]) && (
+                              <Image
+                                fill={true}
+                                className="object-center object-cover"
+                                src={
+                                  urlForImage(currentPost.images?.[index]) ?? ""
+                                }
+                                alt={"home"}
+                                sizes="100%"
+                              />
+                            )}
+                          </div>
+                        </CarouselItem>
+                      )
+                    )}
+                  </CarouselContent>
+                  <div className="max-sm:hidden">
+                    {currentPost.images.length > 2 && (
+                      <>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                      </>
+                    )}
+                  </div>
+                </Carousel>
+              )}
               <PortableText value={currentPost.body} />
               <Image
                 className="mt-4"

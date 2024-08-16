@@ -9,7 +9,11 @@ import CloseIcon from "./Icons/CloseIcon";
 import CalendarIcon from "./Icons/CalendarIcon";
 import LocationIcon from "./Icons/LocationIcon";
 import MusicIcon from "./Icons/MusicIcon";
-import { BookOpenText } from "lucide-react";
+import {
+  BookOpenText,
+  HeartIcon,
+  MessageCircleQuestionIcon,
+} from "lucide-react";
 
 const NAV_ITEMS = [
   {
@@ -27,6 +31,14 @@ const NAV_ITEMS = [
   {
     navTitle: "about",
     link: "/about",
+  },
+  {
+    navTitle: "FAQs",
+    link: "/faqs",
+  },
+  {
+    navTitle: "our team",
+    link: "/groovefam",
   },
   {
     navTitle: "join us",
@@ -129,6 +141,10 @@ export default function MobileNavbar() {
         return <LocationIcon />;
       case "about":
         return <MusicIcon />;
+      case "FAQs":
+        return <MessageCircleQuestionIcon />;
+      case "our team":
+        return <HeartIcon />;
       case "join us":
         return <MusicIcon />;
       default:

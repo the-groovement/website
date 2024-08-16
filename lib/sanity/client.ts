@@ -26,6 +26,7 @@ import {
   allgroovefamphotographers,
   eventsGenrePaginatedQuery,
   featuredVenueQuery,
+  postsQuery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -222,7 +223,6 @@ export async function searchEvents(
   endTime: string
 ) {
   const currentTime = new Date().toISOString();
-  const futureDate = new Date("9999-12-31T23:59:59").toISOString();
 
   if (client) {
     const events = !endTime
@@ -342,6 +342,17 @@ export async function getPaginatedEvents(
     return events || {};
   }
 
+  return {};
+}
+
+export async function getPosts() {
+  if (client) {
+    return (
+      (await client.fetch(postsQuery, {
+        cache: "no-store",
+      })) || {}
+    );
+  }
   return {};
 }
 

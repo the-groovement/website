@@ -1,7 +1,7 @@
 import Dropdown from "@/components/Dropdown";
 import Image from "next/image";
 
-export default function Grooveguide() {
+export default function About() {
   return (
     <section>
       <div className="mb-12">
@@ -89,13 +89,6 @@ export default function Grooveguide() {
             </p>
           </div>
         </div>
-        <p
-          className="text-[40px] sm:text-7xl mb-4 font-shrikhand mt-2 sm:mt-8"
-          style={{ textShadow: "1px 1px 3px #3a2a3c" }}
-        >
-          FAQs
-        </p>
-        <Dropdown />
       </div>
     </section>
   );
