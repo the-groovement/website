@@ -1,8 +1,11 @@
 import Dropdown from "@/components/Dropdown";
+import { getFaqs } from "@/lib/sanity/client";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export default function Faqs() {
+export default async function Faqs() {
+  const faqsData = await getFaqs();
+  console.log(faqsData?.questions);
   return (
     <section>
       <div className="mb-12">
@@ -12,7 +15,7 @@ export default function Faqs() {
         >
           FAQs
         </p>
-        <Dropdown />
+        <Dropdown faqs={faqsData?.questions} />
       </div>
     </section>
   );

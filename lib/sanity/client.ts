@@ -11,7 +11,6 @@ import {
   catpathquery,
   catquery,
   getAll,
-  searchquery,
   limitFeaturedquery,
   limitNonFeaturedquery,
   eventsPaginatedQuery,
@@ -30,6 +29,8 @@ import {
   playlistQuery,
   limitFeaturedArtistsquery,
   limitFeaturedQueryNonArtist,
+  aboutPage,
+  faqs,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -452,6 +453,28 @@ export async function getRecentNonFeaturedPosts(start: number, end: number) {
       (await client.fetch(limitNonFeaturedquery, {
         start: start,
         end: end,
+        cache: "no-store",
+      })) || {}
+    );
+  }
+  return {};
+}
+
+export async function getAboutPage() {
+  if (client) {
+    return (
+      (await client.fetch(aboutPage, {
+        cache: "no-store",
+      })) || {}
+    );
+  }
+  return {};
+}
+
+export async function getFaqs() {
+  if (client) {
+    return (
+      (await client.fetch(faqs, {
         cache: "no-store",
       })) || {}
     );

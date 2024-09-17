@@ -6,6 +6,8 @@ import photographer from "./photographer";
 import event from "./event";
 import venue from "./venue";
 import playlist from "./playlist";
+import about from "./about";
+import faqs from "./faqs";
 
 export const schemaTypes = [
   post,
@@ -16,4 +18,6 @@ export const schemaTypes = [
   event,
   venue,
   playlist,
+  about,
+  faqs,
 ];

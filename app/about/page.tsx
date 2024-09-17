@@ -1,6 +1,11 @@
+import { getAboutPage } from "@/lib/sanity/client";
+import { PortableText } from "@portabletext/react";
 import Image from "next/image";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
-export default function About() {
+export default async function About() {
+  const aboutPageData = await getAboutPage();
   return (
     <section>
       <div className="mb-12">
@@ -13,10 +18,9 @@ export default function About() {
         <div className="flex flex-col gap-8 mb-16">
           <div>
             <p className="text-3xl sm:text-4xl font-bold mb-4">our mission</p>
-            <p className="text-xl sm:text-2xl">
-              To make the magic of live music accessible to everyone by
-              supporting fans, artists, venues, and the local community.
-            </p>
+            <div className="text-xl sm:text-2xl">
+              <PortableText value={aboutPageData?.mission} />
+            </div>
           </div>
           <div>
             <p className="text-3xl sm:text-4xl font-bold mb-4">our values</p>
@@ -28,7 +32,9 @@ export default function About() {
                   src="/groovestamp.png"
                   alt="logo"
                 />
-                <p className="text-xl sm:text-2xl">connection</p>
+                <p className="text-xl sm:text-2xl">
+                  {aboutPageData?.values?.[0]}
+                </p>
               </div>
               <div className="flex flex-row">
                 <div className="flex flex-row items-center gap-4">
@@ -38,7 +44,9 @@ export default function About() {
                     src="/groovestamp.png"
                     alt="logo"
                   />
-                  <p className="text-xl sm:text-2xl">empowerment</p>
+                  <div className="text-xl sm:text-2xl">
+                    {aboutPageData?.values?.[1]}
+                  </div>
                 </div>
               </div>
               <div className="flex flex-row">
@@ -49,7 +57,9 @@ export default function About() {
                     src="/groovestamp.png"
                     alt="logo"
                   />
-                  <p className="text-xl sm:text-2xl">integrity</p>
+                  <div className="text-xl sm:text-2xl">
+                    {aboutPageData?.values?.[2]}
+                  </div>
                 </div>
               </div>
               <div className="flex flex-row">
@@ -60,32 +70,18 @@ export default function About() {
                     src="/groovestamp.png"
                     alt="logo"
                   />
-                  <p className="text-xl sm:text-2xl">fun</p>
+                  <div className="text-xl sm:text-2xl">
+                    {aboutPageData?.values?.[3]}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div>
             <p className="text-3xl sm:text-4xl font-bold mb-4">origin story</p>
-            <p className="text-xl sm:text-2xl">
-              <span className="italic">the groovement</span> traces its roots
-              back to two friends, a shared love of live music, and a google
-              doc. The two friends were having a hard time keeping track of all
-              the upcoming shows in NYC, so the google doc was born. After
-              sharing the doc with friends, who shared with their friends, it
-              became a resource for locals and visitors alike to find shows,
-              meet awesome people and share in the magic of live music together.
-              <br />
-              <br />
-              Today, <span className="italic">the groovement</span> is a
-              thriving community platform making live music accessible to all.
-              As the trusted source for live music in NYC,{" "}
-              <span className="italic">the groovement</span> handpicks the best
-              shows, with the best vibes, for the best crowd. We believe in
-              supporting the scene and use our platform, programs, and values to
-              elevate artists, venues, photographers, writers, the local
-              community, and the fan experience. Get your groove on with us!
-            </p>
+            <div className="text-xl sm:text-2xl">
+              <PortableText value={aboutPageData?.originStory} />
+            </div>
           </div>
         </div>
       </div>
