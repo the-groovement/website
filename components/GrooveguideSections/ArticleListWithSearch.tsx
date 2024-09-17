@@ -142,15 +142,17 @@ export default function ArticleListWithSearch({
                 key={index}
                 className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square"
               >
-                <Image
-                  fill={true}
-                  className="object-center object-cover rounded-2xl"
-                  src={urlForImage(post.images?.[0]) ?? ""}
-                  alt={"home"}
-                  sizes="100%"
-                />
+                <div className="relative max-md:h-[80%] h-full max-md:aspect-square flex my-auto">
+                  <Image
+                    fill={true}
+                    className="object-center object-cover rounded-2xl"
+                    src={urlForImage(post.images?.[0]) ?? ""}
+                    alt={"home"}
+                    sizes="100%"
+                  />
+                </div>
               </Link>
-              <div className="max-md:ml-6 flex flex-col gap-2">
+              <div className="max-md:ml-6 flex flex-col gap-2 w-full overflow-hidden">
                 <p className="text-sm md:mt-4 font-semibold text-purple-700">
                   {post.categories && (
                     <>
@@ -159,9 +161,9 @@ export default function ArticleListWithSearch({
                       >
                         <span className="mr-2">
                           {post.categories?.[0].title}
-                        </span>{" "}
+                        </span>
                       </Link>
-                      <span className="mr-2">•</span>{" "}
+                      <span className="mr-2">•</span>
                     </>
                   )}
                   <span className="font-normal">
@@ -171,10 +173,10 @@ export default function ArticleListWithSearch({
                 <Link
                   href={`/grooveguide/${post.slug.current}`}
                   key={index}
-                  className="flex flex-col gap-2"
+                  className="flex flex-col gap-2 w-full"
                 >
                   <p className="text-xl font-semibold">{post.title}</p>
-                  <div className="font-light line-clamp-2">
+                  <div className="font-light line-clamp-2 w-full max-w-full overflow-hidden text-ellipsis break-words">
                     <PortableText value={post.body} />
                   </div>
                 </Link>

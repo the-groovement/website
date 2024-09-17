@@ -2,7 +2,8 @@ import { getGroovefam } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
-const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const backgroundColors = [
   "bg-grooveBrandColor1",
@@ -27,11 +28,10 @@ export default async function Groovefam() {
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-8">
           {groovefam.map((member: any, index: number) => {
-            const bgColor = backgroundColors[index % backgroundColors.length];
             return (
               <div
                 key={member._id}
-                className={`p-4 rounded-lg shadow-md ${bgColor}`}
+                className={`p-4 rounded-lg shadow-md border-groove1 border`}
               >
                 <div className="relative h-[300px] w-[300px] mx-auto mb-4">
                   <Image

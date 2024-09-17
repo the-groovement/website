@@ -27,6 +27,9 @@ import {
   eventsGenrePaginatedQuery,
   featuredVenueQuery,
   postsQuery,
+  playlistQuery,
+  limitFeaturedArtistsquery,
+  limitFeaturedQueryNonArtist,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -88,6 +91,17 @@ export async function getFeaturedVenue() {
   if (client) {
     return (
       (await client.fetch(featuredVenueQuery, {
+        cache: "no-store",
+      })) || {}
+    );
+  }
+  return {};
+}
+
+export async function getPlaylist() {
+  if (client) {
+    return (
+      (await client.fetch(playlistQuery, {
         cache: "no-store",
       })) || {}
     );
@@ -243,6 +257,7 @@ export async function searchEvents(
           if (event.venue && event.venue._ref) {
             const venue = await client.fetch(singleVenueQuery, {
               id: event.venue._ref,
+              cache: "no-store",
             });
 
             // Combine event and venue data
@@ -298,7 +313,8 @@ export async function getEvents() {
 export async function getPaginatedEvents(
   start: number,
   end: number,
-  genre?: string
+  genre?: string,
+  featured?: boolean
 ) {
   if (client) {
     let events;
@@ -314,6 +330,7 @@ export async function getPaginatedEvents(
       events = await client.fetch(eventsPaginatedQuery, {
         start: start,
         end: end,
+        featured: featured ?? false,
         cache: "no-store",
       });
     }
@@ -391,6 +408,35 @@ export async function getRecentFeaturedPosts(start: number, end: number) {
   if (client) {
     return (
       (await client.fetch(limitFeaturedquery, {
+        start: start,
+        end: end,
+        cache: "no-store",
+      })) || {}
+    );
+  }
+  return {};
+}
+
+export async function getRecentFeaturedPostsNonArtist(
+  start: number,
+  end: number
+) {
+  if (client) {
+    return (
+      (await client.fetch(limitFeaturedQueryNonArtist, {
+        start: start,
+        end: end,
+        cache: "no-store",
+      })) || {}
+    );
+  }
+  return {};
+}
+
+export async function getRecentFeaturedArtistPosts(start: number, end: number) {
+  if (client) {
+    return (
+      (await client.fetch(limitFeaturedArtistsquery, {
         start: start,
         end: end,
         cache: "no-store",

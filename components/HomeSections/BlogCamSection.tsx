@@ -1,6 +1,8 @@
 import {
   getFeaturedVenue,
+  getRecentFeaturedArtistPosts,
   getRecentFeaturedPosts,
+  getRecentFeaturedPostsNonArtist,
   getRecentNonFeaturedPosts,
 } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
@@ -8,21 +10,28 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function BlogCamSection() {
-  const sanityData = await getRecentFeaturedPosts(0, 6);
-  const featuredArticle = await getFeaturedVenue();
+interface BlogCamSectionProps {
+  artistPost: any;
+  venuePost: any;
+}
+
+export default async function BlogCamSection({
+  artistPost,
+  venuePost,
+}: BlogCamSectionProps) {
+  const sanityData = await getRecentFeaturedPostsNonArtist(0, 6);
   return (
     <section>
       <div className="pb-8">
         <div className="flex flex-col justify-between sm:hidden gap-8 mb-8">
           <Link
-            href="/shows"
-            className="flex flex-col bg-groove1 bg-cover bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
+            href={`/grooveguide/${artistPost.slug.current}`}
+            className="flex flex-col bg-groove1 bg-cover bg-center rounded-2xl justify-between h-72 border border-groove1 relative"
           >
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
+              src={urlForImage(artistPost.images?.[0]) ?? ""}
               alt={"home"}
               sizes="100%"
             />
@@ -31,19 +40,19 @@ export default async function BlogCamSection() {
                 ARTISTS
               </div>
               <div className="flex flex-row justify-between items-center">
-                <p>Sunflower Bean debuts in Brooklyn, New York</p>
+                <p>{artistPost.titleLink ?? artistPost.title}</p>
                 <ArrowRight />
               </div>
             </div>
           </Link>
           <Link
-            href="/shows"
-            className="flex flex-col bg-cover bg-groove1 bg-center rounded-2xl justify-between h-72 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
+            href={`/venue/${venuePost.slug.current}`}
+            className="flex flex-col bg-cover bg-groove1 bg-center rounded-2xl justify-between h-72 border border-groove1 relative"
           >
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={urlForImage(featuredArticle?.[0].images?.[0]) ?? ""}
+              src={urlForImage(venuePost.images?.[0]) ?? ""}
               alt={"home"}
               sizes="100%"
             />
@@ -52,7 +61,7 @@ export default async function BlogCamSection() {
                 VENUES
               </div>
               <div className="flex flex-row justify-between items-center">
-                <p>{featuredArticle[0].titleLink}</p>
+                <p>{venuePost.titleLink}</p>
                 <ArrowRight />
               </div>
             </div>
@@ -63,7 +72,7 @@ export default async function BlogCamSection() {
             from the groovemap
           </p>
           <p className="lg:text-5xl text-4xl font-semibold w-1/2 ml-8">
-            popular stories
+            {sanityData.length === 1 ? "today's story" : "popular stories"}
           </p>
         </div>
 
@@ -89,9 +98,11 @@ export default async function BlogCamSection() {
               </div>
             </div>
           </Link>
-          <p className="text-3xl font-semibold md:hidden">popular stories</p>
+          <p className="text-3xl font-semibold md:hidden">
+            {sanityData.length === 1 ? "today's story" : "popular stories"}
+          </p>
           <div className="md:w-1/2 flex flex-col">
-            {sanityData.map((post: any, index: number) => (
+            {sanityData.slice(0, 3).map((post: any, index: number) => (
               <Link
                 href={`/grooveguide/${post.slug.current}`}
                 className={`flex-grow h-36 md:h-full flex flex-row border-b border-black ${

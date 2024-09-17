@@ -5,6 +5,7 @@ import author from "./author";
 import photographer from "./photographer";
 import event from "./event";
 import venue from "./venue";
+import playlist from "./playlist";
 
 export const schemaTypes = [
   post,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   blockContent,
   event,
   venue,
+  playlist,
 ];

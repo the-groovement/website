@@ -1,4 +1,11 @@
-export default function MapSpotifyEmailSection() {
+import { getPlaylist } from "@/lib/sanity/client";
+
+export default async function MapSpotifyEmailSection() {
+  const playlistUrl = await getPlaylist();
+  const fallbackUrl =
+    playlistUrl?.spotify_playlist_url === undefined
+      ? "https://open.spotify.com/embed/playlist/7qW5qseZ006ocSKYwiLF9P"
+      : playlistUrl?.spotify_playlist_url;
   return (
     <section>
       <div className="pb-8">
@@ -6,7 +13,7 @@ export default function MapSpotifyEmailSection() {
           <div className="w-full flex flex-col">
             <iframe
               style={{ borderRadius: "16px" }}
-              src="https://open.spotify.com/embed/playlist/7qW5qseZ006ocSKYwiLF9P?utm_source=generator&theme=0"
+              src={`${fallbackUrl}?utm_source=generator&theme=0`}
               width="100%"
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
@@ -18,3 +25,5 @@ export default function MapSpotifyEmailSection() {
     </section>
   );
 }
+
+export const dynamic = "force-dynamic";

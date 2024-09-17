@@ -35,7 +35,7 @@ const NAV_ITEMS = [
 const OTHER = [
   {
     navTitle: "partner with us",
-    url: "https://docs.google.com/forms/d/e/1FAIpQLSdqDIgFwdcAMZoQ2mt0MXy7LhDrMDorsFCY2opqSm0eZ8bl6w/viewform",
+    url: "https://forms.gle/8uzVJFMc46xz4DH96",
   },
   {
     navTitle: "join our team",

@@ -12,6 +12,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/Carousel";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function Article({ params }: { params: { id: string } }) {
   const POSTS_PER_PAGE = 4;
@@ -26,7 +28,6 @@ export default async function Article({ params }: { params: { id: string } }) {
     };
     return date.toLocaleDateString(undefined, options);
   };
-  console.log(currentPost.authors?.[0]?.instagram_or_website);
   return (
     <section>
       <div>

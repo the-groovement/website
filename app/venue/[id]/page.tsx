@@ -14,6 +14,8 @@ import {
   XIcon,
 } from "lucide-react";
 import Image from "next/image";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function GroovecalVenue({
   params,
@@ -52,46 +54,6 @@ export default async function GroovecalVenue({
             />
           </div>
         </div>
-        {venue.intro && (
-          <div className="flex flex-col mb-8 gap-2">
-            <p className="text-2xl font-semibold">intro</p>
-            <div>
-              <PortableText value={venue.intro} />
-            </div>
-          </div>
-        )}
-        {venue.history && (
-          <div className="flex flex-col mb-8 gap-2">
-            <p className="text-2xl font-semibold">history</p>
-            <div>
-              <PortableText value={venue.history} />
-            </div>
-          </div>
-        )}
-        {venue.map_recs &&
-          venue.map_recs.length > 0 &&
-          venue.map_recs[0].name && (
-            <div className="flex flex-col mb-8 gap-2">
-              <p className="text-2xl font-semibold mb-2">map recs</p>
-              <div>
-                {venue.map_recs.map((rec: any) => (
-                  <div key={rec._key}>
-                    <div className="text-xl font-medium">{rec?.name}</div>
-                    <a
-                      href={rec?.googlemaps}
-                      target="_blank"
-                      className=" hover:text-blue-400 underline"
-                    >
-                      {rec?.address}
-                    </a>
-                    <div className="mt-2">
-                      <PortableText value={rec?.info} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         <div className="flex flex-col mb-8 gap-2">
           <p className="text-2xl font-semibold mb-2">quick facts</p>
           <div className="grid grid-cols-2 gap-8">
@@ -145,6 +107,46 @@ export default async function GroovecalVenue({
             </div>
           </div>
         </div>
+        {venue.intro && (
+          <div className="flex flex-col mb-8 gap-2">
+            <p className="text-2xl font-semibold">intro</p>
+            <div>
+              <PortableText value={venue.intro} />
+            </div>
+          </div>
+        )}
+        {venue.history && (
+          <div className="flex flex-col mb-8 gap-2">
+            <p className="text-2xl font-semibold">history</p>
+            <div>
+              <PortableText value={venue.history} />
+            </div>
+          </div>
+        )}
+        {venue.map_recs &&
+          venue.map_recs.length > 0 &&
+          venue.map_recs[0].name && (
+            <div className="flex flex-col mb-8 gap-2">
+              <p className="text-2xl font-semibold mb-2">map recs</p>
+              <div>
+                {venue.map_recs.map((rec: any) => (
+                  <div key={rec._key} className="mb-4">
+                    <div className="text-lg font-medium">{rec?.name}</div>
+                    <a
+                      href={rec?.googlemaps}
+                      target="_blank"
+                      className=" hover:text-blue-400 underline"
+                    >
+                      {rec?.address}
+                    </a>
+                    <div className="mt-2">
+                      <PortableText value={rec?.info} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
       </div>
     </section>
   );

@@ -1,37 +1,51 @@
 import Link from "next/link";
 import Image from "next/image";
 import { urlForImage } from "@/lib/sanity/image";
-import {
-  getFeaturedVenue,
-  getPaginatedCategoryPosts,
-  getRecentFeaturedPosts,
-} from "@/lib/sanity/client";
 import { ArrowRight, CalendarDaysIcon, TicketIcon } from "lucide-react";
 
-export default async function TopOfPageSection() {
-  const sanityData = await getRecentFeaturedPosts(0, 1);
-  const featuredArticle = await getFeaturedVenue();
+interface TopOfPageSectionProps {
+  eventPost: any;
+  artistPost: any;
+  venuePost: any;
+}
+
+export default async function TopOfPageSection({
+  eventPost,
+  artistPost,
+  venuePost,
+}: TopOfPageSectionProps) {
+  const formatDate = (inputDate: string) => {
+    const date = new Date(inputDate);
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      month: "short",
+      day: "numeric",
+    };
+    return date.toLocaleDateString(undefined, options);
+  };
   return (
     <section>
       <div className="flex flex-col h-[calc(100svh-84px)] pb-8">
         <div className="mt-2 sm:mt-2">
           <p
-            className="text-[40px] sm:text-6xl md:text-7xl lg:text-8xl sm:inline font-shrikhand"
+            className="text-[40px] sm:text-7xl mb-4 font-shrikhand"
             style={{ textShadow: "1px 1px 3px #3a2a3c" }}
           >
             what's groovin'
           </p>
-          <p className="text-3xl mt-2">your guide to the best shows & vibes</p>
+          <p className="text-2xl sm:text-3xl">
+            your guide to the best shows & vibes
+          </p>
         </div>
         <div className="flex flex-row h-full">
           <Link
-            className="flex text-lg rounded-2xl flex-grow mt-4 sm:mt-8 sm:mr-8 bg-groove1 border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] relative"
-            href={`/grooveguide/${sanityData?.[0].slug.current}`}
+            className="flex text-lg rounded-2xl flex-grow mt-4 sm:mt-8 sm:mr-8 border border-groove1 relative"
+            href={`/shows/${eventPost.slug.current}`}
           >
             <Image
               fill={true}
               className="object-center object-cover rounded-2xl"
-              src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
+              src={urlForImage(eventPost.venue.images?.[0]) ?? ""}
               alt={"home"}
               sizes="100%"
             />
@@ -45,13 +59,15 @@ export default async function TopOfPageSection() {
                   SHOWS
                 </div>
                 <div className="text-2xl md:text-4xl rounded-2xl tracking-wider text-white font-shrikhand">
-                  {sanityData?.[0].title}
+                  {eventPost.eventName}
                 </div>
                 <div className="flex flex-row justify-between items-center font-sans text-lg md:text-2xl">
                   <div className="w-fit flex flex-row items-center gap-3">
                     <p>
-                      Wed April 17{" "}
-                      <span className="font-thin">@ Brooklyn Bowl</span>
+                      {formatDate(eventPost.startTime)}{" "}
+                      <span className="font-thin">
+                        @ {eventPost.venue.name}
+                      </span>
                     </p>
                     <TicketIcon />
                   </div>
@@ -62,13 +78,13 @@ export default async function TopOfPageSection() {
           </Link>
           <div className="flex flex-col w-96 justify-between max-sm:hidden mt-4 gap-8">
             <Link
-              href="/shows"
-              className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-full border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
+              href={`/grooveguide/${artistPost.slug.current}`}
+              className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-full border border-groove1 relative"
             >
               <Image
                 fill={true}
                 className="object-center object-cover rounded-2xl"
-                src={urlForImage(sanityData?.[0].images?.[0]) ?? ""}
+                src={urlForImage(artistPost.images?.[0]) ?? ""}
                 alt={"home"}
                 sizes="100%"
               />
@@ -77,19 +93,19 @@ export default async function TopOfPageSection() {
                   ARTISTS
                 </div>
                 <div className="flex flex-row justify-between items-center">
-                  <p>Sunflower Bean debuts in Brooklyn, New York</p>
+                  <p>{artistPost.titleLink ?? artistPost.title}</p>
                   <ArrowRight />
                 </div>
               </div>
             </Link>
             <Link
-              href="/shows"
-              className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-full border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]"
+              href={`/venue/${venuePost.slug.current}`}
+              className="flex flex-col bg-cover bg-center rounded-2xl justify-between h-full border border-groove1 relative"
             >
               <Image
                 fill={true}
                 className="object-center object-cover rounded-2xl"
-                src={urlForImage(featuredArticle?.[0].images?.[0]) ?? ""}
+                src={urlForImage(venuePost.images?.[0]) ?? ""}
                 alt={"home"}
                 sizes="100%"
               />
@@ -98,7 +114,7 @@ export default async function TopOfPageSection() {
                   VENUES
                 </div>
                 <div className="flex flex-row justify-between items-center">
-                  <p>{featuredArticle[0].titleLink}</p>
+                  <p>{venuePost.titleLink}</p>
                   <ArrowRight />
                 </div>
               </div>
