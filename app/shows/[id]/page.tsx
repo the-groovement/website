@@ -243,7 +243,7 @@ export default async function GroovecalEvent({
                         {event?.eventName}
                       </p>
                     </Link>
-                    <p className="text-xl">{event?.lineup}</p>
+                    <p className="text-xl line-clamp-2">{event?.lineup}</p>
                     <p className="font-light mt-2">{event?.venue?.name}</p>
                     {event?.startTime && event?.endTime && (
                       <p className="font-light mt-2">
