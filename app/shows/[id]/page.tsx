@@ -6,6 +6,39 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
+const genreMappings = {
+  blues: ["jazz", "soul"],
+  dance: ["electronic", "house", "techno", "pop"],
+  electronic: ["techno", "house", "technohouse"],
+  "electro-funk": ["jam", "electronic", "house"],
+  country: ["jam", "rock"],
+  dancehall: ["reggae", "dance"],
+  disco: ["nu disco", "pop", "french pop", "dance", "afrohouse"],
+  dubstep: ["electronic", "dance"],
+  indie: ["alt/indie", "alternative", "indie"],
+  jam: ["rock", "surf rock", "psychedelic rock"],
+  folk: ["alt/indie", "alternative", "indie"],
+  rock: ["psychedelic rock", "surf rock", "indie rock"],
+  funk: ["soul", "electro-funk"],
+  "hip hop": ["rap", "r&b"],
+  rap: ["hip hop"],
+  "r&b": ["soul", "funk", "rap"],
+  house: ["dance", "electronic", "afro house"],
+  jazz: ["blues", "rock", "dance"],
+  latin: ["cumbia", "world"],
+  metal: ["rock"],
+  classical: ["jazz"],
+  techno: ["tech house", "house", "electronic", "dance"],
+  pop: ["french pop", "psych pop", "disco", "dance"],
+  punk: ["rock", "indie"],
+  reggae: ["soul", "jazz", "rock", "jam"],
+  soul: ["r&b", "blues", "jazz", "jam", "indie rock"],
+  trance: ["dance", "electronic"],
+  world: ["afro house", "latin", "cumbia"],
+  psychedlia: ["psych rock", "psych pop"],
+  alternative: ["indie", "alt/indie"],
+};
+
 export default async function GroovecalEvent({
   params,
 }: {
@@ -13,7 +46,34 @@ export default async function GroovecalEvent({
 }) {
   const currentEvent = await getEventBySlug(params.id);
   const EVENTS_PER_PAGE = 4;
-  const recommendedEvents = await getPaginatedEvents(0, EVENTS_PER_PAGE + 1);
+  const getCombinedGenres = (input: string, mappings: any) => {
+    const genresArray = input
+      .toLowerCase()
+      .split(/[,/]/)
+      .map((genre) => genre.trim());
+    let combinedArray: string[] = [];
+    Object.keys(mappings).forEach((key) => {
+      if (genresArray.includes(key)) {
+        combinedArray = [...combinedArray, ...mappings[key]];
+      }
+    });
+    const deduplicatedArray = combinedArray.filter(
+      (item, index) => combinedArray.indexOf(item) === index
+    );
+
+    return deduplicatedArray;
+  };
+
+  const combinedGenres = getCombinedGenres(
+    currentEvent?.genre ?? "",
+    genreMappings
+  );
+
+  const recommendedEvents = await getPaginatedEvents(
+    0,
+    EVENTS_PER_PAGE + 1,
+    combinedGenres
+  );
 
   function formatDateTime(dateString1: string, dateString2: string) {
     const date1 = new Date(dateString1);

@@ -314,19 +314,18 @@ export async function getEvents() {
 export async function getPaginatedEvents(
   start: number,
   end: number,
-  genre?: string,
+  genreArray?: string[],
   featured?: boolean
 ) {
   if (client) {
     let events;
-    if (genre) {
-      events = await client.fetch(eventsGenrePaginatedQuery, {
+    if (genreArray) {
+      events = await client.fetch(eventsGenrePaginatedQuery(genreArray), {
         start: start,
         end: end,
-        genre: genre,
+        genreArray: genreArray,
         cache: "no-store",
       });
-      console.log(events);
     } else {
       events = await client.fetch(eventsPaginatedQuery, {
         start: start,
