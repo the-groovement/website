@@ -84,7 +84,7 @@ export default function ArticleListWithSearch() {
   const handleShowMore = async () => {
     if (hasMore) {
       setIsSearchLoading(true);
-      let fetchedPosts;
+      let fetchedPosts: any;
       if (!debouncedSearchText) {
         fetchedPosts = await getCategoryPosts(
           category,
