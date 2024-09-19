@@ -31,6 +31,9 @@ import {
   limitFeaturedQueryNonArtist,
   aboutPage,
   faqs,
+  categoryQuery,
+  postsSearch,
+  postsCategorySearch,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -58,13 +61,6 @@ export const fetcher = async ([query, params]: [string, any]) => {
     }
   }
 })();
-
-export async function getAllPosts() {
-  if (client) {
-    return (await client.fetch(postquery, { cache: "no-store" })) || [];
-  }
-  return [];
-}
 
 export async function getEventBySlug(slug: string) {
   if (client) {
@@ -235,7 +231,9 @@ export async function getTopCategories() {
 export async function searchEvents(
   searchInput: string,
   startTime: string,
-  endTime: string
+  endTime: string,
+  start: number,
+  end: number
 ) {
   const currentTime = new Date().toISOString();
 
@@ -244,11 +242,15 @@ export async function searchEvents(
       ? await client.fetch(eventsSearchQueryNoEndTime, {
           searchInput: `*${searchInput}*`,
           startTime: startTime ? startTime : currentTime,
+          start: start,
+          end: end,
         })
       : await client.fetch(eventsSearchQuery, {
           searchInput: `*${searchInput}*`,
           startTime: startTime ? startTime : currentTime,
           endTime: endTime,
+          start: start,
+          end: end,
         });
 
     if (events && events.length > 0) {
@@ -278,9 +280,11 @@ export async function searchEvents(
   return [];
 }
 
-export async function getEvents() {
+export async function getEvents(start: number, end: number) {
   if (client) {
     const events = await client.fetch(eventsQuery, {
+      start: start,
+      end: end,
       cache: "no-store",
     });
 
@@ -400,6 +404,65 @@ export async function getPaginatedCategoryPosts(
         cache: "no-store",
       })) || {}
     );
+  }
+  return {};
+}
+
+export async function getCategoryPosts(
+  categoryId: string | null,
+  start: number,
+  end: number
+) {
+  if (client) {
+    if (categoryId !== null) {
+      return (
+        (await client.fetch(categoryQuery, {
+          categoryId: categoryId,
+          start: start,
+          end: end,
+          cache: "no-store",
+        })) || {}
+      );
+    } else {
+      return (
+        (await client.fetch(postsQuery, {
+          start: start,
+          end: end,
+          cache: "no-store",
+        })) || {}
+      );
+    }
+  }
+  return {};
+}
+
+export async function searchPosts(
+  searchInput: string,
+  categoryId: string | null,
+  start: number,
+  end: number
+) {
+  if (client) {
+    if (categoryId !== null) {
+      return (
+        (await client.fetch(postsCategorySearch, {
+          searchInput: `*${searchInput}*`,
+          categoryId: categoryId,
+          start: start,
+          end: end,
+          cache: "no-store",
+        })) || {}
+      );
+    } else {
+      return (
+        (await client.fetch(postsSearch, {
+          searchInput: `*${searchInput}*`,
+          start: start,
+          end: end,
+          cache: "no-store",
+        })) || {}
+      );
+    }
   }
   return {};
 }

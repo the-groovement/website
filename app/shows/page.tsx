@@ -9,20 +9,28 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Groovecal() {
-  const [visibleEvents, setVisibleEvents] = useState(12);
-  const [events, setEvents] = useState([]);
+  const POSTS_PER_PAGE = 12;
+  const [visibleEvents, setVisibleEvents] = useState(POSTS_PER_PAGE);
+  const [events, setEvents] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isSearchLoading, setIsSearchLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
   const debouncedSearchText = useDebounce(searchText, 300);
   const [startTime, setStartTime] = useState<string | undefined>();
   const [endTime, setEndTime] = useState<string | undefined>();
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     const getInitialEvents = async () => {
-      setEvents(await getEvents());
+      const fetchedEvents = await getEvents(0, POSTS_PER_PAGE + 1);
+      setEvents(fetchedEvents.slice(0, POSTS_PER_PAGE));
       setIsLoaded(true);
       setIsSearchLoading(false);
+      if (fetchedEvents.length <= POSTS_PER_PAGE) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
     };
     getInitialEvents();
   }, []);
@@ -39,7 +47,6 @@ export default function Groovecal() {
       }
       if (endTime) {
         const endTimeISO = new Date(endTime).toISOString();
-        console.log(endTimeISO);
         end = moment
           .utc(endTimeISO)
           .add(28, "hours")
@@ -49,14 +56,61 @@ export default function Groovecal() {
       const events = await searchEvents(
         debouncedSearchText,
         start ? start : "",
-        end ? end : ""
+        end ? end : "",
+        0,
+        POSTS_PER_PAGE + 1
       );
-      setVisibleEvents(12);
-      setEvents(events);
+      setVisibleEvents(POSTS_PER_PAGE);
+      setEvents(events.slice(0, POSTS_PER_PAGE));
       setIsSearchLoading(false);
+      if (events.length <= POSTS_PER_PAGE) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
     };
     isLoaded && getSearchedEvents();
   }, [debouncedSearchText, startTime, endTime]);
+
+  const handleShowMore = async () => {
+    if (hasMore) {
+      setIsSearchLoading(true);
+      let start;
+      let end;
+      if (startTime) {
+        const startTimeISO = new Date(startTime).toISOString();
+        start = moment.utc(startTimeISO).add(5, "hours").format();
+      }
+      if (endTime) {
+        const endTimeISO = new Date(endTime).toISOString();
+        end = moment
+          .utc(endTimeISO)
+          .add(28, "hours")
+          .add(59, "minutes")
+          .format();
+      }
+      const events = await searchEvents(
+        debouncedSearchText,
+        start ? start : "",
+        end ? end : "",
+        0,
+        POSTS_PER_PAGE + 1
+      );
+      setEvents((prevEvents: any) => [
+        ...prevEvents,
+        ...events.slice(0, POSTS_PER_PAGE),
+      ]);
+
+      setVisibleEvents(
+        (prevVisibleEvents) => prevVisibleEvents + POSTS_PER_PAGE
+      );
+
+      setHasMore(events.length > POSTS_PER_PAGE);
+      setIsSearchLoading(false);
+    }
+  };
+
+  console.log(events.length);
 
   return (
     <div>
@@ -136,8 +190,9 @@ export default function Groovecal() {
         </div>
       </section>
       <EventList
-        visibleEvents={visibleEvents}
-        setVisibleEvents={setVisibleEvents}
+        handleShowMore={handleShowMore}
+        isLoaded={isLoaded}
+        hasMore={hasMore}
         events={events}
         isSearchLoading={isSearchLoading}
       />

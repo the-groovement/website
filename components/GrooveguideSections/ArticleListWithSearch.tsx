@@ -1,48 +1,29 @@
 "use client";
 
-import { getPaginatedPosts } from "@/lib/sanity/client";
+import { getCategoryPosts, searchPosts } from "@/lib/sanity/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { urlForImage } from "@/lib/sanity/image";
 import { PortableText } from "@portabletext/react";
-import { paginatedCategoryQuery, paginatedquery } from "@/lib/sanity/groq";
-import { fetcher } from "@/lib/sanity/client";
-import useSWR from "swr";
-import ChevronLeftIcon from "../Icons/ChevronLeftIcon";
-import ChevronRightIcon from "../Icons/ChevronRightIcon";
-import SkeletonImg from "../SkeletonImg";
+import useDebounce from "@/hooks/useDebounce";
+import LoaderSpinner from "../LoaderSpinner";
 
-type ArticleListWithSearch = {
-  initialPosts: any;
-};
-
-export default function ArticleListWithSearch({
-  initialPosts,
-}: ArticleListWithSearch) {
+export default function ArticleListWithSearch() {
+  const POSTS_PER_PAGE = 12;
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = searchParams.get("page");
   const category = searchParams.get("category");
   const pageIndex = page ? parseInt(page) : 1;
-  const POSTS_PER_PAGE = 9;
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [isFirstPage, setIsFirstPage] = useState(false);
-  const [isLastPage, setIsLastPage] = useState(false);
-
-  const query = category ? paginatedCategoryQuery : paginatedquery;
-  const paramsForQuery = category
-    ? {
-        categoryId: category,
-        start: (pageIndex - 1) * POSTS_PER_PAGE,
-        end: pageIndex * POSTS_PER_PAGE,
-      }
-    : {
-        start: (pageIndex - 1) * POSTS_PER_PAGE,
-        end: pageIndex * POSTS_PER_PAGE,
-      };
+  const [searchText, setSearchText] = useState("");
+  const debouncedSearchText = useDebounce(searchText, 300);
+  const [posts, setPosts] = useState<any>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isSearchLoading, setIsSearchLoading] = useState(true);
+  const [visibleEvents, setVisibleEvents] = useState(POSTS_PER_PAGE);
+  const [hasMore, setHasMore] = useState(true);
 
   const formatDate = (inputDate: string) => {
     const date = new Date(inputDate);
@@ -53,49 +34,101 @@ export default function ArticleListWithSearch({
     };
     return date.toLocaleDateString(undefined, options);
   };
-  const {
-    data: posts,
-    error,
-    isValidating,
-  } = useSWR([query, paramsForQuery], fetcher, {
-    fallbackData: initialPosts,
-    onSuccess: () => {
-      setIsLoading(false);
-    },
-  });
 
   useEffect(() => {
-    setIsFirstPage(posts === null ? false : pageIndex < 2);
-  }, [pageIndex]);
+    const getInitialPosts = async () => {
+      const fetchedPosts = await getCategoryPosts(
+        category,
+        visibleEvents - POSTS_PER_PAGE,
+        visibleEvents + 1
+      );
+      setPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
+      setIsLoaded(true);
+      setIsSearchLoading(false);
+
+      if (fetchedPosts.length <= POSTS_PER_PAGE) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
+    };
+    getInitialPosts();
+  }, []);
 
   useEffect(() => {
-    setIsLastPage(posts === null ? true : posts.length < POSTS_PER_PAGE);
-  }, [posts]);
+    const getSearchedEvents = async () => {
+      setIsSearchLoading(true);
+      setPosts([]);
+      setVisibleEvents(POSTS_PER_PAGE);
+      const fetchedPosts = debouncedSearchText
+        ? await searchPosts(
+            debouncedSearchText,
+            category,
+            0,
+            POSTS_PER_PAGE + 1
+          )
+        : await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1);
+      setVisibleEvents(POSTS_PER_PAGE);
+      setPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
+      setIsSearchLoading(false);
 
-  const handleNextPage = () => {
-    router.push(
-      `/grooveguide?page=${pageIndex + 1}${
-        category ? "&category=" + category : ""
-      }`
-    );
+      if (fetchedPosts.length <= POSTS_PER_PAGE) {
+        setHasMore(false);
+      } else {
+        setHasMore(true);
+      }
+    };
+    isLoaded && getSearchedEvents();
+  }, [debouncedSearchText, category]);
+
+  const handleShowMore = async () => {
+    if (hasMore) {
+      setIsSearchLoading(true);
+      let fetchedPosts;
+      if (!debouncedSearchText) {
+        fetchedPosts = await getCategoryPosts(
+          category,
+          visibleEvents,
+          visibleEvents + POSTS_PER_PAGE + 1
+        );
+      } else {
+        fetchedPosts = await searchPosts(
+          debouncedSearchText,
+          category,
+          visibleEvents,
+          visibleEvents + POSTS_PER_PAGE + 1
+        );
+      }
+      setPosts((prevPosts: any) => [
+        ...prevPosts,
+        ...fetchedPosts.slice(0, POSTS_PER_PAGE),
+      ]);
+
+      setVisibleEvents(
+        (prevVisibleEvents) => prevVisibleEvents + POSTS_PER_PAGE
+      );
+
+      setHasMore(fetchedPosts.length > POSTS_PER_PAGE);
+      setIsSearchLoading(false);
+    }
   };
 
-  const handlePrevPage = () => {
-    router.push(
-      `/grooveguide?page=${pageIndex - 1}${
-        category ? "&category=" + category : ""
-      }`
-    );
-  };
   return (
     <section>
+      <div className="w-full bg-white h-4 rounded-2xl py-8 items-center flex border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] mb-16">
+        <input
+          className="py-3 rounded-tl-3xl rounded-bl-3xl w-full px-6 focus:outline-none text-gray-500 placeholder-gray-500"
+          placeholder={`search ${category === null ? "grooveguide" : category}`}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+      </div>
       <div className="flex md:flex-row flex-col justify-between md:items-center mb-8">
         <div className="flex flex-row gap-8 border-b py-2 border-slate-500 w-full max-md:mb-4 px-1 flex-wrap">
           <button
             className={`font-semibold max-sm:text-xs ${
               category === null ? "text-purple-700" : "text-slate-500"
             }`}
-            onClick={() => router.push("/grooveguide?page=1")}
+            onClick={() => router.push("/grooveguide")}
           >
             view all
           </button>
@@ -103,7 +136,7 @@ export default function ArticleListWithSearch({
             className={`font-semibold max-sm:text-xs ${
               category === "artists" ? "text-purple-700" : "text-slate-500"
             }`}
-            onClick={() => router.push("/grooveguide?page=1&category=artists")}
+            onClick={() => router.push("/grooveguide?category=artists")}
           >
             artists
           </button>
@@ -111,7 +144,7 @@ export default function ArticleListWithSearch({
             className={`font-semibold max-sm:text-xs ${
               category === "venues" ? "text-purple-700" : "text-slate-500"
             }`}
-            onClick={() => router.push("/grooveguide?page=1&category=venues")}
+            onClick={() => router.push("/grooveguide?category=venues")}
           >
             venues
           </button>
@@ -119,7 +152,7 @@ export default function ArticleListWithSearch({
             className={`font-semibold max-sm:text-xs ${
               category === "groovers" ? "text-purple-700" : "text-slate-500"
             }`}
-            onClick={() => router.push("/grooveguide?page=1&category=groovers")}
+            onClick={() => router.push("/grooveguide?category=groovers")}
           >
             groovers
           </button>
@@ -127,93 +160,88 @@ export default function ArticleListWithSearch({
             className={`font-semibold max-sm:text-xs ${
               category === "more" ? "text-purple-700" : "text-slate-500"
             }`}
-            onClick={() => router.push("/grooveguide?page=1&category=more")}
+            onClick={() => router.push("/grooveguide?category=more")}
           >
             more
           </button>
         </div>
       </div>
-      <div className="md:grid md:grid-cols-3 max-md:w-full max-md:flex max-md:flex-col gap-8 mb-8">
-        {!isLoading && !isValidating ? (
-          posts?.map((post: any, index: number) => (
-            <div className="h-full flex flex-row md:flex-col" key={index}>
-              <Link
-                href={`/grooveguide/${post.slug.current}`}
-                key={index}
-                className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square"
-              >
-                <div className="relative max-md:h-[80%] h-full max-md:aspect-square flex my-auto">
-                  <Image
-                    fill={true}
-                    className="object-center object-cover rounded-2xl"
-                    src={urlForImage(post.images?.[0]) ?? ""}
-                    alt={"home"}
-                    sizes="100%"
-                  />
-                </div>
-              </Link>
-              <div className="max-md:ml-6 flex flex-col gap-2 w-full overflow-hidden">
-                <p className="text-sm md:mt-4 font-semibold text-purple-700">
-                  {post.categories && (
-                    <>
-                      <Link
-                        href={`/grooveguide?page=1&category=${post.categories?.[0].title}`}
-                      >
-                        <span className="mr-2">
-                          {post.categories?.[0].title}
-                        </span>
-                      </Link>
-                      <span className="mr-2">•</span>
-                    </>
-                  )}
-                  <span className="font-normal">
-                    {formatDate(post.publishedAt)}
-                  </span>
-                </p>
+      {posts.length > 0 && (
+        <div className="md:grid md:grid-cols-3 max-md:w-full max-md:flex max-md:flex-col gap-8 mb-8">
+          {posts
+            ?.slice(0, Math.min(visibleEvents, posts.length))
+            .map((post: any, index: number) => (
+              <div className="h-full flex flex-row md:flex-col" key={index}>
                 <Link
                   href={`/grooveguide/${post.slug.current}`}
                   key={index}
-                  className="flex flex-col gap-2 w-full"
+                  className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square"
                 >
-                  <p className="text-xl font-semibold">{post.title}</p>
-                  <div className="font-light line-clamp-2 w-full max-w-full overflow-hidden text-ellipsis break-words">
-                    <PortableText value={post.body} />
+                  <div className="relative max-md:h-[80%] h-full max-md:aspect-square flex my-auto">
+                    <Image
+                      fill={true}
+                      className="object-center object-cover rounded-2xl"
+                      src={urlForImage(post.images?.[0]) ?? ""}
+                      alt={"home"}
+                      sizes="100%"
+                    />
                   </div>
                 </Link>
-              </div>
-            </div>
-          ))
-        ) : (
-          <>
-            {new Array(POSTS_PER_PAGE).fill(null).map((item, index) => (
-              <div key={index}>
-                <SkeletonImg />
+                <div className="max-md:ml-6 flex flex-col gap-2 w-full overflow-hidden">
+                  <p className="text-sm md:mt-4 font-semibold text-purple-700">
+                    {post.categories && (
+                      <>
+                        <Link
+                          href={`/grooveguide?page=1&category=${post.categories?.[0].title}`}
+                        >
+                          <span className="mr-2">
+                            {post.categories?.[0].title}
+                          </span>
+                        </Link>
+                        <span className="mr-2">•</span>
+                      </>
+                    )}
+                    <span className="font-normal">
+                      {formatDate(post.publishedAt)}
+                    </span>
+                  </p>
+                  <Link
+                    href={`/grooveguide/${post.slug.current}`}
+                    key={index}
+                    className="flex flex-col gap-2 w-full"
+                  >
+                    <p className="text-xl font-semibold">{post.title}</p>
+                    <div className="font-light line-clamp-2 w-full max-w-full overflow-hidden text-ellipsis break-words">
+                      <PortableText value={post.body} />
+                    </div>
+                  </Link>
+                </div>
               </div>
             ))}
-          </>
+        </div>
+      )}
+      <div className="flex justify-center">
+        {posts.length === 0 && isLoaded && !isSearchLoading ? (
+          "No results found"
+        ) : isSearchLoading || !isLoaded ? (
+          <LoaderSpinner />
+        ) : (
+          <></>
         )}
       </div>
-      <div className="my-10 flex items-center justify-center">
+      <div className="mt-2 mb-8 flex items-center justify-center">
         <nav
           className="isolate inline-flex -space-x-px rounded-md shadow-sm"
           aria-label="Pagination"
         >
-          <button
-            disabled={isFirstPage}
-            onClick={handlePrevPage}
-            className="relative inline-flex items-center gap-1 rounded-l-md bg-groove1 px-3 py-2 pr-4 text-sm font-medium text-white focus:z-20 disabled:pointer-events-none disabled:opacity-40 "
-          >
-            <ChevronLeftIcon aria-hidden="true" />
-            <span>Previous</span>
-          </button>
-          <button
-            onClick={handleNextPage}
-            disabled={isLastPage}
-            className="relative inline-flex items-center gap-1 rounded-r-md bg-groove1 px-3 py-2 pl-4 text-sm font-medium text-white focus:z-20 disabled:pointer-events-none disabled:opacity-40 "
-          >
-            <span>Next</span>
-            <ChevronRightIcon aria-hidden="true" />
-          </button>
+          {hasMore && isLoaded && !isSearchLoading && (
+            <button
+              onClick={handleShowMore}
+              className="relative inline-flex items-center gap-1 rounded-md bg-groove1 px-3 py-2 pl-4 text-sm font-medium text-white focus:z-20 disabled:pointer-events-none disabled:opacity-40 "
+            >
+              Show more
+            </button>
+          )}
         </nav>
       </div>
     </section>

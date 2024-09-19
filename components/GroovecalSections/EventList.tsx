@@ -12,15 +12,17 @@ import { urlForImage } from "@/lib/sanity/image";
 import LoaderSpinner from "../LoaderSpinner";
 
 type EventListProps = {
-  visibleEvents: number;
-  setVisibleEvents: React.Dispatch<React.SetStateAction<number>>;
+  handleShowMore: () => void;
+  isLoaded: boolean;
+  hasMore: boolean;
   events: any;
   isSearchLoading: boolean;
 };
 
 export default function EventList({
-  visibleEvents,
-  setVisibleEvents,
+  handleShowMore,
+  isLoaded,
+  hasMore,
   events,
   isSearchLoading,
 }: EventListProps) {
@@ -73,9 +75,6 @@ export default function EventList({
   };
   let previousStartTime = "";
 
-  const handleShowMore = () => {
-    setVisibleEvents((prevVisibleEvents) => prevVisibleEvents + 12);
-  };
   return (
     <section>
       <div className="mb-4 flex flex-row font-semibold max-sm:hidden">
@@ -101,7 +100,7 @@ export default function EventList({
         </button>
       </div>
       <div className="mb-12">
-        {events.length > 0 ? (
+        {events.length > 0 && (
           <div
             className={
               !isGridView
@@ -109,121 +108,120 @@ export default function EventList({
                 : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
             }
           >
-            {events
-              .slice(0, Math.min(visibleEvents, events.length))
-              .map((event: any, index: number) => {
-                const currentStartTime = formatDate(event.startTime);
-                const showTime = previousStartTime !== currentStartTime;
-                previousStartTime = currentStartTime;
-                return !isGridView ? (
-                  <div key={index}>
-                    {showTime && (
-                      <p className="uppercase text-3xl mb-8">
-                        {formatDate(event.startTime)}
-                      </p>
-                    )}
-                    <div
-                      className="h-full flex sm:flex-row flex-col mb-8"
-                      key={index}
-                    >
-                      <div
-                        className="relative h-40 w-64 max-sm:w-full max-sm:h-full"
-                        style={{
-                          aspectRatio: 256 / 160,
-                        }}
-                      >
-                        {event.venue?.images?.[0] && (
-                          <Link href={`/shows/${event.slug.current}`}>
-                            <Image
-                              fill={true}
-                              className="object-center object-cover rounded-2xl z-0"
-                              src={urlForImage(event.venue?.images?.[0]) ?? ""}
-                              alt={"home"}
-                              sizes="100%"
-                            />
-                          </Link>
-                        )}
-                      </div>
-                      <div className="sm:ml-6 flex flex-col gap-3 max-sm:mt-4">
-                        <Link href={`/shows/${event.slug.current}`}>
-                          <p className="text-2xl font-semibold">
-                            {event.eventName}
-                          </p>
-                        </Link>
-                        {event?.lineup && (
-                          <p className="text-xl ">{event.lineup}</p>
-                        )}
-                        <Link
-                          href={`/venue/${event.venue?.slug.current}`}
-                          className="font-light underline hover:text-blue-400"
-                        >
-                          {event.venue?.name}
-                        </Link>
-                        <p className="font-light">
-                          {formatDateTime(event.startTime, event.endTime)?.[0]}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
+            {events.map((event: any, index: number) => {
+              const currentStartTime = formatDate(event.startTime);
+              const showTime = previousStartTime !== currentStartTime;
+              previousStartTime = currentStartTime;
+              return !isGridView ? (
+                <div key={index}>
+                  {showTime && (
+                    <p className="uppercase text-3xl mb-8">
+                      {formatDate(event.startTime)}
+                    </p>
+                  )}
                   <div
-                    className="h-full flex flex-col mb-8 col-span-1"
+                    className="h-full flex sm:flex-row flex-col mb-8"
                     key={index}
                   >
                     <div
-                      className="relative w-full"
+                      className="relative h-40 w-64 max-sm:w-full max-sm:h-full"
                       style={{
                         aspectRatio: 256 / 160,
                       }}
                     >
-                      {urlForImage(event.venue?.images?.[0]) && (
+                      {event.venue?.images?.[0] && (
                         <Link href={`/shows/${event.slug.current}`}>
                           <Image
                             fill={true}
-                            className="object-center object-cover rounded-2xl"
-                            src={urlForImage(event.venue?.images?.[0]) || ""}
+                            className="object-center object-cover rounded-2xl z-0"
+                            src={urlForImage(event.venue?.images?.[0]) ?? ""}
                             alt={"home"}
                             sizes="100%"
                           />
                         </Link>
                       )}
                     </div>
-                    <div className="flex flex-col gap-3 mt-4">
+                    <div className="sm:ml-6 flex flex-col gap-3 max-sm:mt-4">
                       <Link href={`/shows/${event.slug.current}`}>
                         <p className="text-2xl font-semibold">
                           {event.eventName}
                         </p>
                       </Link>
-                      <p className="text-xl">{event.lineup}</p>
-                      <p className="font-light">{event.venue?.name}</p>
+                      {event?.lineup && (
+                        <p className="text-xl ">{event.lineup}</p>
+                      )}
+                      <Link
+                        href={`/venue/${event.venue?.slug.current}`}
+                        className="font-light underline hover:text-blue-400"
+                      >
+                        {event.venue?.name}
+                      </Link>
                       <p className="font-light">
-                        {
-                          formatDateTime(event.startTime, event.endTime)[
-                            isGridView ? 2 : 0
-                          ]
-                        }
+                        {formatDateTime(event.startTime, event.endTime)?.[0]}
                       </p>
                     </div>
                   </div>
-                );
-              })}
-          </div>
-        ) : (
-          <div className="flex justify-center mt-8">
-            {!isSearchLoading && events.length === 0 ? (
-              "No results found"
-            ) : (
-              <LoaderSpinner />
-            )}
+                </div>
+              ) : (
+                <div
+                  className="h-full flex flex-col mb-8 col-span-1"
+                  key={index}
+                >
+                  <div
+                    className="relative w-full"
+                    style={{
+                      aspectRatio: 256 / 160,
+                    }}
+                  >
+                    {urlForImage(event.venue?.images?.[0]) && (
+                      <Link href={`/shows/${event.slug.current}`}>
+                        <Image
+                          fill={true}
+                          className="object-center object-cover rounded-2xl"
+                          src={urlForImage(event.venue?.images?.[0]) || ""}
+                          alt={"home"}
+                          sizes="100%"
+                        />
+                      </Link>
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-3 mt-4">
+                    <Link href={`/shows/${event.slug.current}`}>
+                      <p className="text-2xl font-semibold">
+                        {event.eventName}
+                      </p>
+                    </Link>
+                    <p className="text-xl">{event.lineup}</p>
+                    <p className="font-light">{event.venue?.name}</p>
+                    <p className="font-light">
+                      {
+                        formatDateTime(event.startTime, event.endTime)[
+                          isGridView ? 2 : 0
+                        ]
+                      }
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
-      <div className="my-10 flex items-center justify-center">
+      <div className="flex justify-center">
+        {events.length === 0 && isLoaded && !isSearchLoading ? (
+          "No results found"
+        ) : isSearchLoading || !isLoaded ? (
+          <LoaderSpinner />
+        ) : (
+          <></>
+        )}
+      </div>
+      <div className="mt-2 mb-8 flex items-center justify-center">
         <nav
           className="isolate inline-flex -space-x-px rounded-md shadow-sm"
           aria-label="Pagination"
         >
-          {visibleEvents < events.length && (
+          {hasMore && isLoaded && !isSearchLoading && (
             <button
               onClick={handleShowMore}
               className="relative inline-flex items-center gap-1 rounded-md bg-groove1 px-3 py-2 pl-4 text-sm font-medium text-white focus:z-20 disabled:pointer-events-none disabled:opacity-40 "
