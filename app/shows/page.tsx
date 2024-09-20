@@ -78,49 +78,6 @@ export default function Groovecal() {
     }
   };
 
-  useEffect(() => {
-    const getSearchedEvents = async () => {
-      if (isLoaded) {
-        setIsSearchLoading(true);
-        setEvents([]);
-        let start;
-        let end;
-        if (startTime) {
-          const startTimeISO = new Date(startTime).toISOString();
-          start = moment.utc(startTimeISO).add(5, "hours").format();
-        }
-        if (endTime) {
-          const endTimeISO = new Date(endTime).toISOString();
-          end = moment
-            .utc(endTimeISO)
-            .add(28, "hours")
-            .add(59, "minutes")
-            .format();
-        }
-        const events = debouncedSearchText
-          ? await searchEvents(
-              debouncedSearchText,
-              start ? start : "",
-              end ? end : "",
-              0,
-              POSTS_PER_PAGE + 1
-            )
-          : initialEvents.length > 0
-          ? initialEvents
-          : await getEvents(0, POSTS_PER_PAGE + 1);
-        setVisibleEvents(POSTS_PER_PAGE);
-        setEvents(events.slice(0, POSTS_PER_PAGE));
-        setIsSearchLoading(false);
-        if (events.length <= POSTS_PER_PAGE) {
-          setHasMore(false);
-        } else {
-          setHasMore(true);
-        }
-      }
-    };
-    // getSearchedEvents();
-  }, [debouncedSearchText, startTime, endTime]);
-
   const handleShowMore = async () => {
     if (hasMore) {
       setIsSearchLoading(true);

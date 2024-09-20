@@ -26,6 +26,7 @@ export default function ArticleListWithSearch() {
   const [isSearchLoading, setIsSearchLoading] = useState(true);
   const [visibleEvents, setVisibleEvents] = useState(POSTS_PER_PAGE);
   const [hasMore, setHasMore] = useState(true);
+  const [hasMoreInitial, setHasMoreInitial] = useState(true);
 
   const formatDate = (inputDate: string) => {
     const date = new Date(inputDate);
@@ -51,8 +52,10 @@ export default function ArticleListWithSearch() {
 
       if (fetchedPosts.length <= POSTS_PER_PAGE) {
         setHasMore(false);
+        setHasMoreInitial(false);
       } else {
         setHasMore(true);
+        setHasMoreInitial(true);
       }
     };
     getInitialPosts();
@@ -70,14 +73,16 @@ export default function ArticleListWithSearch() {
             0,
             POSTS_PER_PAGE + 1
           )
-        : initialPosts.length > 0
+        : initialPosts.length > 0 && category === null
         ? initialPosts
         : await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1);
       setVisibleEvents(POSTS_PER_PAGE);
       setPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
       setIsSearchLoading(false);
 
-      if (fetchedPosts.length <= POSTS_PER_PAGE) {
+      if (category === null) {
+        setHasMore(hasMoreInitial);
+      } else if (fetchedPosts.length <= POSTS_PER_PAGE) {
         setHasMore(false);
       } else {
         setHasMore(true);
@@ -88,11 +93,22 @@ export default function ArticleListWithSearch() {
   useEffect(() => {
     const handleGenreChange = async () => {
       if (category) {
-        setPosts(await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1));
+        const fetchedPosts = await getCategoryPosts(
+          category,
+          0,
+          POSTS_PER_PAGE + 1
+        );
+        setPosts(fetchedPosts);
+        if (fetchedPosts.length <= POSTS_PER_PAGE) {
+          setHasMore(false);
+        } else {
+          setHasMore(true);
+        }
       } else {
         initialPosts.length > 0
           ? setPosts(initialPosts)
           : setPosts(await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1));
+        setHasMore(hasMoreInitial);
       }
     };
     isLoaded && handleGenreChange();
