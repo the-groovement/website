@@ -3,10 +3,25 @@ import "./globals.css";
 import { Shrikhand, Space_Grotesk } from "next/font/google";
 import MobileNavbar from "@/components/MobileNavbar";
 import Footer from "@/components/Footer";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "the groovement",
-  description: "the groovement",
+  description: "your guide to the best concerts and vibes",
+  keywords: ["the groovement", "groovement"],
+  openGraph: {
+    images: [
+      {
+        url: "/preview.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    title: "the groovement",
+    card: "summary_large_image",
+  },
 };
 
 const shrikhand = Shrikhand({

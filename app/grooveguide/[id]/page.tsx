@@ -1,5 +1,3 @@
-import InstagramIcon from "@/components/Icons/InstagramIcon";
-import { getHomePagePosts, getPostById } from "@/lib/api";
 import { getPaginatedPosts, getPostBySlug } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
 import Image from "next/image";
@@ -179,16 +177,15 @@ export default async function Article({ params }: { params: { id: string } }) {
                           {formatDate(post.publishedAt)}
                         </span>
                       </p>
-                      <Link
-                        href={`/grooveguide/${post.slug.current}`}
-                        key={index}
-                        className="flex flex-col gap-2 w-full"
-                      >
-                        <p className="text-xl font-semibold">{post.title}</p>
+                      <div key={index} className="flex flex-col gap-2 w-full">
+                        <Link href={`/grooveguide/${post.slug.current}`}>
+                          <p className="text-xl font-semibold">{post.title}</p>
+                        </Link>
+
                         <div className="font-light line-clamp-2">
                           <PortableTextClamp value={post.body} />
                         </div>
-                      </Link>
+                      </div>
                     </div>
                   </div>
                 ))}

@@ -110,8 +110,6 @@ export default function Groovecal() {
     }
   };
 
-  console.log(events.length);
-
   return (
     <div>
       <section>
