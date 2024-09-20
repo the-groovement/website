@@ -26,7 +26,7 @@ const NAV_ITEMS = [
   },
   {
     navTitle: "map",
-    link: "/groovemap",
+    link: "https://www.google.com/maps/d/u/0/viewer?mid=1ZcNuDKiNxyAdpnEy_i3IqRIbLCYEC7M8&ll=40.7290605124509%2C-73.92850645&z=11",
   },
   {
     navTitle: "about",
