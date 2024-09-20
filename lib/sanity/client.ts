@@ -1,22 +1,9 @@
 import {
-  postquery,
-  limitquery,
   paginatedquery,
   singlequery,
-  pathquery,
-  allauthorsquery,
-  authorsquery,
-  postsbyauthorquery,
-  postsbycatquery,
-  catpathquery,
-  catquery,
   getAll,
-  limitFeaturedquery,
-  limitNonFeaturedquery,
   eventsPaginatedQuery,
   singleEventQuery,
-  paginatedCategoryQuery,
-  singleVenueQuery,
   eventsSearchQuery,
   eventsQuery,
   eventsSearchQueryNoEndTime,
@@ -27,19 +14,16 @@ import {
   featuredVenueQuery,
   postsQuery,
   playlistQuery,
-  limitFeaturedArtistsquery,
   limitFeaturedQueryNonArtist,
   aboutPage,
   faqs,
   categoryQuery,
   postsSearch,
   postsCategorySearch,
+  combinedQuery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
-/**
- * Checks if it's safe to create a client instance, as `@sanity/client` will throw an error if `projectId` is false
- */
 const client = createClient({
   projectId: "887gnfj7",
   dataset: "production",
@@ -68,15 +52,6 @@ export async function getEventBySlug(slug: string) {
       slug,
       cache: "no-store",
     });
-
-    if (event && event.venue && event.venue._ref) {
-      const venue = await client.fetch(singleVenueQuery, {
-        id: event.venue._ref,
-        cache: "no-store",
-      });
-      const combinedData = { ...event, venue };
-      return combinedData;
-    }
 
     return event || {};
   }
@@ -130,24 +105,6 @@ export async function getPostBySlug(slug: string) {
   return {};
 }
 
-export async function getAllPostsSlugs() {
-  if (client) {
-    const slugs: string[] =
-      (await client.fetch(pathquery, { cache: "no-store" })) || [];
-    return slugs.map((slug) => ({ slug }));
-  }
-  return [];
-}
-// Author
-export async function getAllAuthorsSlugs() {
-  if (client) {
-    const slugs: string[] =
-      (await client.fetch(authorsquery, { cache: "no-store" })) || [];
-    return slugs.map((slug) => ({ author: slug }));
-  }
-  return [];
-}
-
 // Author
 export async function getGroovefam() {
   let groovefamAuthors = [];
@@ -180,54 +137,6 @@ export async function getGroovefam() {
   return groovefam;
 }
 
-export async function getAuthorPostsBySlug(slug: string) {
-  if (client) {
-    return (
-      (await client.fetch(postsbyauthorquery, {
-        slug,
-        cache: "no-store",
-      })) || {}
-    );
-  }
-  return {};
-}
-
-export async function getAllAuthors() {
-  if (client) {
-    return (await client.fetch(allauthorsquery, { cache: "no-store" })) || [];
-  }
-  return [];
-}
-
-// Category
-
-export async function getAllCategories() {
-  if (client) {
-    const slugs: string[] = (await client.fetch(catpathquery)) || [];
-    return slugs.map((slug) => ({ category: slug, cache: "no-store" }));
-  }
-  return [];
-}
-
-export async function getPostsByCategory(slug: string) {
-  if (client) {
-    return (
-      (await client.fetch(postsbycatquery, {
-        slug,
-        cache: "no-store",
-      })) || {}
-    );
-  }
-  return {};
-}
-
-export async function getTopCategories() {
-  if (client) {
-    return (await client.fetch(catquery, { cache: "no-store" })) || [];
-  }
-  return [];
-}
-
 export async function searchEvents(
   searchInput: string,
   startTime: string,
@@ -253,27 +162,6 @@ export async function searchEvents(
           end: end,
         });
 
-    if (events && events.length > 0) {
-      // Fetch venues for each event
-      const eventsWithVenues = await Promise.all(
-        events.map(async (event: any) => {
-          if (event.venue && event.venue._ref) {
-            const venue = await client.fetch(singleVenueQuery, {
-              id: event.venue._ref,
-              cache: "no-store",
-            });
-
-            // Combine event and venue data
-            return { ...event, venue };
-          }
-
-          return event;
-        })
-      );
-
-      return eventsWithVenues;
-    }
-
     return events || [];
   }
 
@@ -288,31 +176,31 @@ export async function getEvents(start: number, end: number) {
       cache: "no-store",
     });
 
-    if (events && events.length > 0) {
-      // Fetch venues for each event
-      const eventsWithVenues = await Promise.all(
-        events.map(async (event: any) => {
-          if (event.venue && event.venue._ref) {
-            const venue = await client.fetch(singleVenueQuery, {
-              id: event.venue._ref,
-              cache: "no-store",
-            });
-
-            // Combine event and venue data
-            return { ...event, venue };
-          }
-
-          return event;
-        })
-      );
-
-      return eventsWithVenues;
-    }
-
     return events || {};
   }
 
   return {};
+}
+
+export async function getHomePageData() {
+  if (!client) {
+    return {};
+  }
+
+  try {
+    const data = await client.fetch(combinedQuery, {
+      cache: "no-store",
+    });
+
+    return {
+      featuredArtists: data.featuredArtists || [],
+      featuredVenue: data.featuredVenue || {},
+      events: data.events || [],
+    };
+  } catch (error) {
+    console.error("Error fetching homepage data:", error);
+    return {};
+  }
 }
 
 export async function getPaginatedEvents(
@@ -338,42 +226,9 @@ export async function getPaginatedEvents(
         cache: "no-store",
       });
     }
-
-    if (events && events.length > 0) {
-      // Fetch venues for each event
-      const eventsWithVenues = await Promise.all(
-        events.map(async (event: any) => {
-          if (event.venue && event.venue._ref) {
-            const venue = await client.fetch(singleVenueQuery, {
-              id: event.venue._ref,
-              cache: "no-store",
-            });
-
-            // Combine event and venue data
-            return { ...event, venue };
-          }
-
-          return event;
-        })
-      );
-
-      return eventsWithVenues;
-    }
-
     return events || {};
   }
 
-  return {};
-}
-
-export async function getPosts() {
-  if (client) {
-    return (
-      (await client.fetch(postsQuery, {
-        cache: "no-store",
-      })) || {}
-    );
-  }
   return {};
 }
 
@@ -381,24 +236,6 @@ export async function getPaginatedPosts(start: number, end: number) {
   if (client) {
     return (
       (await client.fetch(paginatedquery, {
-        start: start,
-        end: end,
-        cache: "no-store",
-      })) || {}
-    );
-  }
-  return {};
-}
-
-export async function getPaginatedCategoryPosts(
-  categoryId: string,
-  start: number,
-  end: number
-) {
-  if (client) {
-    return (
-      (await client.fetch(paginatedCategoryQuery, {
-        categoryId: categoryId,
         start: start,
         end: end,
         cache: "no-store",
@@ -467,19 +304,6 @@ export async function searchPosts(
   return {};
 }
 
-export async function getRecentFeaturedPosts(start: number, end: number) {
-  if (client) {
-    return (
-      (await client.fetch(limitFeaturedquery, {
-        start: start,
-        end: end,
-        cache: "no-store",
-      })) || {}
-    );
-  }
-  return {};
-}
-
 export async function getRecentFeaturedPostsNonArtist(
   start: number,
   end: number
@@ -487,32 +311,6 @@ export async function getRecentFeaturedPostsNonArtist(
   if (client) {
     return (
       (await client.fetch(limitFeaturedQueryNonArtist, {
-        start: start,
-        end: end,
-        cache: "no-store",
-      })) || {}
-    );
-  }
-  return {};
-}
-
-export async function getRecentFeaturedArtistPosts(start: number, end: number) {
-  if (client) {
-    return (
-      (await client.fetch(limitFeaturedArtistsquery, {
-        start: start,
-        end: end,
-        cache: "no-store",
-      })) || {}
-    );
-  }
-  return {};
-}
-
-export async function getRecentNonFeaturedPosts(start: number, end: number) {
-  if (client) {
-    return (
-      (await client.fetch(limitNonFeaturedquery, {
         start: start,
         end: end,
         cache: "no-store",

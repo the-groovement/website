@@ -1,10 +1,4 @@
-import {
-  getFeaturedVenue,
-  getRecentFeaturedArtistPosts,
-  getRecentFeaturedPosts,
-  getRecentFeaturedPostsNonArtist,
-  getRecentNonFeaturedPosts,
-} from "@/lib/sanity/client";
+import { getRecentFeaturedPostsNonArtist } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";

@@ -9,6 +9,7 @@ import { urlForImage } from "@/lib/sanity/image";
 import { PortableText } from "@portabletext/react";
 import useDebounce from "@/hooks/useDebounce";
 import LoaderSpinner from "../LoaderSpinner";
+import { Search, X } from "lucide-react";
 
 export default function ArticleListWithSearch() {
   const POSTS_PER_PAGE = 12;
@@ -18,8 +19,9 @@ export default function ArticleListWithSearch() {
   const category = searchParams.get("category");
   const pageIndex = page ? parseInt(page) : 1;
   const [searchText, setSearchText] = useState("");
-  const debouncedSearchText = useDebounce(searchText, 300);
+  const debouncedSearchText = useDebounce(searchText, 600);
   const [posts, setPosts] = useState<any>([]);
+  const [initialPosts, setInitialPosts] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isSearchLoading, setIsSearchLoading] = useState(true);
   const [visibleEvents, setVisibleEvents] = useState(POSTS_PER_PAGE);
@@ -43,6 +45,7 @@ export default function ArticleListWithSearch() {
         visibleEvents + 1
       );
       setPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
+      setInitialPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
       setIsLoaded(true);
       setIsSearchLoading(false);
 
@@ -55,8 +58,8 @@ export default function ArticleListWithSearch() {
     getInitialPosts();
   }, []);
 
-  useEffect(() => {
-    const getSearchedEvents = async () => {
+  const getSearchedEvents = async () => {
+    if (isLoaded) {
       setIsSearchLoading(true);
       setPosts([]);
       setVisibleEvents(POSTS_PER_PAGE);
@@ -67,6 +70,8 @@ export default function ArticleListWithSearch() {
             0,
             POSTS_PER_PAGE + 1
           )
+        : initialPosts.length > 0
+        ? initialPosts
         : await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1);
       setVisibleEvents(POSTS_PER_PAGE);
       setPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
@@ -77,9 +82,21 @@ export default function ArticleListWithSearch() {
       } else {
         setHasMore(true);
       }
+    }
+  };
+
+  useEffect(() => {
+    const handleGenreChange = async () => {
+      if (category) {
+        setPosts(await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1));
+      } else {
+        initialPosts.length > 0
+          ? setPosts(initialPosts)
+          : setPosts(await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1));
+      }
     };
-    isLoaded && getSearchedEvents();
-  }, [debouncedSearchText, category]);
+    isLoaded && handleGenreChange();
+  }, [category]);
 
   const handleShowMore = async () => {
     if (hasMore) {
@@ -113,15 +130,42 @@ export default function ArticleListWithSearch() {
     }
   };
 
+  const clearFilters = async () => {
+    setSearchText("");
+    initialPosts.length > 0
+      ? setPosts(initialPosts)
+      : setPosts(await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1));
+  };
+
   return (
     <section>
-      <div className="w-full bg-white h-4 rounded-2xl py-8 items-center flex border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] mb-16">
+      <div className="w-full bg-white h-4 rounded-2xl py-8 items-center flex border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)] mb-4">
         <input
           className="py-3 rounded-tl-3xl rounded-bl-3xl w-full px-6 focus:outline-none text-gray-500 placeholder-gray-500"
           placeholder={`search ${category === null ? "grooveguide" : category}`}
           onChange={(e) => setSearchText(e.target.value)}
+          value={searchText}
         />
+        <button
+          className="bg-groove1 h-4 rounded-2xl py-6 px-4 mr-2 border flex items-center justify-center whitespace-nowrap hover:font-semibold hover:bg-opacity-80"
+          onClick={getSearchedEvents}
+        >
+          <Search className="text-white" />
+        </button>
       </div>
+      {searchText ? (
+        <button
+          onClick={clearFilters}
+          className="ml-auto mt-4 flex flex-row items-center gap-1 hover:opacity-80 mb-12"
+        >
+          <X className="h-4 w-4" />
+          <div>clear filters</div>
+        </button>
+      ) : (
+        <button className="ml-auto mt-4 flex flex-row items-center gap-1 hover:opacity-80 opacity-0 mb-12">
+          .
+        </button>
+      )}
       <div className="flex md:flex-row flex-col justify-between md:items-center mb-8">
         <div className="flex flex-row gap-8 border-b py-2 border-slate-500 w-full max-md:mb-4 px-1 flex-wrap">
           <button
@@ -205,16 +249,15 @@ export default function ArticleListWithSearch() {
                       {formatDate(post.publishedAt)}
                     </span>
                   </p>
-                  <Link
-                    href={`/grooveguide/${post.slug.current}`}
-                    key={index}
-                    className="flex flex-col gap-2 w-full"
-                  >
-                    <p className="text-xl font-semibold">{post.title}</p>
+                  <div key={index} className="flex flex-col gap-2 w-full">
+                    <Link href={`/grooveguide/${post.slug.current}`}>
+                      <p className="text-xl font-semibold">{post.title}</p>
+                    </Link>
+
                     <div className="font-light line-clamp-2 w-full max-w-full overflow-hidden text-ellipsis break-words">
                       <PortableText value={post.body} />
                     </div>
-                  </Link>
+                  </div>
                 </div>
               </div>
             ))}

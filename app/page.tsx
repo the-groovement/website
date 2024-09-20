@@ -1,32 +1,25 @@
 import BlogCamSection from "@/components/HomeSections/BlogCamSection";
 import MapSpotifyEmailSection from "@/components/HomeSections/MapSpotifyEmailSection";
 import TopOfPageSection from "@/components/HomeSections/TopOfPageSection";
-import {
-  getFeaturedVenue,
-  getPaginatedEvents,
-  getRecentFeaturedArtistPosts,
-} from "@/lib/sanity/client";
+import { getHomePageData } from "@/lib/sanity/client";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 export default async function Home() {
-  const artistData = await getRecentFeaturedArtistPosts(0, 3);
-  const venueData = await getFeaturedVenue();
-  const eventData = await getPaginatedEvents(0, 1);
-
+  const data = await getHomePageData();
   const getRandomIndex = (length: number) => Math.floor(Math.random() * length);
-  const venueIndex = getRandomIndex(venueData.length);
-  const artistIndex = getRandomIndex(artistData.length);
+  const venueIndex = getRandomIndex(data?.featuredVenue?.length);
+  const artistIndex = getRandomIndex(data?.featuredArtists?.length);
   return (
     <div>
       <TopOfPageSection
-        eventPost={eventData?.[0]}
-        artistPost={artistData?.[artistIndex]}
-        venuePost={venueData?.[venueIndex]}
+        eventPost={data?.events?.[0]}
+        artistPost={data?.featuredArtists?.[artistIndex]}
+        venuePost={data?.featuredVenue?.[venueIndex]}
       />
       <BlogCamSection
-        artistPost={artistData?.[artistIndex]}
-        venuePost={venueData?.[venueIndex]}
+        artistPost={data?.featuredArtists?.[artistIndex]}
+        venuePost={data?.featuredVenue?.[venueIndex]}
       />
       <MapSpotifyEmailSection />
     </div>
