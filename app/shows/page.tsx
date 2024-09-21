@@ -21,6 +21,7 @@ export default function Groovecal() {
   const [endTime, setEndTime] = useState<string | undefined>();
   const [hasMore, setHasMore] = useState(true);
   const [initialEvents, setInitialEvents] = useState<any>([]);
+  const [hasMoreInitial, setHasMoreInitial] = useState(true);
 
   useEffect(() => {
     const getInitialEvents = async () => {
@@ -31,8 +32,10 @@ export default function Groovecal() {
       setIsSearchLoading(false);
       if (fetchedEvents.length <= POSTS_PER_PAGE) {
         setHasMore(false);
+        setHasMoreInitial(false);
       } else {
         setHasMore(true);
+        setHasMoreInitial(true);
       }
     };
     getInitialEvents();
@@ -70,7 +73,9 @@ export default function Groovecal() {
       setVisibleEvents(POSTS_PER_PAGE);
       setEvents(events.slice(0, POSTS_PER_PAGE));
       setIsSearchLoading(false);
-      if (events.length <= POSTS_PER_PAGE) {
+      if (!debouncedSearchText) {
+        setHasMore(hasMoreInitial);
+      } else if (events.length <= POSTS_PER_PAGE) {
         setHasMore(false);
       } else {
         setHasMore(true);
@@ -123,6 +128,7 @@ export default function Groovecal() {
     initialEvents.length > 0
       ? setEvents(initialEvents)
       : setEvents(await getEvents(0, POSTS_PER_PAGE + 1));
+    setHasMore(hasMoreInitial);
   };
 
   return (
