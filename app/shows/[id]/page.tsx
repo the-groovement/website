@@ -131,7 +131,15 @@ export default async function GroovecalEvent({
     <section>
       <div className="flex flex-col mt-12">
         <div className="flex flex-col">
-          <p className="mb-4">New York • shows</p>
+          <p className="mb-4">
+            New York •{" "}
+            <Link
+              className="hover:cursor-pointer text-purple-700"
+              href={`/shows`}
+            >
+              shows
+            </Link>
+          </p>
           <p
             className={
               currentEvent.lineup
@@ -204,7 +212,7 @@ export default async function GroovecalEvent({
         )}
         <div className="flex flex-row gap-12">
           <Link href={currentEvent.ticketPurchaseURL} className="mb-16">
-            <button className="bg-green-300 rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold">
+            <button className="bg-white rounded-3xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold">
               buy tix
             </button>
           </Link>

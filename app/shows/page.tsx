@@ -1,7 +1,7 @@
 "use client";
 
 import EventList from "@/components/GroovecalSections/EventList";
-import useDebounce from "@/hooks/useDebounce";
+// import useDebounce from "@/hooks/useDebounce";
 import { getEvents, searchEvents } from "@/lib/sanity/client";
 import { Search, X } from "lucide-react";
 import moment from "moment-timezone";
@@ -16,7 +16,7 @@ export default function Groovecal() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isSearchLoading, setIsSearchLoading] = useState(true);
   const [searchText, setSearchText] = useState("");
-  const debouncedSearchText = useDebounce(searchText, 600);
+  // const searchText = useDebounce(searchText, 600);
   const [startTime, setStartTime] = useState<string | undefined>();
   const [endTime, setEndTime] = useState<string | undefined>();
   const [hasMore, setHasMore] = useState(true);
@@ -59,21 +59,22 @@ export default function Groovecal() {
           .add(59, "minutes")
           .format();
       }
-      const events = debouncedSearchText
-        ? await searchEvents(
-            debouncedSearchText,
-            start ? start : "",
-            end ? end : "",
-            0,
-            POSTS_PER_PAGE + 1
-          )
-        : initialEvents.length > 0
-        ? initialEvents
-        : await getEvents(0, POSTS_PER_PAGE + 1);
+      const events =
+        searchText || startTime || endTime
+          ? await searchEvents(
+              searchText,
+              start ? start : "",
+              end ? end : "",
+              0,
+              POSTS_PER_PAGE + 1
+            )
+          : initialEvents.length > 0
+          ? initialEvents
+          : await getEvents(0, POSTS_PER_PAGE + 1);
       setVisibleEvents(POSTS_PER_PAGE);
       setEvents(events.slice(0, POSTS_PER_PAGE));
       setIsSearchLoading(false);
-      if (!debouncedSearchText) {
+      if (!searchText) {
         setHasMore(hasMoreInitial);
       } else if (events.length <= POSTS_PER_PAGE) {
         setHasMore(false);
@@ -101,11 +102,11 @@ export default function Groovecal() {
           .format();
       }
       const events = await searchEvents(
-        debouncedSearchText,
+        searchText,
         start ? start : "",
         end ? end : "",
-        0,
-        POSTS_PER_PAGE + 1
+        visibleEvents,
+        visibleEvents + POSTS_PER_PAGE + 1
       );
       setEvents((prevEvents: any) => [
         ...prevEvents,
@@ -150,6 +151,11 @@ export default function Groovecal() {
                 className="py-3 rounded-tl-3xl rounded-bl-3xl w-full px-6 focus:outline-none text-gray-500 placeholder-gray-500"
                 placeholder="enter artist, venue, or location"
                 onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    getSearchedEvents();
+                  }
+                }}
                 value={searchText}
               />
               <DatePicker

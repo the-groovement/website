@@ -115,7 +115,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className="pt-2 text-zinc-400 border-t border-zinc-600 text-sm">
-            © the groovement, LLC. All rights reserved 2023
+            © the groovement, LLC. All rights reserved 2024
           </p>
         </div>
       </div>

@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { urlForImage } from "@/lib/sanity/image";
 import { PortableText } from "@portabletext/react";
-import useDebounce from "@/hooks/useDebounce";
+// import useDebounce from "@/hooks/useDebounce";
 import LoaderSpinner from "../LoaderSpinner";
 import { Search, X } from "lucide-react";
 
@@ -19,7 +19,7 @@ export default function ArticleListWithSearch() {
   const category = searchParams.get("category");
   const pageIndex = page ? parseInt(page) : 1;
   const [searchText, setSearchText] = useState("");
-  const debouncedSearchText = useDebounce(searchText, 600);
+  // const searchText = useDebounce(searchText, 600);
   const [posts, setPosts] = useState<any>([]);
   const [initialPosts, setInitialPosts] = useState<any>([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -66,21 +66,15 @@ export default function ArticleListWithSearch() {
       setIsSearchLoading(true);
       setPosts([]);
       setVisibleEvents(POSTS_PER_PAGE);
-      const fetchedPosts = debouncedSearchText
-        ? await searchPosts(
-            debouncedSearchText,
-            category,
-            0,
-            POSTS_PER_PAGE + 1
-          )
+      const fetchedPosts = searchText
+        ? await searchPosts(searchText, category, 0, POSTS_PER_PAGE + 1)
         : initialPosts.length > 0 && category === null
         ? initialPosts
         : await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1);
       setVisibleEvents(POSTS_PER_PAGE);
       setPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
       setIsSearchLoading(false);
-
-      if (category === null) {
+      if (category === null && !searchText) {
         setHasMore(hasMoreInitial);
       } else if (fetchedPosts.length <= POSTS_PER_PAGE) {
         setHasMore(false);
@@ -118,7 +112,7 @@ export default function ArticleListWithSearch() {
     if (hasMore) {
       setIsSearchLoading(true);
       let fetchedPosts: any;
-      if (!debouncedSearchText) {
+      if (!searchText) {
         fetchedPosts = await getCategoryPosts(
           category,
           visibleEvents,
@@ -126,7 +120,7 @@ export default function ArticleListWithSearch() {
         );
       } else {
         fetchedPosts = await searchPosts(
-          debouncedSearchText,
+          searchText,
           category,
           visibleEvents,
           visibleEvents + POSTS_PER_PAGE + 1
@@ -161,6 +155,11 @@ export default function ArticleListWithSearch() {
           placeholder={`search ${category === null ? "grooveguide" : category}`}
           onChange={(e) => setSearchText(e.target.value)}
           value={searchText}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              getSearchedEvents();
+            }
+          }}
         />
         <button
           className="bg-groove1 h-4 rounded-2xl py-6 px-4 mr-2 border flex items-center justify-center whitespace-nowrap hover:font-semibold hover:bg-opacity-80"
