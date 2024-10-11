@@ -123,23 +123,23 @@ export default function EventList({
                     className="h-full flex sm:flex-row flex-col mb-8"
                     key={index}
                   >
-                    <div
-                      className="relative h-40 w-64 max-sm:w-full max-sm:h-full"
-                      style={{
-                        aspectRatio: 256 / 160,
-                      }}
-                    >
-                      {event.venue?.images?.[0] && (
-                        <Link href={`/shows/${event.slug.current}`}>
-                          <Image
-                            fill={true}
-                            className="object-center object-cover rounded-2xl z-0"
-                            src={urlForImage(event.venue?.images?.[0]) ?? ""}
-                            alt={"home"}
-                            sizes="100%"
-                          />
-                        </Link>
-                      )}
+                    <div className="flex-shrink-0 w-64 max-sm:w-full">
+                      <div className="aspect-[256/160] overflow-hidden rounded-2xl">
+                        {event.venue?.images?.[0] && (
+                          <Link
+                            href={`/shows/${event.slug.current}`}
+                            className="block h-full"
+                          >
+                            <Image
+                              className="object-cover object-center w-full h-full"
+                              src={urlForImage(event.venue?.images?.[0]) ?? ""}
+                              alt={"home"}
+                              width={256}
+                              height={160}
+                            />
+                          </Link>
+                        )}
+                      </div>
                     </div>
                     <div className="sm:ml-6 flex flex-col gap-3 max-sm:mt-4">
                       <Link href={`/shows/${event.slug.current}`}>
@@ -167,23 +167,26 @@ export default function EventList({
                   className="h-full flex flex-col mb-8 col-span-1"
                   key={index}
                 >
-                  <div
-                    className="relative w-full"
-                    style={{
-                      aspectRatio: 256 / 160,
-                    }}
-                  >
-                    {urlForImage(event.venue?.images?.[0]) && (
-                      <Link href={`/shows/${event.slug.current}`}>
-                        <Image
-                          fill={true}
-                          className="object-center object-cover rounded-2xl"
-                          src={urlForImage(event.venue?.images?.[0]) || ""}
-                          alt={"home"}
-                          sizes="100%"
-                        />
-                      </Link>
-                    )}
+                  <div className="flex-shrink-0 w-full max-sm:w-full">
+                    <div
+                      className="overflow-hidden rounded-2xl"
+                      style={{ aspectRatio: "256/160" }}
+                    >
+                      {event.venue?.images?.[0] && (
+                        <Link
+                          href={`/shows/${event.slug.current}`}
+                          className="block h-full"
+                        >
+                          <Image
+                            className="object-cover object-center w-full h-full"
+                            src={urlForImage(event.venue?.images?.[0]) ?? ""}
+                            alt="Event venue"
+                            width={256}
+                            height={160}
+                          />
+                        </Link>
+                      )}
+                    </div>
                   </div>
                   <div className="flex flex-col gap-3 mt-4">
                     <Link href={`/shows/${event.slug.current}`}>

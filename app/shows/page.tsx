@@ -8,7 +8,7 @@ import moment from "moment-timezone";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import styles from "./index.module.css";
 export default function Groovecal() {
   const POSTS_PER_PAGE = 12;
   const [visibleEvents, setVisibleEvents] = useState(POSTS_PER_PAGE);
@@ -226,6 +226,8 @@ export default function Groovecal() {
                   placeholderText="start date"
                   locale="en"
                   popperPlacement="top-end"
+                  popperClassName={styles.datepickerPopper}
+                  wrapperClassName={styles.datepickerWrapper}
                 />
               </div>
               <div className="flex-1">
