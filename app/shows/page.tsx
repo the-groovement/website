@@ -149,7 +149,7 @@ export default function Groovecal() {
             <div className="w-full bg-white h-4 rounded-2xl py-8 items-center flex max-lg:hidden border border-groove1 drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
               <input
                 className="py-3 rounded-tl-3xl rounded-bl-3xl w-full px-6 focus:outline-none text-gray-500 placeholder-gray-500"
-                placeholder="enter artist, venue, or location"
+                placeholder="search artist, venue, or location"
                 onChange={(e) => setSearchText(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
@@ -202,8 +202,8 @@ export default function Groovecal() {
           <div className="w-full h-32 bg-white rounded-2xl flex flex-col justify-between px-2 lg:hidden border-groove1 border drop-shadow-[8px_8px_0px_rgba(58,42,60,1)]">
             <div className="h-1/2 flex flex-row py-3 items-center">
               <input
-                className="py-3 rounded-tl-3xl px-3 focus:outline-none text-gray-500 placeholder-gray-500 w-full text-sm "
-                placeholder="search for artist, venue, or location"
+                className="py-3 rounded-tl-3xl px-3 focus:outline-none text-gray-500 placeholder-gray-500 w-full"
+                placeholder="search artist, venue, or location"
                 onChange={(e) => setSearchText(e.target.value)}
                 value={searchText}
               />
@@ -214,7 +214,7 @@ export default function Groovecal() {
                 <Search className="text-white w-5 h-5" />
               </button>
             </div>
-            <div className="h-1/2 flex flex-row py-3 border-t text-sm w-full gap-3 justify-start">
+            <div className="h-1/2 flex flex-row py-3 border-t w-full gap-3 justify-start">
               <div className="flex-1">
                 <DatePicker
                   selected={startTime ? new Date(startTime) : undefined}
