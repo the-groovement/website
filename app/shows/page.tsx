@@ -136,12 +136,7 @@ export default function Groovecal() {
     <div>
       <section>
         <div className="flex flex-col mt-2 sm:mt-8 mb-16">
-          <p
-            className="text-[40px] sm:text-7xl mb-4 font-shrikhand"
-            style={{ textShadow: "1px 1px 3px #3a2a3c" }}
-          >
-            shows
-          </p>
+          <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand">shows</p>
           <p className="text-2xl sm:text-3xl mb-12">
             find the best shows. get tix.
           </p>
@@ -163,7 +158,7 @@ export default function Groovecal() {
                 onChange={(date) =>
                   setStartTime(date ? date?.toISOString() : "")
                 }
-                className="px-6 border-l py-3 text-gray-500 placeholder-gray-500 w-80 focus:outline-none drop-shadow-none"
+                className="px-3 border-l py-3 text-gray-500 placeholder-gray-500 w-80 focus:outline-none drop-shadow-none"
                 dateFormat="yyyy-MM-dd"
                 placeholderText="start date"
                 locale="en"
@@ -172,7 +167,7 @@ export default function Groovecal() {
               <DatePicker
                 selected={endTime ? new Date(endTime) : undefined}
                 onChange={(date) => setEndTime(date ? date?.toISOString() : "")}
-                className="px-6 border-l py-3 text-gray-500 placeholder-gray-500 w-80 focus:outline-none drop-shadow-none rounded-r-xl"
+                className="px-3 border-l py-3 text-gray-500 placeholder-gray-500 w-80 focus:outline-none drop-shadow-none rounded-r-xl"
                 dateFormat="yyyy-MM-dd"
                 placeholderText="end date"
                 locale="en"
@@ -221,7 +216,7 @@ export default function Groovecal() {
                   onChange={(date) =>
                     setStartTime(date ? date?.toISOString() : "")
                   }
-                  className="w-full px-6 py-3 text-gray-500 placeholder-gray-500 focus:outline-none"
+                  className="w-full px-3 py-3 text-gray-500 placeholder-gray-500 focus:outline-none"
                   dateFormat="yyyy-MM-dd"
                   placeholderText="start date"
                   locale="en"
@@ -236,7 +231,7 @@ export default function Groovecal() {
                   onChange={(date) =>
                     setEndTime(date ? date?.toISOString() : "")
                   }
-                  className="w-full px-6 border-l py-3 text-gray-500 placeholder-gray-500 focus:outline-none"
+                  className="w-full px-3 border-l py-3 text-gray-500 placeholder-gray-500 focus:outline-none"
                   dateFormat="yyyy-MM-dd"
                   placeholderText="end date"
                   locale="en"

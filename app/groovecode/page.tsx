@@ -4,10 +4,7 @@ export default function Groovecode() {
   return (
     <section>
       <div className="mb-12">
-        <p
-          className="text-[40px] sm:text-7xl mb-4 font-shrikhand mt-2 sm:mt-8"
-          style={{ textShadow: "1px 1px 3px #3a2a3c" }}
-        >
+        <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand mt-2 sm:mt-8">
           groovecode
         </p>
         <p className="text-xl sm:text-2xl mb-8">

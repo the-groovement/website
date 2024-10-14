@@ -9,10 +9,7 @@ export default async function About() {
   return (
     <section>
       <div className="mb-12">
-        <p
-          className="text-[40px] sm:text-7xl mb-4 font-shrikhand mt-2 sm:mt-8"
-          style={{ textShadow: "1px 1px 3px #3a2a3c" }}
-        >
+        <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand mt-2 sm:mt-8">
           about
         </p>
         <div className="flex flex-col gap-8 mb-16">
