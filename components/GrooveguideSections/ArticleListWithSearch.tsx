@@ -234,7 +234,7 @@ export default function ArticleListWithSearch() {
                 <Link
                   href={`/grooveguide/${post.slug.current}`}
                   key={index}
-                  className="relative h-32 w-32 md:h-64 md:w-full max-sm:aspect-square"
+                  className="relative h-32 w-32 md:h-64 md:w-full"
                 >
                   <div className="relative max-md:h-[80%] h-full max-md:aspect-square flex my-auto">
                     <Image

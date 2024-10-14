@@ -186,12 +186,12 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement>(
     return (
       <button
         ref={ref}
-        className="absolute h-8 w-8 rounded-full -left-12 top-1/2 -translate-y-1/2"
+        className="absolute left-0 top-1/2 -translate-y-1/2 mr-2"
         disabled={!canScrollPrev}
         onClick={scrollPrev}
         {...props}
       >
-        <ArrowLeft className="h-8 w-8" />
+        <ArrowLeft className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
         <span className="sr-only">Previous slide</span>
       </button>
     );
@@ -206,14 +206,12 @@ const CarouselNext = React.forwardRef<HTMLButtonElement>(
     return (
       <button
         ref={ref}
-        className={
-          "absolute h-8 w-8 rounded-full -right-12 top-1/2 -translate-y-1/2"
-        }
+        className={"absolute right-0 top-1/2 -translate-y-1/2 ml-2"}
         disabled={!canScrollNext}
         onClick={scrollNext}
         {...props}
       >
-        <ArrowRight className="h-8 w-8" />
+        <ArrowRight className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
         <span className="sr-only">Next slide</span>
       </button>
     );

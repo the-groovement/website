@@ -89,42 +89,43 @@ export default async function Article({ params }: { params: { id: string } }) {
           <div className="flex flex-row mt-8 border-b border-black">
             <div className="flex flex-col xl:w-2/3 mb-8 max-lg:w-full">
               {currentPost.images && (
-                <Carousel>
-                  <CarouselContent>
-                    {Array.from({ length: currentPost.images.length }).map(
-                      (_, index) => (
-                        <CarouselItem key={index}>
-                          <div
-                            className="flex text-lg relative mb-4 lg:mb-8"
-                            style={{
-                              aspectRatio: 16 / 9,
-                            }}
-                          >
-                            {urlForImage(currentPost.images?.[index]) && (
-                              <Image
-                                fill={true}
-                                className="object-center object-cover"
-                                src={
-                                  urlForImage(currentPost.images?.[index]) ?? ""
-                                }
-                                alt={"home"}
-                                sizes="100%"
-                              />
-                            )}
-                          </div>
-                        </CarouselItem>
-                      )
-                    )}
-                  </CarouselContent>
-                  <div className="max-sm:hidden">
-                    {currentPost.images.length > 2 && (
-                      <>
+                <div className="relative">
+                  <Carousel>
+                    <CarouselContent>
+                      {Array.from({ length: currentPost.images.length }).map(
+                        (_, index) => (
+                          <CarouselItem key={index}>
+                            <div
+                              className="flex text-lg relative mb-4 lg:mb-8"
+                              style={{
+                                aspectRatio: 16 / 9,
+                              }}
+                            >
+                              {urlForImage(currentPost.images?.[index]) && (
+                                <Image
+                                  fill={true}
+                                  className="object-center object-cover"
+                                  src={
+                                    urlForImage(currentPost.images?.[index]) ??
+                                    ""
+                                  }
+                                  alt={"home"}
+                                  sizes="100%"
+                                />
+                              )}
+                            </div>
+                          </CarouselItem>
+                        )
+                      )}
+                    </CarouselContent>
+                    {currentPost.images.length > 1 && (
+                      <div className="flex justify-center mt-4">
                         <CarouselPrevious />
                         <CarouselNext />
-                      </>
+                      </div>
                     )}
-                  </div>
-                </Carousel>
+                  </Carousel>
+                </div>
               )}
               <PortableText value={currentPost.body} />
               <Image
