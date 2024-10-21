@@ -29,8 +29,8 @@ export default async function BlogCamSection({
               alt={"home"}
               sizes="100%"
             />
-            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
-              <div className="bg-grooveBrandColor1 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6  text-lg text-white rounded-2xl mt-auto w-full relative">
+              <div className="bg-grooveBrandColor1 text-white w-fit text-sm px-2 py-1  font-bold rounded-2xl mb-2 tracking-normal">
                 ARTISTS
               </div>
               <div className="flex flex-row justify-between items-center">
@@ -50,8 +50,8 @@ export default async function BlogCamSection({
               alt={"home"}
               sizes="100%"
             />
-            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
-              <div className="bg-grooveBrandColor2 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6  text-lg text-white rounded-2xl mt-auto w-full relative">
+              <div className="bg-grooveBrandColor2 text-white w-fit text-sm px-2 py-1  font-bold rounded-2xl mb-2 tracking-normal">
                 VENUES
               </div>
               <div className="flex flex-row justify-between items-center">
@@ -83,7 +83,7 @@ export default async function BlogCamSection({
               alt={"map"}
               sizes="100%"
             />
-            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-b-2xl mt-auto w-full relative">
+            <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6  text-lg text-white rounded-b-2xl mt-auto w-full relative">
               <div className="flex flex-row justify-between items-center">
                 <div className="text-xl md:text-2xl rounded-b-2xl tracking-wider text-white font-shrikhand">
                   Explore the map

@@ -60,7 +60,7 @@ export default async function Article({ params }: { params: { id: string } }) {
               <a
                 className={
                   currentPost.authors?.[0]?.instagram_or_website
-                    ? "underline hover:text-blue-400"
+                    ? "underline hover:text-grooveHover"
                     : ""
                 }
                 href={currentPost.authors?.[0]?.instagram_or_website}
@@ -75,7 +75,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                 <a
                   className={
                     currentPost.photographers?.[0]?.instagram_or_website
-                      ? "underline hover:text-blue-400"
+                      ? "underline hover:text-grooveHover"
                       : ""
                   }
                   href={currentPost.photographers?.[0]?.instagram_or_website}

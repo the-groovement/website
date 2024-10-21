@@ -232,7 +232,11 @@ export default function ArticleListWithSearch() {
             .map((post: any, index: number) => (
               <div className="h-full flex flex-row md:flex-col" key={index}>
                 <Link
-                  href={`/grooveguide/${post.slug.current}`}
+                  href={
+                    post._type === "venue"
+                      ? `/venue/${post.slug.current}`
+                      : `/grooveguide/${post.slug.current}`
+                  }
                   key={index}
                   className="relative h-32 w-32 md:h-64 md:w-full"
                 >
@@ -248,29 +252,45 @@ export default function ArticleListWithSearch() {
                 </Link>
                 <div className="max-md:ml-6 flex flex-col gap-2 w-full overflow-hidden">
                   <p className="text-sm md:mt-4 font-semibold text-purple-700">
-                    {post.categories && (
-                      <>
-                        <Link
-                          href={`/grooveguide?page=1&category=${post.categories?.[0].title}`}
-                        >
-                          <span className="mr-2">
-                            {post.categories?.[0].title}
-                          </span>
-                        </Link>
-                        <span className="mr-2">•</span>
-                      </>
+                    {(post.categories || post._type === "venue") && (
+                      <Link
+                        href={
+                          post._type === "venue"
+                            ? `/venue/${post.slug.current}`
+                            : `/grooveguide?page=1&category=${post.categories?.[0].title}`
+                        }
+                      >
+                        <span className="mr-2">
+                          {post._type === "venue"
+                            ? "venue"
+                            : post.categories?.[0].title}
+                        </span>
+                      </Link>
                     )}
-                    <span className="font-normal">
-                      {formatDate(post.publishedAt)}
-                    </span>
+                    {post.categories && <span className="mr-2">•</span>}
+                    {post?.publishedAt && (
+                      <span className="font-normal">
+                        {formatDate(post.publishedAt)}
+                      </span>
+                    )}
                   </p>
                   <div key={index} className="flex flex-col gap-2 w-full">
-                    <Link href={`/grooveguide/${post.slug.current}`}>
-                      <p className="text-xl font-semibold">{post.title}</p>
+                    <Link
+                      href={
+                        post._type === "venue"
+                          ? `/venue/${post.slug.current}`
+                          : `/grooveguide/${post.slug.current}`
+                      }
+                    >
+                      <p className="text-xl font-semibold">
+                        {post._type === "venue" ? post.titleLink : post.title}
+                      </p>
                     </Link>
 
                     <div className="font-light line-clamp-2 w-full max-w-full overflow-hidden text-ellipsis break-words">
-                      <PortableText value={post.body} />
+                      <PortableText
+                        value={post._type === "venue" ? post.intro : post.body}
+                      />
                     </div>
                   </div>
                 </div>

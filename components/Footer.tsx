@@ -1,9 +1,12 @@
+"use client";
 import Link from "next/link";
 import InstagramIcon from "./Icons/InstagramIcon";
 import MailIcon from "./Icons/MailIcon";
 import SpotifyIcon from "./Icons/SpotifyIcon";
 import Image from "next/image";
 import TiktokIcon from "./Icons/TikTokIcon";
+import { FormEvent, useState } from "react";
+import jsonp from "jsonp";
 
 const NAV_ITEMS = [
   {
@@ -48,6 +51,44 @@ const OTHER = [
 ];
 
 export default function Footer() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setIsLoading(true);
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email");
+    const url =
+      "https://nyc.us5.list-manage.com/subscribe/post?u=0741a65a0158b3ad4a80a59d6&amp;id=a1bcf057b6&amp;f_id=00effeedf0";
+
+    try {
+      jsonp(`${url}&EMAIL=${email}`, { param: "c" }, (err, data) => {
+        if (err) {
+          setErrorMessage("Something went wrong. Please try again.");
+          return;
+        }
+
+        const { msg, result } = data;
+
+        if (result === "success") {
+          setIsSubscribed(true);
+          setErrorMessage("");
+        } else {
+          // The message might include detailed error info from Mailchimp
+          setErrorMessage(
+            msg || "Failed to subscribe. Please check your email."
+          );
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
   return (
     <div className="bg-groove1 h-[680px] md:h-[564px] pt-12 pb-16">
       <div className="max-w-screen-xl mx-auto px-4 justify-between h-full flex flex-col">
@@ -80,6 +121,28 @@ export default function Footer() {
                 <TiktokIcon />
               </a>
             </div>
+            <form onSubmit={onSubmit} className="mt-4 flex flex-row gap-2">
+              <input
+                type="email"
+                name="email"
+                placeholder="enter email"
+                className="p-2 border border-gray-300 rounded-2xl"
+                required
+              />
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="bg-white rounded-2xl h-12 w-32 border border-groove1 drop-shadow-[6px_6px_0px_rgba(58,42,60,1)] whitespace-nowrap hover:font-semibold bg-grooveHover"
+              >
+                {isLoading ? "Subscribing..." : "join newsletter"}
+              </button>
+            </form>
+            {errorMessage && (
+              <p className="text-red-500 mt-2">{errorMessage}</p>
+            )}
+            {isSubscribed && (
+              <p className="text-green-500 mt-2">Subscribed successfully!</p>
+            )}
           </div>
           <div className="flex flex-row md:w-1/2 justify-between max-md:my-12">
             <div className="flex flex-col gap-6 w-1/2">

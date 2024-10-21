@@ -47,18 +47,18 @@ export default async function TopOfPageSection({
               sizes="100%"
             />
             <div className="w-full flex flex-col justify-between">
-              <div className="m-4 bg-grooveBrandColor3 text-groove1 w-fit text-sm px-2 py-1 font-sans font-bold rounded-lg mb-2 tracking-normal relative flex flex-row items-center gap-2">
+              <div className="m-4 bg-grooveBrandColor3 text-groove1 w-fit text-sm px-2 py-1  font-bold rounded-lg mb-2 tracking-normal relative flex flex-row items-center gap-2">
                 <CalendarDaysIcon className="text-groove1" />
                 MARK YOUR CALENDAR
               </div>
-              <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto relative">
-                <div className="bg-grooveBrandColor3 text-groove1 w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+              <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6  text-lg text-white rounded-2xl mt-auto relative">
+                <div className="bg-grooveBrandColor3 text-groove1 w-fit text-sm px-2 py-1  font-bold rounded-2xl mb-2 tracking-normal">
                   SHOWS
                 </div>
                 <div className="text-2xl md:text-4xl rounded-2xl tracking-wider text-white font-shrikhand">
                   {eventPost.eventName}
                 </div>
-                <div className="flex flex-row justify-between items-center font-sans text-lg md:text-2xl">
+                <div className="flex flex-row justify-between items-center  text-lg md:text-2xl">
                   <div className="w-fit flex flex-row items-center gap-3">
                     <p>
                       {formatDate(eventPost.startTime)}{" "}
@@ -85,8 +85,8 @@ export default async function TopOfPageSection({
                 alt={"home"}
                 sizes="100%"
               />
-              <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
-                <div className="bg-grooveBrandColor1 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+              <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6  text-lg text-white rounded-2xl mt-auto w-full relative">
+                <div className="bg-grooveBrandColor1 text-white w-fit text-sm px-2 py-1  font-bold rounded-2xl mb-2 tracking-normal">
                   ARTISTS
                 </div>
                 <div className="flex flex-row justify-between items-center">
@@ -106,8 +106,8 @@ export default async function TopOfPageSection({
                 alt={"home"}
                 sizes="100%"
               />
-              <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6 font-sans text-lg text-white rounded-2xl mt-auto w-full relative">
-                <div className="bg-grooveBrandColor2 text-white w-fit text-sm px-2 py-1 font-sans font-bold rounded-2xl mb-2 tracking-normal">
+              <div className="bg-gradient-to-t from-groove1 via-groove1/90 to-transparent py-4 px-6  text-lg text-white rounded-2xl mt-auto w-full relative">
+                <div className="bg-grooveBrandColor2 text-white w-fit text-sm px-2 py-1  font-bold rounded-2xl mb-2 tracking-normal">
                   VENUES
                 </div>
                 <div className="flex flex-row justify-between items-center">

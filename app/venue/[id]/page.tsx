@@ -33,7 +33,7 @@ export default async function GroovecalVenue({
           <a
             href={venue.googlemaps}
             target="_blank"
-            className="w-fit text-2xl md:text-3xl lg:text-4xl mb-8 font-bold hover:text-blue-400 underline"
+            className="w-fit text-2xl md:text-3xl lg:text-4xl mb-8 font-bold hover:text-grooveHover underline"
           >
             {venue.address}
           </a>
@@ -135,7 +135,7 @@ export default async function GroovecalVenue({
                     <a
                       href={rec?.googlemaps}
                       target="_blank"
-                      className=" hover:text-blue-400 underline"
+                      className=" hover:text-grooveHover underline"
                     >
                       {rec?.address}
                     </a>

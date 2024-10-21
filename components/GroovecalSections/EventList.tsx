@@ -152,7 +152,7 @@ export default function EventList({
                       )}
                       <Link
                         href={`/venue/${event.venue?.slug.current}`}
-                        className="font-light underline hover:text-blue-400"
+                        className="font-light underline hover:text-grooveHover"
                       >
                         {event.venue?.name}
                       </Link>

@@ -170,7 +170,7 @@ export default async function GroovecalEvent({
             <div className="mb-4">Venue</div>
             <Link
               href={`/venue/${currentEvent.venue.slug.current}`}
-              className="w-fit text-lg md:text-3xl mb-2 font-semibold hover:text-blue-400 underline"
+              className="w-fit text-lg md:text-3xl mb-2 font-semibold hover:text-grooveHover underline"
             >
               {currentEvent.venue.name}
             </Link>
@@ -178,7 +178,7 @@ export default async function GroovecalEvent({
               <a
                 href={currentEvent.venue.googlemaps}
                 target="_blank"
-                className="w-fit text-sm md:text-lg hover:text-blue-400 underline"
+                className="w-fit text-sm md:text-lg hover:text-grooveHover underline"
               >
                 {currentEvent.venue.address}
               </a>
