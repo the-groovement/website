@@ -21,7 +21,6 @@ import {
   postsSearch,
   postsCategorySearch,
   combinedQuery,
-  allVenuesQuery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -202,17 +201,6 @@ export async function getHomePageData() {
     console.error("Error fetching homepage data:", error);
     return {};
   }
-}
-
-export async function getAllVenues() {
-  if (client) {
-    return (
-      (await client.fetch(allVenuesQuery, {
-        cache: "no-store",
-      })) || []
-    );
-  }
-  return [];
 }
 
 export async function getPaginatedEvents(
