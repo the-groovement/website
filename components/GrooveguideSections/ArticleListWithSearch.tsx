@@ -287,7 +287,7 @@ export default function ArticleListWithSearch() {
                       </p>
                     </Link>
 
-                    <div className="font-light line-clamp-2 w-full max-w-full overflow-hidden text-ellipsis break-words">
+                    <div className="font-light w-full max-w-full h-[3em] overflow-hidden text-ellipsis line-clamp-2">
                       <PortableText
                         value={post._type === "venue" ? post.intro : post.body}
                       />

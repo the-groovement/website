@@ -183,7 +183,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                           <p className="text-xl font-semibold">{post.title}</p>
                         </Link>
 
-                        <div className="font-light line-clamp-2">
+                        <div className="font-light w-full max-w-full h-[3em] overflow-hidden text-ellipsis line-clamp-2">
                           <PortableTextClamp value={post.body} />
                         </div>
                       </div>
