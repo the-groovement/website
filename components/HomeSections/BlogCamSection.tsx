@@ -149,7 +149,7 @@ export default async function BlogCamSection({
               </div>
             </Link>
             <Link
-              href={`/grooveguide`}
+              href={`/faqs`}
               className="h-full flex flex-row md:flex-col md:w-1/3"
             >
               <div className="relative h-32 w-64 md:h-64 md:w-full max-sm:aspect-square">
@@ -164,7 +164,7 @@ export default async function BlogCamSection({
               <div className="max-md:ml-6 max-md:w-3/4">
                 <p className="text-xl md:mt-4 mb-2 font-semibold">FAQs</p>
                 <p className="text-lg md:mt-4 mb-2">
-                  Discover more about the Groovement by exploring our frequently
+                  Discover more about the groovement by exploring our frequently
                   asked questions.
                 </p>
               </div>

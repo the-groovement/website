@@ -283,7 +283,7 @@ export default function ArticleListWithSearch() {
                       }
                     >
                       <p className="text-xl font-semibold">
-                        {post._type === "venue" ? post.titleLink : post.title}
+                        {post._type === "venue" ? post.name : post.title}
                       </p>
                     </Link>
 
