@@ -4,6 +4,7 @@ import { Shrikhand, Space_Grotesk, Poppins } from "next/font/google";
 import MobileNavbar from "@/components/MobileNavbar";
 import Footer from "@/components/Footer";
 import { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "the groovement",
@@ -61,6 +62,7 @@ export default function RootLayout({
           <Footer />
         </footer>
       </body>
+      <GoogleAnalytics gaId="G-Z0BZDMJ04P" />
     </html>
   );
 }
