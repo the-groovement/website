@@ -24,6 +24,7 @@ export default async function Article({ params }: { params: { id: string } }) {
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "America/New_York",
     };
     return date.toLocaleDateString(undefined, options);
   };

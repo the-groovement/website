@@ -20,6 +20,7 @@ export default async function TopOfPageSection({
       weekday: "long",
       month: "short",
       day: "numeric",
+      timeZone: "America/New_York",
     };
     return date.toLocaleDateString(undefined, options);
   };

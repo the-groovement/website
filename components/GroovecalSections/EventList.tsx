@@ -70,6 +70,7 @@ export default function EventList({
       year: "numeric",
       month: "long",
       day: "numeric",
+      timeZone: "America/New_York",
     };
     return date.toLocaleDateString(undefined, options);
   };
