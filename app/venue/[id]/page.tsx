@@ -131,7 +131,7 @@ export default async function GroovecalVenue({
               <div>
                 {venue.map_recs.map((rec: any) => (
                   <div key={rec._key} className="mb-4">
-                    <div className="text-lg font-medium">{rec?.name}</div>
+                    <div className="text-lg font-bold">{rec?.name}</div>
                     <a
                       href={rec?.googlemaps}
                       target="_blank"

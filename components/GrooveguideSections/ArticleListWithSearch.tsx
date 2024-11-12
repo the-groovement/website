@@ -41,13 +41,23 @@ export default function ArticleListWithSearch() {
 
   useEffect(() => {
     const getInitialPosts = async () => {
-      const fetchedPosts = await getCategoryPosts(
-        category,
+      const allCategoryPosts = await getCategoryPosts(
+        null,
         visibleEvents - POSTS_PER_PAGE,
         visibleEvents + 1
       );
+      let fetchedPosts;
+      if (category) {
+        fetchedPosts = await getCategoryPosts(
+          category,
+          visibleEvents - POSTS_PER_PAGE,
+          visibleEvents + 1
+        );
+      } else {
+        fetchedPosts = allCategoryPosts;
+      }
       setPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
-      setInitialPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
+      setInitialPosts(allCategoryPosts.slice(0, POSTS_PER_PAGE));
       setIsLoaded(true);
       setIsSearchLoading(false);
 
@@ -86,27 +96,28 @@ export default function ArticleListWithSearch() {
   };
 
   useEffect(() => {
-    const handleGenreChange = async () => {
+    const handleCategoryChange = async () => {
       if (category) {
         const fetchedPosts = await getCategoryPosts(
           category,
           0,
           POSTS_PER_PAGE + 1
         );
-        setPosts(fetchedPosts);
-        if (fetchedPosts.length <= POSTS_PER_PAGE) {
-          setHasMore(false);
-        } else {
-          setHasMore(true);
-        }
+        setPosts(fetchedPosts.slice(0, POSTS_PER_PAGE));
+        setHasMore(fetchedPosts.length > POSTS_PER_PAGE);
       } else {
         initialPosts.length > 0
           ? setPosts(initialPosts)
-          : setPosts(await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1));
+          : setPosts(
+              (await getCategoryPosts(category, 0, POSTS_PER_PAGE + 1)).slice(
+                0,
+                POSTS_PER_PAGE
+              )
+            );
         setHasMore(hasMoreInitial);
       }
     };
-    isLoaded && handleGenreChange();
+    isLoaded && handleCategoryChange();
   }, [category]);
 
   const handleShowMore = async () => {

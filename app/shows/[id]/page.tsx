@@ -221,6 +221,7 @@ export default async function GroovecalEvent({
             startTime={formattedStartTime}
             endDate={formattedEndDate}
             endTime={formattedEndTime}
+            eventName={currentEvent.eventName}
           />
         </div>
         <div className="flex flex-col mb-12 gap-8">

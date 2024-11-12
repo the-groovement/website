@@ -7,6 +7,7 @@ interface CalendarButtonProps {
   startTime: string;
   endDate: string;
   endTime: string;
+  eventName: string;
 }
 
 export default function CalendarButton({
@@ -14,9 +15,10 @@ export default function CalendarButton({
   startTime,
   endDate,
   endTime,
+  eventName,
 }: CalendarButtonProps) {
   const config: any = {
-    name: "Add to Calendar Button",
+    name: eventName,
     startDate: startDate,
     startTime: startTime,
     endDate: endDate,

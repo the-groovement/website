@@ -14,6 +14,9 @@ export default async function BlogCamSection({
   venuePost,
 }: BlogCamSectionProps) {
   const sanityData = await getRecentFeaturedPostsNonArtist(0, 6);
+  const filteredSanityData = sanityData.filter(
+    (post: any) => post.slug.current !== artistPost.slug.current
+  );
   return (
     <section>
       <div className="pb-8">
@@ -96,7 +99,7 @@ export default async function BlogCamSection({
             {sanityData.length === 1 ? "today's story" : "popular stories"}
           </p>
           <div className="md:w-1/2 flex flex-col">
-            {sanityData.slice(0, 3).map((post: any, index: number) => (
+            {filteredSanityData.slice(0, 3).map((post: any, index: number) => (
               <Link
                 href={`/grooveguide/${post.slug.current}`}
                 className={`flex-grow h-36 md:h-full flex flex-row border-b border-black ${
@@ -105,8 +108,8 @@ export default async function BlogCamSection({
                 key={index}
               >
                 <div className="w-3/4 mt-4 md:mt-1 lg:mt-4">
-                  <p className="text-xl lg:text-2xl font-semibold max-w-sm mb-2">
-                    {post.title}
+                  <p className="text-xl lg:text-2xl font-medium max-w-sm mb-2">
+                    {post.titleLink ?? post.title}
                   </p>
                   <p className="text-lg font-light">{post.authors?.[0].name}</p>
                 </div>
