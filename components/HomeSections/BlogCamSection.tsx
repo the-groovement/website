@@ -77,7 +77,7 @@ export default async function BlogCamSection({
           <p className="text-3xl font-semibold md:hidden">from the groovemap</p>
           <Link
             className="flex rounded-2xl md:w-1/2 relative h-96"
-            href="https://www.google.com/maps/d/viewer?mid=1ZcNuDKiNxyAdpnEy_i3IqRIbLCYEC7M8&ll=40.7290605124509%2C-73.92850645&z=11"
+            href="https://www.google.com/maps/d/u/0/viewer?ll=40.698560100000066%2C-73.97774&z=18&mid=1jLgTu7q-gl39b-cAHvxcbHOYREPPxus"
           >
             <Image
               fill={true}

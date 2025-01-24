@@ -52,7 +52,7 @@ export default function RootLayout({
       lang="en"
       className={`${shrikhand.variable} ${space.variable} ${poppins.variable}`}
     >
-      <body className={"text-groove1 font-space bg-groove2"}>
+      <body className={"text-groove1 font-poppins bg-groove2"}>
         <Navbar />
         <MobileNavbar />
         <main className="max-w-screen-xl mx-auto px-4 mt-24 font-poppins">
