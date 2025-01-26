@@ -27,7 +27,7 @@ const NAV_ITEMS = [
   },
   {
     navTitle: "map",
-    link: "https://www.google.com/maps/d/u/0/viewer?ll=40.698560100000066%2C-73.97774&z=18&mid=1jLgTu7q-gl39b-cAHvxcbHOYREPPxus",
+    link: "https://www.google.com/maps/d/u/0/viewer?mid=1jLgTu7q-gl39b-cAHvxcbHOYREPPxus&ll=40.72895644211003%2C-73.97565958737697&z=13",
   },
 ];
 

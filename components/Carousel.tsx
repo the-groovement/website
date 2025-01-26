@@ -155,7 +155,7 @@ const CarouselContent = React.forwardRef<
 
   return (
     <div ref={carouselRef} className="overflow-hidden">
-      <div ref={ref} className={"flex -ml-4"} {...props} />
+      <div ref={ref} className={"flex"} {...props} />
     </div>
   );
 });

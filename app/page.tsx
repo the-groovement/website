@@ -13,7 +13,7 @@ export default async function Home() {
   return (
     <div>
       <TopOfPageSection
-        eventPost={data?.events?.[0]}
+        eventPosts={data?.events}
         artistPost={data?.featuredArtists?.[artistIndex]}
         venuePost={data?.featuredVenue?.[venueIndex]}
       />

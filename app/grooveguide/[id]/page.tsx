@@ -105,7 +105,7 @@ export default async function Article({ params }: { params: { id: string } }) {
                               {urlForImage(currentPost.images?.[index]) && (
                                 <Image
                                   fill={true}
-                                  className="object-center object-cover"
+                                  className="object-center object-cover rounded-2xl"
                                   src={
                                     urlForImage(currentPost.images?.[index]) ??
                                     ""

@@ -4,16 +4,17 @@ import { urlForImage } from "@/lib/sanity/image";
 import { ArrowRight, CalendarDaysIcon, TicketIcon } from "lucide-react";
 
 interface TopOfPageSectionProps {
-  eventPost: any;
+  eventPosts: any[];
   artistPost: any;
   venuePost: any;
 }
 
 export default async function TopOfPageSection({
-  eventPost,
+  eventPosts,
   artistPost,
   venuePost,
 }: TopOfPageSectionProps) {
+  const eventPost = eventPosts?.[0];
   const formatDate = (inputDate: string) => {
     const date = new Date(inputDate);
     const options: Intl.DateTimeFormatOptions = {

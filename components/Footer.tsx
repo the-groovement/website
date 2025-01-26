@@ -19,7 +19,7 @@ const NAV_ITEMS = [
   },
   {
     navTitle: "map",
-    url: "https://www.google.com/maps/d/u/0/viewer?ll=40.698560100000066%2C-73.97774&z=18&mid=1jLgTu7q-gl39b-cAHvxcbHOYREPPxus",
+    url: "https://www.google.com/maps/d/u/0/viewer?mid=1jLgTu7q-gl39b-cAHvxcbHOYREPPxus&ll=40.72895644211003%2C-73.97565958737697&z=13",
   },
   {
     navTitle: "newsletter",
@@ -178,7 +178,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className="pt-2 text-zinc-400 border-t border-zinc-600 text-sm">
-            © the groovement, LLC. All rights reserved 2024
+            © the groovement, LLC. All rights reserved 2025
           </p>
         </div>
       </div>

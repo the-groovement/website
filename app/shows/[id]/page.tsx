@@ -111,6 +111,22 @@ export default async function GroovecalEvent({
   //Calendar button times
   const startDate = new Date(currentEvent.startTime);
   const endDate = new Date(currentEvent.endTime);
+
+  // Adjust for timezone to prevent date shifting
+  const formattedStartDate = startDate.toLocaleDateString("en-CA", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  const formattedEndDate = endDate.toLocaleDateString("en-CA", {
+    timeZone: "America/New_York",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+
   const options: Intl.DateTimeFormatOptions = {
     timeZone: "America/New_York",
     hour12: false,
@@ -118,11 +134,9 @@ export default async function GroovecalEvent({
     minute: "2-digit",
   };
 
-  const formattedStartDate = startDate.toISOString().slice(0, 10);
   const formattedStartTime = startDate
     .toLocaleTimeString("en-US", options)
     .slice(0, 5);
-  const formattedEndDate = endDate.toISOString().slice(0, 10);
   const formattedEndTime = endDate
     .toLocaleTimeString("en-US", options)
     .slice(0, 5);
