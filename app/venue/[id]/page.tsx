@@ -147,6 +147,14 @@ export default async function GroovecalVenue({
               </div>
             </div>
           )}
+        {venue.ada && (
+          <div className="flex flex-col mb-8 gap-2">
+            <p className="text-2xl font-semibold">ADA</p>
+            <div>
+              <PortableText value={venue.ada} />
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
