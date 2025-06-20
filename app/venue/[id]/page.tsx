@@ -123,6 +123,14 @@ export default async function GroovecalVenue({
             </div>
           </div>
         )}
+        {venue.ada && (
+          <div className="flex flex-col mb-8 gap-2">
+            <p className="text-2xl font-semibold">ADA</p>
+            <div>
+              <PortableText value={venue.ada} />
+            </div>
+          </div>
+        )}
         {venue.map_recs &&
           venue.map_recs.length > 0 &&
           venue.map_recs[0].name && (
@@ -147,14 +155,6 @@ export default async function GroovecalVenue({
               </div>
             </div>
           )}
-        {venue.ada && (
-          <div className="flex flex-col mb-8 gap-2">
-            <p className="text-2xl font-semibold">ADA</p>
-            <div>
-              <PortableText value={venue.ada} />
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
