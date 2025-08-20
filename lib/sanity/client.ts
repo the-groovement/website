@@ -37,7 +37,7 @@ export const fetcher = async ([query, params]: [string, any]) => {
 
 (async () => {
   if (client) {
-    const data = await client.fetch(getAll, { cache: "no-store" });
+    const data = await client.fetch(getAll, {}, { cache: "no-store" });
     if (!data || !data.length) {
       console.error(
         "Sanity returns empty array. Are you sure the dataset is public?"
@@ -48,10 +48,15 @@ export const fetcher = async ([query, params]: [string, any]) => {
 
 export async function getEventBySlug(slug: string) {
   if (client) {
-    const event = await client.fetch(singleEventQuery, {
-      slug,
-      cache: "no-store",
-    });
+    const event = await client.fetch(
+      singleEventQuery,
+      {
+        slug,
+      },
+      {
+        cache: "no-store",
+      }
+    );
 
     return event || {};
   }
@@ -62,9 +67,7 @@ export async function getEventBySlug(slug: string) {
 export async function getFeaturedVenue() {
   if (client) {
     return (
-      (await client.fetch(featuredVenueQuery, {
-        cache: "no-store",
-      })) || {}
+      (await client.fetch(featuredVenueQuery, {}, { cache: "no-store" })) || {}
     );
   }
   return {};
@@ -72,11 +75,7 @@ export async function getFeaturedVenue() {
 
 export async function getPlaylist() {
   if (client) {
-    return (
-      (await client.fetch(playlistQuery, {
-        cache: "no-store",
-      })) || {}
-    );
+    return (await client.fetch(playlistQuery, {}, { cache: "no-store" })) || {};
   }
   return {};
 }
@@ -84,10 +83,13 @@ export async function getPlaylist() {
 export async function getVenueBySlug(slug: string) {
   if (client) {
     return (
-      (await client.fetch(singleVenueQueryBySlug, {
-        slug,
-        cache: "no-store",
-      })) || {}
+      (await client.fetch(
+        singleVenueQueryBySlug,
+        {
+          slug,
+        },
+        { cache: "no-store" }
+      )) || {}
     );
   }
   return {};
@@ -96,10 +98,13 @@ export async function getVenueBySlug(slug: string) {
 export async function getPostBySlug(slug: string) {
   if (client) {
     return (
-      (await client.fetch(singlequery, {
-        slug,
-        cache: "no-store",
-      })) || {}
+      (await client.fetch(
+        singlequery,
+        {
+          slug,
+        },
+        { cache: "no-store" }
+      )) || {}
     );
   }
   return {};
@@ -111,12 +116,20 @@ export async function getGroovefam() {
   let groovefamPhotographers = [];
 
   if (client) {
-    groovefamAuthors = await client.fetch(allgroovefamauthors, {
-      cache: "no-store",
-    });
-    groovefamPhotographers = await client.fetch(allgroovefamphotographers, {
-      cache: "no-store",
-    });
+    groovefamAuthors = await client.fetch(
+      allgroovefamauthors,
+      {},
+      {
+        cache: "no-store",
+      }
+    );
+    groovefamPhotographers = await client.fetch(
+      allgroovefamphotographers,
+      {},
+      {
+        cache: "no-store",
+      }
+    );
   }
   // Add role field to groovefamAuthors and groovefamPhotographers
   const groovefamAuthorsWithRole = groovefamAuthors.map((author: any) => ({
@@ -170,11 +183,16 @@ export async function searchEvents(
 
 export async function getEvents(start: number, end: number) {
   if (client) {
-    const events = await client.fetch(eventsQuery, {
-      start: start,
-      end: end,
-      cache: "no-store",
-    });
+    const events = await client.fetch(
+      eventsQuery,
+      {
+        start: start,
+        end: end,
+      },
+      {
+        cache: "no-store",
+      }
+    );
 
     return events || {};
   }
@@ -188,9 +206,13 @@ export async function getHomePageData() {
   }
 
   try {
-    const data = await client.fetch(combinedQuery, {
-      cache: "no-store",
-    });
+    const data = await client.fetch(
+      combinedQuery,
+      {},
+      {
+        cache: "no-store",
+      }
+    );
 
     return {
       featuredArtists: data.featuredArtists || [],
@@ -212,19 +234,29 @@ export async function getPaginatedEvents(
   if (client) {
     let events;
     if (genreArray) {
-      events = await client.fetch(eventsGenrePaginatedQuery(genreArray), {
-        start: start,
-        end: end,
-        genreArray: genreArray,
-        cache: "no-store",
-      });
+      events = await client.fetch(
+        eventsGenrePaginatedQuery(genreArray),
+        {
+          start: start,
+          end: end,
+          genreArray: genreArray,
+        },
+        {
+          cache: "no-store",
+        }
+      );
     } else {
-      events = await client.fetch(eventsPaginatedQuery, {
-        start: start,
-        end: end,
-        featured: featured ?? false,
-        cache: "no-store",
-      });
+      events = await client.fetch(
+        eventsPaginatedQuery,
+        {
+          start: start,
+          end: end,
+          featured: featured ?? false,
+        },
+        {
+          cache: "no-store",
+        }
+      );
     }
     return events || {};
   }
@@ -235,11 +267,16 @@ export async function getPaginatedEvents(
 export async function getPaginatedPosts(start: number, end: number) {
   if (client) {
     return (
-      (await client.fetch(paginatedquery, {
-        start: start,
-        end: end,
-        cache: "no-store",
-      })) || {}
+      (await client.fetch(
+        paginatedquery,
+        {
+          start: start,
+          end: end,
+        },
+        {
+          cache: "no-store",
+        }
+      )) || {}
     );
   }
   return {};
@@ -253,20 +290,30 @@ export async function getCategoryPosts(
   if (client) {
     if (categoryId !== null) {
       return (
-        (await client.fetch(categoryQuery, {
-          categoryId: categoryId,
-          start: start,
-          end: end,
-          cache: "no-store",
-        })) || {}
+        (await client.fetch(
+          categoryQuery,
+          {
+            categoryId: categoryId,
+            start: start,
+            end: end,
+          },
+          {
+            cache: "no-store",
+          }
+        )) || {}
       );
     } else {
       return (
-        (await client.fetch(postsQuery, {
-          start: start,
-          end: end,
-          cache: "no-store",
-        })) || {}
+        (await client.fetch(
+          postsQuery,
+          {
+            start: start,
+            end: end,
+          },
+          {
+            cache: "no-store",
+          }
+        )) || {}
       );
     }
   }
@@ -282,22 +329,32 @@ export async function searchPosts(
   if (client) {
     if (categoryId !== null) {
       return (
-        (await client.fetch(postsCategorySearch, {
-          searchInput: `*${searchInput}*`,
-          categoryId: categoryId,
-          start: start,
-          end: end,
-          cache: "no-store",
-        })) || {}
+        (await client.fetch(
+          postsCategorySearch,
+          {
+            searchInput: `*${searchInput}*`,
+            categoryId: categoryId,
+            start: start,
+            end: end,
+          },
+          {
+            cache: "no-store",
+          }
+        )) || {}
       );
     } else {
       return (
-        (await client.fetch(postsSearch, {
-          searchInput: `*${searchInput}*`,
-          start: start,
-          end: end,
-          cache: "no-store",
-        })) || {}
+        (await client.fetch(
+          postsSearch,
+          {
+            searchInput: `*${searchInput}*`,
+            start: start,
+            end: end,
+          },
+          {
+            cache: "no-store",
+          }
+        )) || {}
       );
     }
   }
@@ -310,11 +367,16 @@ export async function getRecentFeaturedPostsNonArtist(
 ) {
   if (client) {
     return (
-      (await client.fetch(limitFeaturedQueryNonArtist, {
-        start: start,
-        end: end,
-        cache: "no-store",
-      })) || {}
+      (await client.fetch(
+        limitFeaturedQueryNonArtist,
+        {
+          start: start,
+          end: end,
+        },
+        {
+          cache: "no-store",
+        }
+      )) || {}
     );
   }
   return {};
@@ -323,9 +385,13 @@ export async function getRecentFeaturedPostsNonArtist(
 export async function getAboutPage() {
   if (client) {
     return (
-      (await client.fetch(aboutPage, {
-        cache: "no-store",
-      })) || {}
+      (await client.fetch(
+        aboutPage,
+        {},
+        {
+          cache: "no-store",
+        }
+      )) || {}
     );
   }
   return {};
@@ -334,9 +400,13 @@ export async function getAboutPage() {
 export async function getFaqs() {
   if (client) {
     return (
-      (await client.fetch(faqs, {
-        cache: "no-store",
-      })) || {}
+      (await client.fetch(
+        faqs,
+        {},
+        {
+          cache: "no-store",
+        }
+      )) || {}
     );
   }
   return {};
