@@ -14,7 +14,36 @@ export default async function TopOfPageSection({
   artistPost,
   venuePost,
 }: TopOfPageSectionProps) {
-  const eventPost = eventPosts?.[0];
+  // Randomly select an event from available events
+  const getRandomEvent = (events: any[]) => {
+    if (!events || events.length === 0) return null;
+    const randomIndex = Math.floor(Math.random() * events.length);
+    return events[randomIndex];
+  };
+
+  const eventPost = getRandomEvent(eventPosts);
+
+  // If no event is available, return early or show a fallback
+  if (!eventPost) {
+    return (
+      <section>
+        <div className="flex flex-col h-[calc(100svh-84px)] pb-8">
+          <div className="mt-2 sm:mt-2">
+            <p className="text-[40px] sm:text-7xl mb-4 font-shrikhand">
+              what's groovin'
+            </p>
+            <p className="text-2xl sm:text-3xl">
+              your guide to the best shows & vibes
+            </p>
+          </div>
+          <div className="flex items-center justify-center h-full">
+            <p className="text-xl text-gray-600">No upcoming events found</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   const formatDate = (inputDate: string) => {
     const date = new Date(inputDate);
     const options: Intl.DateTimeFormatOptions = {

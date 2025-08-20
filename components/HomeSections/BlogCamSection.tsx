@@ -14,9 +14,22 @@ export default async function BlogCamSection({
   venuePost,
 }: BlogCamSectionProps) {
   const sanityData = await getRecentFeaturedPostsNonArtist(0, 6);
+
+  // Randomly select posts from available data
+  const getRandomPosts = (posts: any[], count: number) => {
+    if (!posts || posts.length === 0) return [];
+    if (posts.length <= count) return posts;
+
+    const shuffled = [...posts].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  };
+
   const filteredSanityData = sanityData.filter(
     (post: any) => post.slug.current !== artistPost.slug.current
   );
+
+  // Randomly select 3 posts to display
+  const randomPosts = getRandomPosts(filteredSanityData, 3);
   return (
     <section>
       <div className="pb-8">
@@ -99,7 +112,7 @@ export default async function BlogCamSection({
             {sanityData.length === 1 ? "today's story" : "popular stories"}
           </p>
           <div className="md:w-1/2 flex flex-col">
-            {filteredSanityData.slice(0, 3).map((post: any, index: number) => (
+            {randomPosts.map((post: any, index: number) => (
               <Link
                 href={`/grooveguide/${post.slug.current}`}
                 className={`flex-grow h-36 md:h-full flex flex-row border-b border-black ${
