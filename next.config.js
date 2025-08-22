@@ -14,7 +14,6 @@ const nextConfig = {
       { hostname: "cdn.sanity.io" },
     ],
   },
-  maxDuration: 30, // 30 seconds
 };
 
 module.exports = nextConfig;
